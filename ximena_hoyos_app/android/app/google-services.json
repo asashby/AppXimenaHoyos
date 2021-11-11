@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "176182706852",
+    "project_id": "ximenahoyosapp",
+    "storage_bucket": "ximenahoyosapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:176182706852:android:75afadfad7ad666fdadc31",
+        "android_client_info": {
+          "package_name": "com.apprunn.ximena_hoyos_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "176182706852-mp9vsmfr2i4q811n4us06ti7c2p3f0k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7ROWVetMcqG-4CqkLuG5H1HHy3wsJhQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "176182706852-mp9vsmfr2i4q811n4us06ti7c2p3f0k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
