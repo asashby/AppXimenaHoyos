@@ -2,6 +2,7 @@ import 'package:data/models/product_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ximena_hoyos_app/app/shop_cart/view/shop_cart_page.dart';
 import 'package:ximena_hoyos_app/app/shop_details/components/details_body.dart';
 
 class ShopDetailsPage extends StatelessWidget {
@@ -48,10 +49,12 @@ class ShopDetailsPage extends StatelessWidget {
             FontAwesomeIcons.shoppingCart,
             color: kTextColor
           ),
-          onPressed: (){
-
-          }
-        ), 
+          onPressed: () => Navigator.push(context, 
+            MaterialPageRoute(
+              builder: (context) => ShopCartPage(),
+            )
+          ),
+        ),
         SizedBox(
           width: kDefaultPadding / 2
         )

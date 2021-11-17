@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data/models/challenges_exercises_model.dart';
+import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mercado_pago_integration/mercado_pago_integration.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/bloc/bloc.dart';
 import 'package:ximena_hoyos_app/app/comment_challenge/comment_challenge.dart';
@@ -14,7 +16,23 @@ import 'package:ximena_hoyos_app/common/base_page.dart';
 import 'package:ximena_hoyos_app/app/daily_routine/view/daily_routine_page.dart';
 import 'package:data/models/model.dart';
 import 'package:ximena_hoyos_app/common/check_widget.dart';
+import 'package:ximena_hoyos_app/main.dart';
 
+final Map<String, Object> preferenceMap = {
+  'items': [
+    {
+      'title': 'Reto basico en casa',
+      'description': 'Description',
+      'quantity': 1,
+      'currency_id': 'PEN',
+      'unit_price': 1,
+    }
+  ],
+  'payer': {
+    'name': 'Buyer G.', 
+    'email': 'test@gmail.com'
+  },
+};
 class ChallengeDetailPage extends StatelessWidget {
   final String slug;
   final bool owned;
@@ -321,7 +339,7 @@ class _ChallengeBody extends StatelessWidget {
               ],
             ),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1),
+                border: Border.all(color: Color(0xff20d0fc), width: 1),
                 borderRadius: BorderRadius.circular(10)),
           ),
           Padding(
@@ -329,15 +347,31 @@ class _ChallengeBody extends StatelessWidget {
             child: MaterialButton(
               minWidth: double.infinity,
               height: 60,
-              color: Theme.of(context).buttonColor,
+              color: Color(0xff92e600),
               onPressed: () async {
-                if (owned) {
+                if (isChallengeOwned) {
                   Navigator.push(context, CommentChallengePage.route(detail));
                 } else {
                   try {
                     showDialogIndicator(context);
+                    
+                    (await MercadoPagoIntegration.startCheckout(
+                      publicKey: MercadoPagoPublicKey,
+                      preference: preferenceMap,
+                      accessToken: MercadoPagoAccessToken,
+                    ));
 
-                    final token = await MakiTokenStore().retrieveToken();
+                    isChallengeOwned = true;
+                    
+                    hideOpenDialog(context);
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Reto adquirido"),
+                    ));
+
+                    Navigator.pop(context);
+                    
+                    /*final token = await MakiTokenStore().retrieveToken();
                     final link = await context
                         .read<ChallengeDetailBloc>()
                         .generateOrderLink();
@@ -345,7 +379,7 @@ class _ChallengeBody extends StatelessWidget {
                     await canLaunch("$link?token=$token")
                         ? await launch("$link?token=$token")
                         : throw 'Could not launch $link';
-                    hideOpenDialog(context);
+                    hideOpenDialog(context);*/
                   } on Exception catch (_) {
                     final snackbar =
                         SnackBar(content: Text('Reseña publicada'));
@@ -356,7 +390,7 @@ class _ChallengeBody extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: Text(
-                  owned ? "Comentar" : "Solicitar reto\nS/ ${detail.price}",
+                  isChallengeOwned ? "Comentar" : "Solicitar reto\nS/ ${detail.price}",
                   style: Theme.of(context).textTheme.button,
                   textAlign: TextAlign.center),
             ),
@@ -366,7 +400,7 @@ class _ChallengeBody extends StatelessWidget {
           ),
           Text(
             detail.description ?? "",
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.left,
           )
         ],
       ),
@@ -401,7 +435,7 @@ class _ChallengeBody extends StatelessWidget {
             height: 12,
           ),
           Text(
-            'Esperen un momento...',
+            'Espere un momento...',
             style: TextStyle(color: Colors.white),
           )
         ],

@@ -1,20 +1,23 @@
 
+import 'package:data/models/checkout_item.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ximena_hoyos_app/app/shop/components/shop_body.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ximena_hoyos_app/app/shop_cart/view/shop_cart_page.dart';
 
 class ShopPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: ShopBody(),
     );
   }
 
-  AppBar buildAppBar(){
+  AppBar buildAppBar(BuildContext context){
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
@@ -22,8 +25,7 @@ class ShopPage extends StatelessWidget {
       leading: IconButton(
         icon: FaIcon(FontAwesomeIcons.arrowLeft,
             color: kTextColor,),
-        onPressed: (){
-        },
+        onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget> [
         IconButton(
@@ -35,8 +37,11 @@ class ShopPage extends StatelessWidget {
       IconButton(
         icon: FaIcon(FontAwesomeIcons.shoppingCart,
           color: kTextColor,),
-        onPressed: (){
-        },
+        onPressed: () => Navigator.push(context, 
+          MaterialPageRoute(
+            builder: (context) => ShopCartPage()
+          )
+        ),
       ),
       SizedBox(width:kDefaultPadding / 2)
       ]

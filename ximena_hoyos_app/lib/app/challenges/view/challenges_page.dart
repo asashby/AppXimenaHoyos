@@ -10,6 +10,7 @@ import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/item_view.dart';
+import 'package:ximena_hoyos_app/main.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<ChallengeBloc> blocs = [];
@@ -61,7 +62,7 @@ class _ChallengePageState extends State<ChallengePage> {
       child: BaseScaffold(
           child: BaseView(
               caption: "",
-              title: "Retos",
+              title: "Entrenamiento",
               sliver: SliverToBoxAdapter(
                 child: ListView.builder(
                   padding: const EdgeInsets.only(bottom: 40),
@@ -112,6 +113,8 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
   }
 
   Widget handleBuilder(BuildContext context, ChallengeState state) {
+    Size size = MediaQuery.of(context).size;
+
     if (state is ChallengeInitialState) {
       BlocProvider.of<ChallengeBloc>(context)
           .add(ChallengeFetchEvent(widget.sectionId));
@@ -147,31 +150,35 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
         : Column(
             children: [
               Container(
-                  margin: const EdgeInsets.only(left: 28),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.challengeNameSection,
-                    style: Theme.of(context).textTheme.headline2,
-                  )),
-              Container(
-                height: 200,
-                margin: const EdgeInsets.only(top: 15),
-                child: ListView.builder(
-                  itemCount: data.length,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 28, right: 12),
-                  itemBuilder: (context, index) {
-                    final header = data[index];
-                    return ItemView(
-                      title: header.title ?? '',
-                      subTitle: header.level ?? '',
-                      urlImage: header.urlImage,
-                      onPressed: () => _openChallengeDetail(
-                          context, header, widget.sectionId == 0),
-                    );
-                  },
-                ),
+                margin: const EdgeInsets.only(left: 28),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.challengeNameSection,
+                  style: Theme.of(context).textTheme.headline2,
+                )
               ),
+              Container(
+                  height: 450,
+                  margin: const EdgeInsets.only(top: 15),
+                  child: ListView.builder(
+                    itemCount: data.length,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(left: 28, right: 12),
+                    itemBuilder: (context, index) {
+                      final header = data[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: ItemView(
+                          title: header.title ?? '',
+                          subTitle: header.level ?? '',
+                          urlImage: header.urlImage,
+                          onPressed: () => _openChallengeDetail(
+                              context, header, isChallengeOwned),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               SizedBox(
                 height: 20,
               ),
@@ -179,8 +186,7 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
           );
   }
 
-  _openChallengeDetail(
-      BuildContext context, ChallengeHeader challengeHeader, bool owned) {
+  _openChallengeDetail(BuildContext context, ChallengeHeader challengeHeader, bool owned) {
     if (challengeHeader.slug != null) {
       Navigator.of(context)
           .push(ChallengeDetailPage.route(challengeHeader.slug!, owned));

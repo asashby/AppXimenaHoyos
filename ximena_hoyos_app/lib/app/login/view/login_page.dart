@@ -1,3 +1,4 @@
+import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ximena_hoyos_app/app/login/bloc/login_bloc.dart';
 import 'package:ximena_hoyos_app/app/recipes/bloc/bloc.dart';
 import 'package:ximena_hoyos_app/app/recipes/view/recipes_page.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 import 'login_launcher.dart';
 
@@ -32,6 +34,8 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isGoogle = true;
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
@@ -43,71 +47,121 @@ class LoginView extends StatelessWidget {
             alignment: Alignment.topCenter,
           ),
         ),
-        Row(
-          children: [
-            Column(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
               children: [
-                Image(
-                  height: 40,
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('resources/app_logo.png'),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
+                    /*Image(
+                      height: 40,
+                      fit: BoxFit.fitHeight,
+                      image: AssetImage('resources/app_logo.png'),
+                    ),*/
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AboutCard(),
-                        RecipesCard()
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: size.width,
+                          height: 400,
+                          child: Image(
+                            image: AssetImage('resources/ximena.webp'),
+                            fit: BoxFit.fitHeight,
+                            alignment: Alignment.topCenter,
+                          ),
+                        ),
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    Text(
+                      "Selecciona tu red social de preferencia para entrar:",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
+                    SizedBox( height: kDefaultPadding,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TrainingCard(),
-                        TipsCard()
+                        Container(
+                          padding: EdgeInsets.all(kDefaultPadding),
+                          height: 30,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'resources/facebook.png',
+                              ),
+                              fit: BoxFit.fitHeight
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.transparent
+                          ),
+                        ),
+                        SizedBox(width: kDefaultPadding),
+                        LiteRollingSwitch(
+                          value: isGoogle,
+                          textOn: 'Google',
+                          textOff: 'Facebook',
+                          colorOn: Colors.black,
+                          colorOff: Color(0xff3b5998),
+                          iconOn: Icons.arrow_forward,
+                          iconOff: Icons.arrow_back,
+                          textSize: 15.0,
+                          onChanged: (bool state) {
+                            isGoogle = state;
+                          },
+                        ),
+                        SizedBox(width: kDefaultPadding),
+                        Container(
+                          padding: EdgeInsets.all(kDefaultPadding),
+                          height: 35,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'resources/google_icon.png',
+                              ),
+                              fit: BoxFit.fitHeight
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.transparent
+                          ),
+                        ),
                       ],
-                    )
-                  ]
-                ),
-                /*Padding(
-                  padding: EdgeInsets.all(20),
-                  child: LiteRollingSwitch(
-                    value: true,
-                    textOn: "Google",
-                    textOff: "Facebook",
-                    colorOn: Colors.white,
-                    colorOff: Color(0xff4867aa),
-                    iconOn: Icons.face,
-                    iconOff: Icons.access_alarm,
-                    textSize: 20.0,
-                  ),
-                ),*/
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                  ),
-                  //icon:FaIcon(FontAwesomeIcons.google, color: Colors.red),
-                  child: Text(
-                    "Entrar con Google"
-                  ),
-                  onPressed: (){
-                    context.read<LoginBloc>().add(LoginSubmitted(LoginType.google));
-                  },
-                ),
-                ElevatedButton(
-                  child: Text(
-                    "Entrar con facebook"
-                  ),
-                  onPressed: (){
-                    context.read<LoginBloc>().add(LoginSubmitted(LoginType.facebook));
-                  },
-                ),
+                    ),
+                    SizedBox(height: kDefaultPadding,),
+                    FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18)
+                      ),
+                      color: Color(0xff92e600),
+                      onPressed: () {
+                        if(isGoogle == true){
+                          context.read<LoginBloc>().add(LoginSubmitted(LoginType.google));
+                        }
+                        else{
+                          context.read<LoginBloc>().add(LoginSubmitted(LoginType.facebook));
+                        }
+                      },
+                      child: Text(
+                        "Comenzar".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                        )
+                      ),
+                    ),
+                  ],
+                )
               ],
             )
-          ],
+          ]
         ),
         //LoginForm()
       ],

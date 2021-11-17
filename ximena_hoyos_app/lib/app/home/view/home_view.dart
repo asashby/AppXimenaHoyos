@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ximena_hoyos_app/app/about/view/about_page.dart';
 import 'package:ximena_hoyos_app/app/blog/view/blog_page.dart';
+import 'package:ximena_hoyos_app/app/home/view/shop_slider.dart';
 import 'package:ximena_hoyos_app/app/profile/profile.dart';
 import 'package:ximena_hoyos_app/app/shop/shop.dart';
 import 'package:ximena_hoyos_app/common/app_button.dart';
@@ -43,71 +44,85 @@ class _HomeViewState extends State<HomeView> {
                   visible: true,
                   child: Container(
                     width: double.infinity,
-                    height: 80,
+                    height: 275,
                     color: Color(0xff202020),
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 32, left: 32),
-                      child: Row(
-                        children: [
-                          ProfileButton(
-                            profileImage: (state is HomeSuccess)
-                                ? state.user?.urlImage
-                                : null,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(ProfilePage.route());
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                      padding: const EdgeInsets.only(right: 0, left: 0),
+                      child: Column(
+                        children: <Widget>[
+                          ShopSlider(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, right: 32, left: 32),
+                            child: Row(
                               children: [
-                                Text(
-                                  state is HomeSuccess
-                                      ? state.user?.fullName ?? ''
-                                      : '',
-                                  style: TextStyle(color: Colors.white),
+                                ProfileButton(
+                                  profileImage: (state is HomeSuccess)
+                                      ? state.user?.urlImage
+                                      : null,
                                 ),
-                                Text(
-                                  "Ver Perfil",
-                                  style: TextStyle(color: Color(0xFF2ec985)),
-                                )
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(ProfilePage.route());
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        state is HomeSuccess
+                                            ? state.user?.fullName ?? ''
+                                            : '',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "Ver Perfil",
+                                        style: TextStyle(color: Color(0xff92e600)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                ),
+                                TextButton(
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => ShopPage()),
+                                      );
+                                      /*final token =
+                                          await MakiTokenStore().retrieveToken();
+                                      final link =
+                                          'https://tienda.ximehoyos.com?token=$token';
+                                      await canLaunch(link)
+                                          ? await launch(link)
+                                          : throw 'Could not launch $link';*/
+                                    },
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0)
+                                        )
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all(Color(0xff92e600)),
+                                      side: MaterialStateProperty.all(BorderSide(
+                                            width: 2, color: Color(0xff92e600))),
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 20)),
+                                      textStyle: MaterialStateProperty.all(
+                                          TextStyle(fontSize: 30))),
+                                      child: Text('Ver tienda',
+                                        style: TextStyle(
+                                          color: Colors.black, fontSize: 14))),
                               ],
                             ),
                           ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                          TextButton(
-                              onPressed: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => ShopPage()),
-                                );
-                                /*final token =
-                                    await MakiTokenStore().retrieveToken();
-                                final link =
-                                    'https://tienda.ximehoyos.com?token=$token';
-                                await canLaunch(link)
-                                    ? await launch(link)
-                                    : throw 'Could not launch $link';*/
-                              },
-                              style: ButtonStyle(
-                                  side: MaterialStateProperty.all(BorderSide(
-                                      width: 2, color: Color(0xFF2ec985))),
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 20)),
-                                  textStyle: MaterialStateProperty.all(
-                                      TextStyle(fontSize: 30))),
-                              child: Text('Tienda',
-                                  style: TextStyle(
-                                      color: Color(0xFF2ec985), fontSize: 14)))
                         ],
-                      ),
+                      )
                     ),
                   ),
                 ),
@@ -255,7 +270,7 @@ class _HomeOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ClipRRect(
           child: Stack(
@@ -280,7 +295,11 @@ class _HomeOption extends StatelessWidget {
             children: [
               Text(
                 title!,
-                style: Theme.of(context).textTheme.headline2,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  color: Colors.white
+                ),
               ),
               SizedBox(
                 height: 2,

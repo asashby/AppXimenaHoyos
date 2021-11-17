@@ -1,6 +1,12 @@
 import 'package:data/models/product_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ximena_hoyos_app/app/shop/components/product_description.dart';
+import 'package:ximena_hoyos_app/app/shop_details/components/add_to_cart.dart';
+import 'package:ximena_hoyos_app/app/shop_details/components/cart_counter.dart';
+import 'package:ximena_hoyos_app/app/shop_details/components/product_title_with_image.dart';
 
 class DetailsBody extends StatelessWidget {
 
@@ -26,59 +32,46 @@ class DetailsBody extends StatelessWidget {
                   margin: EdgeInsets.only(
                     top: size.height * 0.3
                   ),
-                  height: 500,
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.12,
+                    left: kDefaultPadding,
+                    right: kDefaultPadding,
+                  ),
+                  //height: 500,
                   decoration: BoxDecoration(
                     color: Colors.white
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: kDefaultPadding
-                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        product.title,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 34,
-                            color: kTextColor,
+                      SizedBox(height: kDefaultPadding,),
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(color: kTextColor),
+                          children: [
+                            TextSpan(
+                              text: "SKU: ",
+                            ),
+                            TextSpan(
+                              text: product.sku,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: kTextColor
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Precio: ",
-                                  style: TextStyle(
-                                    color: kTextColor
-                                  )),
-                                TextSpan(
-                                  text: "S/" + product.price.toString(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 34,
-                                    color: Colors.blueGrey,
-                                  ),
-                                )
-                              ]
-                            )
-                          ),
-                          SizedBox(width: kDefaultPadding),
-                          Expanded(
-                            child: Image.asset(
-                              product.image,
-                              fit: BoxFit.fill)
-                          )
-                        ],
-                      )
+                      SizedBox(height: kDefaultPadding,),
+                      Description(product: product),
+                      SizedBox(height: kDefaultPadding / 2,),
+                      CartCounter(),
+                      SizedBox(height: 2,),
+                      AddToCart(product: product),
                     ],
                   )
-                )
+                ),
+                ProductTitleWithImage(product: product),
               ]
             ),
           )

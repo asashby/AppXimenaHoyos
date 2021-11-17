@@ -109,7 +109,7 @@ class _AboutContentView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 40),
             child: Text(
               data.description,
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
