@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data/models/challenges_exercises_model.dart';
+import 'package:data/models/mp_response_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ import 'package:ximena_hoyos_app/app/daily_routine/view/daily_routine_page.dart'
 import 'package:data/models/model.dart';
 import 'package:ximena_hoyos_app/common/check_widget.dart';
 import 'package:ximena_hoyos_app/main.dart';
+import 'package:http/http.dart' as http;
 
 final Map<String, Object> preferenceMap = {
   'items': [
@@ -353,6 +357,50 @@ class _ChallengeBody extends StatelessWidget {
                   Navigator.push(context, CommentChallengePage.route(detail));
                 } else {
                   try {
+                    showDialogIndicator(context);
+
+                    var body = {
+                      'external_reference': 'ABC',
+                      'notification_url': 'https://hookb.in/wN8Lkw2xVJTYKMwPmVoq',
+                      'items': [
+                        {
+                          'title': 'Test Product',
+                          'description': 'Description',
+                          'quantity': 1,
+                          'currency_id': 'PEN',
+                          'unit_price': 1,
+                          'picture_url': 'https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png'
+                        }
+                      ],
+                    };
+
+                    var client = new http.Client();
+                    var url = Uri.parse('https://api.mercadolibre.com/checkout/preferences?access_token=' + MercadoPagoAccessToken);
+
+                    var res = await client.post(
+                      url, 
+                      body: json.encode(body),
+                      encoding: Encoding.getByName("utf-8")
+                    );
+
+                    var decodedResponse = jsonDecode(res.body);
+
+                    final Map<String, dynamic> parsed = json.decode(res.body); 
+
+                    final mercadopagoResponse = MPResponse.fromMap(parsed);
+                    hideOpenDialog(context);
+                  
+                    /*Navigator.push(context, 
+                      MaterialPageRoute(
+                        builder: (context) => MercadopagoView(url: mercadopagoResponse.sandboxInitPoint)
+                      )
+                    );*/
+
+                    if (await canLaunch(mercadopagoResponse.sandboxInitPoint))
+                      await launch(mercadopagoResponse.sandboxInitPoint);
+                    else 
+                      throw "Could not launch " + mercadopagoResponse.sandboxInitPoint;
+                      
                     showDialogIndicator(context);
                     
                     (await MercadoPagoIntegration.startCheckout(

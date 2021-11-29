@@ -14,8 +14,8 @@ const kButtonGreenColor = Color(0xff83b735);
 
 const kDefaultPadding = 20.0;
 
-const MercadoPagoPublicKey = 'APP_USR-e3994ede-21da-4ecb-ab29-4883ab21c76e';
-const MercadoPagoAccessToken = 'APP_USR-1583526246143656-102102-5e09239fcaf95a270b1a128f39ca7207-1004260347';
+const MercadoPagoPublicKey = 'APP_USR-711f4f67-01ac-42ce-b8ad-1d0f8c47b886';
+const MercadoPagoAccessToken = 'APP_USR-4093221298426513-071402-def57743e8b9321b63c4ac4228fc5c38-607344233';
 
 /// Lista de pantallas soportadas en la pantalla de HomeView
 const HOME_ROUTES = [

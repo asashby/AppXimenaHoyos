@@ -24,11 +24,7 @@ class ShopSlider extends StatelessWidget {
             Image.asset(
               'resources/promo2.jpg',
               fit: BoxFit.cover,
-            ),
-            Image.asset(
-              'resources/promo3.jpg',
-              fit: BoxFit.cover,
-            ),
+            )
           ],
           autoPlayInterval: 3000,
           isLoop: true,
