@@ -14,60 +14,64 @@ class ShopCartBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: GridView.builder(
-                itemCount: checkoutItems.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: kDefaultPadding,
-                  crossAxisSpacing: kDefaultPadding,
-                  childAspectRatio: 3
+    return Stack(
+      children: [
+        Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 90
                 ),
-                itemBuilder: (context, index) => 
-                  CartItem(
-                    item: checkoutItems[index]
+                child: GridView.builder(
+                  itemCount: checkoutItems.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: kDefaultPadding,
+                    crossAxisSpacing: kDefaultPadding,
+                    childAspectRatio: 3
                   ),
-              )
+                  itemBuilder: (context, index) => 
+                    CartItem(
+                      item: checkoutItems[index]
+                    ),
+                ),
+              ),
             )
-          ),
-          Container(
-            margin: EdgeInsets.only(
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(
               bottom: kDefaultPadding
             ),
-            height: 50,
-            width: 250,
-            child: Expanded(
-              child: SizedBox(
-                height: 50,
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18)
-                  ),
-                  color: Color(0xff20d0fc),
-                  onPressed: () => Navigator.push(context, 
-                    MaterialPageRoute(
-                      builder: (context) => CheckoutFormPage()
-                    )
-                  ),
-                  child: Text(
-                    "checkout ".toUpperCase() + "(" + totalCheckout.toString() + ")",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                    )
-                  ),
-                )
-              ),
-            ),
-          ),
-        ],
-      )
+            child: SizedBox(
+              height: 50,
+              width: 250,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)
+                ),
+                color: kButtonGreenColor,
+                onPressed: () => Navigator.push(context, 
+                  MaterialPageRoute(
+                    builder: (context) => CheckoutFormPage()
+                  )
+                ),
+                child: Text(
+                  "checkout ".toUpperCase() + "(" + totalCheckout.toString() + ")",
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  )
+                ),
+              )
+            )
+          )
+        )
+      ],
     );
   }
 }

@@ -29,8 +29,8 @@ class ItemCard extends StatelessWidget {
               //width: 160,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    product.image,
+                  image: NetworkImage(
+                    product.images![0].src!,
                   ),
                   fit: BoxFit.cover
                 ),
@@ -41,15 +41,15 @@ class ItemCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
             child: Text(
-              product.title,
-              style: TextStyle(color: kTextLightColor),
+              product.name!,
+              style: TextStyle(color: Colors.white),
             ),
           ),
           Text(
             "S/" + product.price.toString(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.blueGrey)
+              color: applicationBlueColor)
           )
         ]
       ),

@@ -115,7 +115,7 @@ class _CategoryItem extends StatelessWidget {
               .add(RecipeApplyFilterEvent(filter));
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        fillColor: selected! ? Theme.of(context).buttonColor : Colors.white,
+        fillColor: selected! ? Color(0xff95d100) : Colors.white,
         child: Container(
             child: Text(
           this.filter.name,

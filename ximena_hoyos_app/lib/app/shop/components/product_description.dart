@@ -1,6 +1,7 @@
 import 'package:data/models/product_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class Description extends StatelessWidget {
   final Product product;
@@ -16,12 +17,13 @@ class Description extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         vertical: 0,
       ),
-      child: Text(
-        product.description,
-        style: TextStyle(
-          height: 1,
-          fontSize: 15
-        )
+      child: Html(
+        data: product.shortDescription!,
+        style: {
+          "p": Style(
+            color: Colors.white
+          )
+        }
       )
     );
   }

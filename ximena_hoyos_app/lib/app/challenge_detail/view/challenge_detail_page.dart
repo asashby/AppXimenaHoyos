@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:data/models/challenge_plan.dart';
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/mp_response_model.dart';
 import 'package:data/utils/constants.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mercado_pago_integration/mercado_pago_integration.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/bloc/bloc.dart';
+import 'package:ximena_hoyos_app/app/challenge_detail/components/plan_button.dart';
 import 'package:ximena_hoyos_app/app/comment_challenge/comment_challenge.dart';
 import 'package:ximena_hoyos_app/app/commentaries/view/comentaries_page.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
@@ -86,6 +88,7 @@ class ChallengeDetailPage extends StatelessWidget {
             return _ChallengeDetailBody(
               detail: state.data!,
               exercises: state.exercises!,
+              plans: state.plans!,
               lock: !this.owned,
             );
         }
@@ -102,11 +105,13 @@ class _ChallengeDetailBody extends StatefulWidget {
   final ChallengeDetail detail;
   final List<ChallengesDailyRoutine> exercises;
   final bool lock;
+  final List<PlansByCourse> plans;
 
   const _ChallengeDetailBody(
       {Key? key,
       required this.detail,
       required this.exercises,
+      required this.plans,
       required this.lock})
       : super(key: key);
 
@@ -149,6 +154,7 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody>
           child: _ChallengeBody(
             detail: widget.detail,
             owned: !this.widget.lock,
+            plans: widget.plans,
           ),
         ),
         SliverPadding(
@@ -162,6 +168,7 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody>
                 child: _DaylyRoutineView(
                   exercise: widget.exercises[index],
                   lock: this.widget.lock,
+                  coursePaid: widget.detail.coursePaid,
                 ),
               );
             }, childCount: widget.exercises.length),
@@ -176,11 +183,13 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody>
 class _DaylyRoutineView extends StatelessWidget {
   final ChallengesDailyRoutine exercise;
   final bool lock;
+  final int? coursePaid;
 
   const _DaylyRoutineView({
     Key? key,
     required this.exercise,
     required this.lock,
+    required this.coursePaid
   }) : super(key: key);
 
   @override
@@ -190,7 +199,7 @@ class _DaylyRoutineView extends StatelessWidget {
       height: 88,
       color: Colors.white,
       onPressed: () async {
-        if (!lock) {
+        if (coursePaid == 1) {
           Navigator.of(context).push(DailyRoutinePage.route(exercise));
         }
       },
@@ -233,6 +242,7 @@ class _DaylyRoutineView extends StatelessWidget {
           CheckWidget(
             active: exercise.flagCompleteUnit,
             lock: lock,
+            coursePaid: coursePaid,
           )
         ],
       ),
@@ -244,9 +254,51 @@ class _DaylyRoutineView extends StatelessWidget {
 class _ChallengeBody extends StatelessWidget {
   final ChallengeDetail detail;
   final bool owned;
+  final List<PlansByCourse> plans;
 
-  const _ChallengeBody({Key? key, required this.detail, required this.owned})
+  const _ChallengeBody({Key? key, required this.detail, required this.owned, required this.plans})
       : super(key: key);
+
+  
+  Future<void> showPlansDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Color(0xff221c1c),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "Seleccione el plan de su conveniencia:",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ListView.builder(
+                  itemCount: plans.length,
+                  itemBuilder: (context, index){
+                    return PlanButton(plan: plans[index]);
+                  }
+                )
+              )
+            ],
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -353,13 +405,15 @@ class _ChallengeBody extends StatelessWidget {
               height: 60,
               color: Color(0xff92e600),
               onPressed: () async {
-                if (isChallengeOwned) {
+                if (detail.coursePaid == 1) {
                   Navigator.push(context, CommentChallengePage.route(detail));
                 } else {
                   try {
-                    showDialogIndicator(context);
+                    await showPlansDialog(context);
 
-                    var body = {
+                    //showDialogIndicator(context);
+
+                    /*var body = {
                       'external_reference': 'ABC',
                       'notification_url': 'https://hookb.in/wN8Lkw2xVJTYKMwPmVoq',
                       'items': [
@@ -387,8 +441,8 @@ class _ChallengeBody extends StatelessWidget {
 
                     final Map<String, dynamic> parsed = json.decode(res.body); 
 
-                    final mercadopagoResponse = MPResponse.fromMap(parsed);
-                    hideOpenDialog(context);
+                    final mercadopagoResponse = MPResponse.fromMap(parsed);*/
+                    //hideOpenDialog(context);
                   
                     /*Navigator.push(context, 
                       MaterialPageRoute(
@@ -396,7 +450,7 @@ class _ChallengeBody extends StatelessWidget {
                       )
                     );*/
 
-                    if (await canLaunch(mercadopagoResponse.sandboxInitPoint))
+                    /*if (await canLaunch(mercadopagoResponse.sandboxInitPoint))
                       await launch(mercadopagoResponse.sandboxInitPoint);
                     else 
                       throw "Could not launch " + mercadopagoResponse.sandboxInitPoint;
@@ -417,7 +471,7 @@ class _ChallengeBody extends StatelessWidget {
                       content: Text("Reto adquirido"),
                     ));
 
-                    Navigator.pop(context);
+                    Navigator.pop(context);*/
                     
                     /*final token = await MakiTokenStore().retrieveToken();
                     final link = await context
@@ -438,7 +492,7 @@ class _ChallengeBody extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: Text(
-                  isChallengeOwned ? "Comentar" : "Solicitar reto\nS/ ${detail.price}",
+                  detail.coursePaid == 1 ? "Comentar" : "Solicita tu plan",
                   style: Theme.of(context).textTheme.button,
                   textAlign: TextAlign.center),
             ),

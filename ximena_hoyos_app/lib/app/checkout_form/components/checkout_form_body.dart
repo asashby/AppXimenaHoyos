@@ -48,14 +48,26 @@ class CheckoutFormBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: "DNI",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                      decoration: const InputDecoration(
+                        labelText: "DNI*",
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -63,16 +75,28 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Nombre",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -80,16 +104,28 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Apellidos",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -97,28 +133,52 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Empresa (Opcional)",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
                         labelText: "Dirección de la calle",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -126,27 +186,51 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Departamento (opcional)",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       decoration: InputDecoration(
                         labelText: "Distrito",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -154,16 +238,28 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: "Telefono",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -171,16 +267,28 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: "Dirección de correo electrónico",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                       validator: (value){
                         if(value!.isEmpty){
@@ -188,16 +296,28 @@ class CheckoutFormBody extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: kDefaultPadding / 2,),
+                    SizedBox(height: kDefaultPadding),
                     TextFormField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
                         labelText: "Notas del pedido (opcional)",
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.grey,
-                          )
+                        labelStyle: TextStyle(
+                          color: Colors.white 
                         ),
+                        focusColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white
+                          )
+                        )
                       ),
                     ),
                   ],

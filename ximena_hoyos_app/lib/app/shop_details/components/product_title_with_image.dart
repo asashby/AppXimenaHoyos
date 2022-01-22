@@ -13,60 +13,46 @@ class ProductTitleWithImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: kDefaultPadding
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            product.title,
-            softWrap: true,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: kTextColor,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          product.name!,
+          softWrap: true,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.white,
+          ),
+        ),
+        Text(
+          "S/" + product.price!,
+          softWrap: true,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: applicationBlueColor,
+          ),
+        ),
+        SizedBox(
+          height: kDefaultPadding,
+        ),
+        Center(
+          child: Container(
+            padding: EdgeInsets.all(kDefaultPadding),
+            height: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  product.images![0].src!,
+                ),
+                fit: BoxFit.cover
+              ),
+              borderRadius: BorderRadius.circular(16),
             ),
           ),
-          SizedBox(
-            height: kDefaultPadding
-          ),
-          Row(
-            children: <Widget>[
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Precio: ",
-                      style: TextStyle(
-                        color: kTextColor
-                      )),
-                    TextSpan(
-                      text: "S/" + product.price.toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Colors.blueGrey,
-                      ),
-                    )
-                  ]
-                )
-              ),
-              SizedBox(width: kDefaultPadding),
-              Expanded(
-                child: Hero(
-                  tag: product.id,
-                  child: Image.asset(
-                    product.image,
-                    fit: BoxFit.fill
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
-      )
+        ),
+      ],
     );
   }
 }

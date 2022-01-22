@@ -260,7 +260,7 @@ class _DaylyRoutineView extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: Theme.of(context).buttonColor,
+              color: Color(0xff95d100),
               shape: BoxShape.circle,
             ),
             child: Icon(

@@ -5,10 +5,12 @@ class CheckWidget extends StatelessWidget {
     Key? key,
     this.active = false,
     this.lock = false,
+    this.coursePaid
   }) : super(key: key);
 
   final bool active;
   final bool lock;
+  final int? coursePaid;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class CheckWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(
-            lock ? Icons.lock : Icons.check,
-            color: Theme.of(context).buttonColor,
+            coursePaid == 0 ? Icons.lock : Icons.check,
+            color: Color(0xff95d100),
           ),
         ),
       ),

@@ -113,7 +113,7 @@ class _CommentChallengePageState extends State<CommentChallengePage> {
                     Container(
                       margin: const EdgeInsets.only(top: 16),
                       decoration: BoxDecoration(
-                          color: const Color(0xFF30D38B),
+                          color: const Color(0xFF95d100),
                           borderRadius: BorderRadius.circular(10)),
                       child: MaterialButton(
                         onPressed: isLoading ? null : _onPublish,

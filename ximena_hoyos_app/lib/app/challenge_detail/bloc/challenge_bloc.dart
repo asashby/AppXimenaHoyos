@@ -5,24 +5,35 @@ import 'package:data/repositories/repositories.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:data/models/challenge_detail.dart';
+import 'package:data/models/challenge_plan.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum DetailStatus { initial, error, loading, success }
 
 class DetailState extends Equatable {
   final ChallengeDetail? data;
+  final List<PlansByCourse>? plans;
   final List<ChallengesDailyRoutine>? exercises;
   final dynamic error;
   final DetailStatus status;
 
-  DetailState(this.status, {this.exercises, this.data, this.error});
+  DetailState(this.status, {this.exercises, this.data, 
+  this.plans, 
+  this.error});
 
   @override
   List<Object?> get props => [data, error, status];
 
   factory DetailState.success(
-      ChallengeDetail data, List<ChallengesDailyRoutine> exercises) {
-    return DetailState(DetailStatus.success, data: data, exercises: exercises);
+    ChallengeDetail data, 
+    List<PlansByCourse>? plans, 
+    List<ChallengesDailyRoutine> exercises) {
+    return DetailState(
+      DetailStatus.success, 
+      data: data, 
+      plans: plans,
+      exercises: exercises
+    );
   }
 
   factory DetailState.error(dynamic error) {
@@ -74,8 +85,13 @@ class ChallengeDetailBloc extends Bloc<DetailEvent, DetailState> {
         yield DetailState.loading();
         final detail = await repository.fetchChallengeDetail(slug);
         final exercise = await repository.fetchRoutineByChallenge(slug);
+        final plans = await repository.fetchChallengePlans(slug);
         exercise.sort((a, b) => a.day.compareTo(b.day));
-        yield DetailState.success(detail, exercise);
+        yield DetailState.success(
+          detail, 
+          plans.plansByCourse, 
+          exercise
+        );
       } catch (ex) {
         yield DetailState.error(ex);
       }

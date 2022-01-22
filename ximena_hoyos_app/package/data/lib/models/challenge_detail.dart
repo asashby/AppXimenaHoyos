@@ -18,6 +18,7 @@ class ChallengeDetail {
   final String? description;
   final String? urlVideo;
   final int? isActivated;
+  final int? coursePaid;
   final dynamic fileUrl;
   final dynamic attributes;
   final dynamic deletedAt;
@@ -46,6 +47,7 @@ class ChallengeDetail {
     this.description,
     this.urlVideo,
     this.isActivated,
+    this.coursePaid,
     this.fileUrl,
     this.attributes,
     this.deletedAt,
@@ -74,6 +76,7 @@ class ChallengeDetail {
           description: json['description'] as String?,
           urlVideo: json['url_video'] as String?,
           isActivated: json['is_activated'] as int?,
+          coursePaid: json['course_paid'] as int?,
           fileUrl: json['file_url'],
           attributes: json['attributes'],
           deletedAt: json['deleted_at'],
@@ -100,6 +103,7 @@ class ChallengeDetail {
         'description': description,
         'url_video': urlVideo,
         'is_activated': isActivated,
+        'course_paid': coursePaid,
         'file_url': fileUrl,
         'attributes': attributes,
         'deleted_at': deletedAt,

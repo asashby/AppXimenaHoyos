@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:data/common/dio_client.dart';
 import 'package:data/models/challenge_detail.dart';
 import 'package:data/models/challenge_header_model.dart';
+import 'package:data/models/challenge_plan.dart';
+import 'package:data/models/challenge_plans_response.dart';
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/challenges_model.dart';
 import 'package:data/models/comment_model.dart';
@@ -13,6 +17,7 @@ import 'package:data/repositories/base_repository.dart';
 import 'package:data/sources/token_store.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
+import 'package:logger/logger.dart';
 
 class ChallengesRepository extends BaseRepository {
   ChallengesRepository(TokenStore tokenStore) : super(tokenStore, API_CMS);
@@ -59,8 +64,21 @@ class ChallengesRepository extends BaseRepository {
     var client = await this.dio;
     client.options.baseUrl = API_CMS;
 
-    final response = await client.get('/api/courses/$slug/detail');
+    final response = await client.get('/api/courses/$slug/detail-user');
     return ChallengeDetail.fromJson(response.data);
+  }
+
+  /// Obtener los planes del reto del reto en funcion al slug de la cabecera
+  Future<ChallengePlan> fetchChallengePlans(String slug) async {
+    
+    var client = await this.dio;
+    client.options.baseUrl = API_CMS;
+
+    var response = await client.get('/api/course/$slug/plans-list');
+
+    var challengePlan = ChallengePlan.fromJson(response.data);
+
+    return challengePlan;
   }
 
   /// Obtener la listas de rutinas diarias del reto

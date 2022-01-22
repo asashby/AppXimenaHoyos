@@ -20,7 +20,10 @@ class _CartCounterState extends State<CartCounter> {
     return Row(
       children: <Widget>[
         buildOutlineButton(
-          icon: Icon(FontAwesomeIcons.minus), 
+          icon: Icon(
+            FontAwesomeIcons.minus,
+            color: Colors.white
+          ), 
           press: () {
             setState(() {
               if(numOfCardItems > 1){
@@ -34,16 +37,19 @@ class _CartCounterState extends State<CartCounter> {
             horizontal: kDefaultPadding / 2,
           ),
           child: Text(
-            numOfCardItems.toString().padLeft(2, "0"),
+            numOfCardItems.toString(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
-              color: kTextColor
+              color: Colors.white
             ),
           ),
         ),
         buildOutlineButton(
-          icon: Icon(FontAwesomeIcons.plus), 
+          icon: Icon(
+            FontAwesomeIcons.plus, 
+            color: Colors.white
+          ), 
           press: () {
             setState((){
               numOfCardItems++;
@@ -64,7 +70,8 @@ class _CartCounterState extends State<CartCounter> {
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(13),
-        )
+        ),
+        color: Colors.white,
       ),
     );
   }

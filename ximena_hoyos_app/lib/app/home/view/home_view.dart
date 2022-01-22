@@ -88,36 +88,48 @@ class _HomeViewState extends State<HomeView> {
                                   child: Container(),
                                 ),
                                 TextButton(
-                                    onPressed: () async {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => ShopPage()),
-                                      );
-                                      /*final token =
-                                          await MakiTokenStore().retrieveToken();
-                                      final link =
-                                          'https://tienda.ximehoyos.com?token=$token';
-                                      await canLaunch(link)
-                                          ? await launch(link)
-                                          : throw 'Could not launch $link';*/
-                                    },
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0)
-                                        )
-                                      ),
-                                      backgroundColor: MaterialStateProperty.all(Color(0xff92e600)),
-                                      side: MaterialStateProperty.all(BorderSide(
-                                            width: 2, color: Color(0xff92e600))),
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.symmetric(
-                                              vertical: 5, horizontal: 20)),
-                                      textStyle: MaterialStateProperty.all(
-                                          TextStyle(fontSize: 30))),
-                                      child: Text('Ver tienda',
-                                        style: TextStyle(
-                                          color: Colors.black, fontSize: 14))),
+                                  onPressed: () async {
+                                    Navigator.of(context)
+                                        .push(ShopPage.route());
+                                    /*Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => ShopPage()),
+                                    );*/
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0)
+                                      )
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Color(0xff92e600)
+                                    ),
+                                    side: MaterialStateProperty.all(
+                                      BorderSide(
+                                        width: 2, 
+                                        color: Color(0xff92e600)
+                                      )
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                        vertical: 5, 
+                                        horizontal: 20
+                                      )
+                                    ),
+                                    textStyle: MaterialStateProperty.all(
+                                      TextStyle(
+                                        fontSize: 30
+                                      )
+                                    )
+                                  ),
+                                  child: Text('Ver tienda',
+                                    style: TextStyle(
+                                      color: Colors.black, 
+                                      fontSize: 14
+                                    )
+                                  )
+                                ),
                               ],
                             ),
                           ),

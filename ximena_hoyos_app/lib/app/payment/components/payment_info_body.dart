@@ -169,9 +169,9 @@ class PaymentInfoBody extends StatelessWidget {
                                   showDialogIndicator(context);
                                   
                                   CCard card = CCard(
-                                    cardNumber: '4111 1111 1111 1111',
+                                    cardNumber: '4111111111111111',
                                     expirationMonth: 09,
-                                    expirationYear: 22,
+                                    expirationYear: 25,
                                     cvv: '123',
                                     email: 'info@hostingonlineperu.com'
                                   );
@@ -180,6 +180,7 @@ class PaymentInfoBody extends StatelessWidget {
 
                                     //su token
                                     print(token.id);
+                                    print(card.expirationYear);
                                   } on CulqiBadRequestException catch(ex){
                                     print(ex.cause);
                                   } on CulqiUnknownException catch(ex){
@@ -188,6 +189,10 @@ class PaymentInfoBody extends StatelessWidget {
                                   }
 
                                   hideOpenDialog(context);
+
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text("Pago completado")
+                                  ));
 
                                 },
                                 style: ButtonStyle(
@@ -217,7 +222,7 @@ class PaymentInfoBody extends StatelessWidget {
                   Expanded(child: SizedBox(),),
                   Image(
                     image: AssetImage(
-                      'resources/mercadopago2.png',
+                      'resources/culqi.png',
                     ),
                     width: 110,
                     fit: BoxFit.fitWidth

@@ -42,25 +42,26 @@ class _CheckoutFormPageState extends State<CheckoutFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: CheckoutFormBody()
+      body: CheckoutFormBody(),
+      backgroundColor: backgroundMainColor
     );
   }
 
   AppBar buildAppBar(BuildContext context){
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundMainColor,
       elevation: 0,
       leading: IconButton(
         icon: FaIcon(
           FontAwesomeIcons.arrowLeft,
-          color: kTextColor,
+          color: Colors.white,
         ),
         onPressed: () => Navigator.pop(context),
       ),
       title: Text(
         "Facturación y envío".toUpperCase(),
         style: TextStyle(
-          color: kTextColor,
+          color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold
         ),

@@ -17,13 +17,29 @@ class ShopSlider extends StatelessWidget {
           indicatorColor: Colors.blue,
           indicatorBackgroundColor: Colors.grey,
           children: [
-            Image.asset(
-              'resources/promo.jpg',
-              fit: BoxFit.cover,
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/1.png',
+              fit: BoxFit.cover
             ),
-            Image.asset(
-              'resources/promo2.jpg',
-              fit: BoxFit.cover,
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/6.png',
+              fit: BoxFit.cover
+            ),
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/2.png',
+              fit: BoxFit.cover
+            ),
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/5.png',
+              fit: BoxFit.cover
+            ),
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/3.png',
+              fit: BoxFit.cover
+            ),
+            Image.network(
+              'https://xoh-media-bucket.s3.amazonaws.com/tienda/4.png',
+              fit: BoxFit.cover
             )
           ],
           autoPlayInterval: 3000,

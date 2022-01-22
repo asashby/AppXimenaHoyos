@@ -17,97 +17,102 @@ class CartItem extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    item.product.title.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey
-                    ),
-                  ),
-                  Text(
-                    "Cantidad: ".toUpperCase() + item.quantity.toString(),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: kTextColor
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: kDefaultPadding
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      item.product.name!.toUpperCase(),
                       style: TextStyle(
-                        color: kTextColor,
                         fontSize: 14,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey
                       ),
-                      children: [
-                        TextSpan(
-                          text: "Total: ",
-                        ),
-                        TextSpan(
-                          text: "S/" + item.total.toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Color(0xff92e600)
-                          ),
-                        ),
-                      ],
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 5
+                    Text(
+                      "Cantidad: ".toUpperCase() + item.quantity.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: kTextColor
+                      ),
                     ),
-                    child: ElevatedButton(
-                      child: Text(
-                        "Remover",
+                    RichText(
+                      text: TextSpan(
                         style: TextStyle(
-                          fontSize: 14
-                        )
+                          color: kTextColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "Total: ",
+                          ),
+                          TextSpan(
+                            text: "S/" + item.total.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Color(0xff92e600)
+                            ),
+                          ),
+                        ],
                       ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xff20d0fc),
-                      ),
-                      onPressed: (){
-                        checkoutItems.remove(item);
-                      }
                     ),
-                  )
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(kDefaultPadding),
-                  height: 75,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        item.product.image,
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 5
                       ),
-                      fit: BoxFit.fitHeight
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                      child: ElevatedButton(
+                        child: Text(
+                          "Remover",
+                          style: TextStyle(
+                            fontSize: 14
+                          )
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xff20d0fc),
+                        ),
+                        onPressed: (){
+                          checkoutItems.remove(item);
+                        }
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            )
-          ]
-        ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(kDefaultPadding),
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          item.product.images![0].src!,
+                        ),
+                        fit: BoxFit.fitHeight
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ],
+              )
+            ]
+          ),
+        )
       ],
     );
   }

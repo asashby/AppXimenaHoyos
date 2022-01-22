@@ -5,6 +5,7 @@ import 'package:data/repositories/repositories.dart'
         RecipeRepository,
         SectionRepository,
         CompanyRepository,
+        ProductsRepository,
         TipsRepository;
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
             create: (ctx) => ChallengesRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => RecipeRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => TipsRepository(TokenStoreImp())),
+        RepositoryProvider(create: (ctx) => ProductsRepository(TokenStoreImp())),
         RepositoryProvider(
           create: (ctx) => CompanyRepository(),
         )

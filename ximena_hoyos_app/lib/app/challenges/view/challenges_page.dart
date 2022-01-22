@@ -158,11 +158,11 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
                 )
               ),
               Container(
-                  height: 450,
+                  height: 200,
                   margin: const EdgeInsets.only(top: 15),
                   child: ListView.builder(
                     itemCount: data.length,
-                    scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.only(left: 28, right: 12),
                     itemBuilder: (context, index) {
                       final header = data[index];

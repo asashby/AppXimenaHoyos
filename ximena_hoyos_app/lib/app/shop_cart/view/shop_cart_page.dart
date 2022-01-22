@@ -17,25 +17,26 @@ class ShopCartPage extends StatelessWidget {
       body: ShopCartBody(
         totalCheckout: calculateTotalCheckout(),
       ),
+      backgroundColor: backgroundMainColor,
     );
   }
 
   AppBar buildAppBar(BuildContext context){
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundMainColor,
       elevation: 0,
       leading: IconButton(
         icon: FaIcon(
           FontAwesomeIcons.arrowLeft,
-          color: kTextColor,
+          color: Colors.white,
         ),
         onPressed: () => Navigator.pop(context),
       ),
       title: Text(
         "Tu carrito".toUpperCase(),
         style: TextStyle(
-          color: kTextColor,
+          color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold
         ),

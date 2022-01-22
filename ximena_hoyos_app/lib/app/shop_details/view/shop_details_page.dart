@@ -17,7 +17,7 @@ class ShopDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundMainColor,
       appBar: buildAppBar(context),
       body: DetailsBody(product: product),
     );
@@ -25,12 +25,12 @@ class ShopDetailsPage extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context){
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundMainColor,
       elevation: 0,
       leading: IconButton(
         icon: FaIcon(
           FontAwesomeIcons.arrowLeft,
-          color: kTextColor,
+          color: Colors.white,
         ),
         onPressed: () => Navigator.pop(context),
       ),
@@ -38,7 +38,7 @@ class ShopDetailsPage extends StatelessWidget {
         IconButton(
           icon: FaIcon(
             FontAwesomeIcons.search,
-            color: kTextColor
+            color: Colors.white
           ),
           onPressed: (){
 
@@ -47,7 +47,7 @@ class ShopDetailsPage extends StatelessWidget {
         IconButton(
           icon: FaIcon(
             FontAwesomeIcons.shoppingCart,
-            color: kTextColor
+            color: Colors.white
           ),
           onPressed: () => Navigator.push(context, 
             MaterialPageRoute(

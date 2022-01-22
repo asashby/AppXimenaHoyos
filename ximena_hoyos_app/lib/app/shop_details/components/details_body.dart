@@ -21,62 +21,96 @@ class DetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: size.height,
-            child: Stack(
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 90
+          ),
+          child: SingleChildScrollView(
+            child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                    top: size.height * 0.3
-                  ),
-                  padding: EdgeInsets.only(
-                    top: size.height * 0.12,
-                    left: kDefaultPadding,
-                    right: kDefaultPadding,
-                  ),
-                  //height: 500,
-                  decoration: BoxDecoration(
-                    color: Colors.white
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding
                   ),
                   child: Column(
-                    children: <Widget>[
+                    children: [
+                      ProductTitleWithImage(product: product),
+                      SizedBox(height: kDefaultPadding,),
+                      Description(product: product),
+                      Divider(
+                        height: 2,
+                        color: Colors.white,
+                      ),
                       SizedBox(height: kDefaultPadding,),
                       RichText(
+                        textAlign: TextAlign.start,
                         text: TextSpan(
-                          style: TextStyle(color: kTextColor),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                           children: [
                             TextSpan(
                               text: "SKU: ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white
+                              )
                             ),
                             TextSpan(
                               text: product.sku,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: kTextColor
+                                fontSize: 16,
+                                color: Colors.white
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: kDefaultPadding,),
-                      Description(product: product),
-                      SizedBox(height: kDefaultPadding / 2,),
-                      CartCounter(),
-                      SizedBox(height: 2,),
-                      AddToCart(product: product),
+                      RichText(
+                        textAlign: TextAlign.start,
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "Categoría: ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white
+                              )
+                            ),
+                            TextSpan(
+                              text: product.categories![0].name!,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: kDefaultPadding,
+                      )
                     ],
                   )
                 ),
-                ProductTitleWithImage(product: product),
-              ]
+              ],
             ),
-          )
-        ],
-      )
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: AddToCart(
+            product: product
+          ),
+        )
+      ],
     );
   }
 }
