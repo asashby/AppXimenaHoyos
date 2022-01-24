@@ -33,7 +33,8 @@ class AddToCart extends StatelessWidget {
                 ),
                 color: Color(0xff92e600),
                 onPressed: () {
-                  checkoutItems.add(
+
+                  addItemToCartList(
                     CheckoutItem(
                       product: product,
                       quantity: numOfCardItems,
@@ -59,5 +60,21 @@ class AddToCart extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void addItemToCartList(CheckoutItem checkoutItem){
+    
+    bool isNewitem = true;
+    
+    checkoutItems.forEach((element) {
+      if(element.product.id == checkoutItem.product.id){
+        element.quantity == element.quantity + checkoutItem.quantity;
+        isNewitem = false;
+      }
+    });
+
+    if(isNewitem == true){
+      checkoutItems.add(checkoutItem);
+    }
   }
 }

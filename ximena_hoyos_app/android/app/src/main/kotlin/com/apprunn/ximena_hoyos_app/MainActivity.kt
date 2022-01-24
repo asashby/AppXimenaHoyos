@@ -1,4 +1,4 @@
-package com.apprunn.ximena_hoyos_app
+package com.xiprofit.ximena_hoyos_app
 
 import android.content.Context
 import android.content.pm.PackageManager

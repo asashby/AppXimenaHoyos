@@ -92,7 +92,7 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navigatorKey,
-      title: 'Flutter Demo',
+      title: 'Ximena Hoyos',
       theme: themeData,
       builder: (context, child) {
         return ScrollConfiguration(

@@ -1,4 +1,6 @@
+import 'package:data/repositories/products_repository.dart';
 import 'package:data/utils/constants.dart';
+import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatefulWidget {
@@ -6,9 +8,10 @@ class Categories extends StatefulWidget {
   _CategoriesState createState() => _CategoriesState();
 }
 
+final ProductsRepository repository = ProductsRepository(TokenStoreImp());
 class _CategoriesState extends State<Categories>{
 
-  List<String> categories = ["PROTEINA", "IMPLEMENTOS", "COLÁGENO", "PROMOCIONES"];
+  List<String> categories = ["TODOS", "PROTEINA", "IMPLEMENTOS", "COLÁGENO", "PROMOCIONES"];
 
   int selectedIndex = 0;
 
@@ -58,4 +61,5 @@ class _CategoriesState extends State<Categories>{
       ),
     );
   }
+
 }

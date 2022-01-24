@@ -22,16 +22,29 @@ ProfileGoal? _userGoalFromString(String name) {
 }
 
 class Profile {
-  final int id;
+  final int? id;
   final String? name;
   final String? surname;
-  final String email;
+  final String? email;
   final Provider? origin;
   final String? urlImage;
-  final bool flagGoal;
+  final bool? flagGoal;
+  final bool? isActivated;
   final ProfileGoal? goal;
-  final ProfileInformationAdditional additionalInformation;
+  final ProfileInformationAdditional? additionalInformation;
 
+  Profile({
+    this.id,
+    this.name,
+    this.surname,
+    this.email,
+    this.origin,
+    this.urlImage,
+    this.flagGoal,
+    this.isActivated,
+    this.goal,
+    this.additionalInformation
+  });
   String get fullName => "${name ?? ''} ${surname ?? ''}".trim();
 
   Profile.fromJson(dynamic data)
@@ -42,6 +55,7 @@ class Profile {
         origin = ProviderHelper.parse(data['origin']),
         urlImage = data['url_image'],
         flagGoal = data['flag_goald'] == 1,
+        isActivated = data['is_activated'] == 1,
         goal = _userGoalFromString(data['goal'] ?? ''),
         additionalInformation = ProfileInformationAdditional.fromJson(
             data['addittional_info'] ?? {});
@@ -54,8 +68,9 @@ class Profile {
         'origin': origin!.name,
         'url_image': urlImage,
         'flag_goald': flagGoal,
+        'is_activated': isActivated,
         'goal': goal?.name,
-        'addittional_info': additionalInformation.toJson()
+        'addittional_info': additionalInformation!.toJson()
       };
 }
 

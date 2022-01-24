@@ -89,7 +89,9 @@ class _RoutineContentState extends State<_RoutineContent> {
   void initState() {
     if (widget.detail.hasVideo) {
       _controller = VideoPlayerController.network(widget.detail.urlVideo!);
-      _initializeVideoPlayerFuture = _controller!.initialize();
+      _initializeVideoPlayerFuture = _controller!.initialize().then((_) {
+        setState(() {});
+      });
       _controller?.setLooping(true);
     }
 
@@ -107,90 +109,88 @@ class _RoutineContentState extends State<_RoutineContent> {
     return WillPopScope(
       onWillPop: () => _onBackPressed(context),
       child: BaseScaffold(
-          child: BaseView(
-        onBackPressed: () => _onBackPressed(context),
-        title: widget.detail.title,
-        showBackButton: true,
-        withTopMargin: false,
-        slivers: [
-          SliverToBoxAdapter(
-            child: Visibility(
-              visible: widget.detail.hasVideo,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(16)),
-                margin: const EdgeInsets.only(left: 28, right: 28),
-                height: 250,
-                width: double.infinity,
-                child: Stack(
-                  children: [
-                    FutureBuilder(
-                        future: _initializeVideoPlayerFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return Container(
-                              width: double.infinity,
-                              child: Center(
-                                child: AspectRatio(
-                                  aspectRatio: _controller!.value.aspectRatio,
-                                  child: VideoPlayer(_controller!),
+        child: BaseView(
+          onBackPressed: () => _onBackPressed(context),
+          title: widget.detail.title,
+          showBackButton: true,
+          withTopMargin: false,
+          slivers: [
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: widget.detail.hasVideo,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(16)),
+                  margin: const EdgeInsets.only(left: 28, right: 28),
+                  height: 250,
+                  width: 250,
+                  child: Stack(
+                    children: [
+                      FutureBuilder(
+                          future: _initializeVideoPlayerFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return Center(
+                                  child: AspectRatio(
+                                    aspectRatio: _controller!.value.aspectRatio,
+                                    child: VideoPlayer(_controller!),
+                                  ),
+                              );
+                            } else {
+                              return SizedBox(
+                                height: 200,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
                                 ),
-                              ),
-                            );
-                          } else {
-                            return SizedBox(
-                              height: 200,
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          }
-                        }),
-                    Positioned(
-                      bottom: 0,
-                      child: IconButton(
-                          icon: Icon(
-                            (_controller?.value.isPlaying ?? false)
-                                ? Icons.pause_outlined
-                                : Icons.play_arrow_outlined,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              // If the video is playing, pause it.
-                              if (_controller!.value.isPlaying) {
-                                _controller!.pause();
-                              } else {
-                                // If the video is paused, play it.
-                                _controller!.play();
-                              }
-                            });
+                              );
+                            }
                           }),
-                    )
-                  ],
+                      Positioned(
+                        bottom: 0,
+                        child: IconButton(
+                            icon: Icon(
+                              (_controller?.value.isPlaying ?? false)
+                                  ? Icons.pause_outlined
+                                  : Icons.play_arrow_outlined,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                // If the video is playing, pause it.
+                                if (_controller!.value.isPlaying) {
+                                  _controller!.pause();
+                                } else {
+                                  // If the video is paused, play it.
+                                  _controller!.play();
+                                }
+                              });
+                            }),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding:
-                const EdgeInsets.only(left: 28, right: 28, bottom: 60, top: 20),
-            sliver: SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-              final serie = widget.detail.series[index];
-              return _RoutineItem(
-                serie: serie,
-                restTime: widget.detail.timeRest,
-                detail: widget.detail,
-                unitId: widget.detail.unitId,
-                questionId: widget.detail.id,
-              );
-            }, childCount: widget.detail.series.length)),
-          )
-        ],
-      )),
+            SliverPadding(
+              padding:
+                  const EdgeInsets.only(left: 28, right: 28, bottom: 60, top: 20),
+              sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                final serie = widget.detail.series[index];
+                return _RoutineItem(
+                  serie: serie,
+                  restTime: widget.detail.timeRest,
+                  detail: widget.detail,
+                  unitId: widget.detail.unitId,
+                  questionId: widget.detail.id,
+                );
+              }, childCount: widget.detail.series.length)),
+            )
+          ],
+        )
+      ),
     );
   }
 

@@ -27,6 +27,7 @@ class ExcerciseHeader {
 
 class Excercise {
   final int id;
+  final String code;
   final String slug;
   final String title;
   final int unitId;
@@ -35,6 +36,7 @@ class Excercise {
 
   Excercise.fromJson(dynamic data)
       : id = data['id'] ?? 0,
+        code = data['code'] ?? '',
         slug = data['slug'] ?? '',
         title = data['title'] ?? '',
         unitId = data['unit_id'] ?? 0,

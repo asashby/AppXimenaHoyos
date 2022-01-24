@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   // BottomNavigationBarItem(
                   //     icon: Icon(Icons.store), label: 'Tienda'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.receipt), label: 'Recetas'),
+                      icon: Icon(Icons.receipt), label: 'Comidas'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.person), label: 'Perfil'),
                 ],

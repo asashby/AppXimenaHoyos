@@ -29,7 +29,7 @@ class ShopCartBody extends StatelessWidget {
                     crossAxisCount: 1,
                     mainAxisSpacing: kDefaultPadding,
                     crossAxisSpacing: kDefaultPadding,
-                    childAspectRatio: 3
+                    childAspectRatio: 3.5
                   ),
                   itemBuilder: (context, index) => 
                     CartItem(

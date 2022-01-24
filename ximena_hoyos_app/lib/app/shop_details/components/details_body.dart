@@ -44,55 +44,43 @@ class DetailsBody extends StatelessWidget {
                         color: Colors.white,
                       ),
                       SizedBox(height: kDefaultPadding,),
-                      RichText(
-                        textAlign: TextAlign.start,
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          Text(
+                            "SKU: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.white
+                            ),
                           ),
-                          children: [
-                            TextSpan(
-                              text: "SKU: ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white
-                              )
+                          Text(
+                            product.sku!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white
                             ),
-                            TextSpan(
-                              text: product.sku,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      RichText(
-                        textAlign: TextAlign.start,
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          Text(
+                            "Categoría: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.white
+                            ),
                           ),
-                          children: [
-                            TextSpan(
-                              text: "Categoría: ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white
-                              )
+                          Text(
+                            product.categories![0].name!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white
                             ),
-                            TextSpan(
-                              text: product.categories![0].name!,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: kDefaultPadding,

@@ -79,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   _initTextFieldController(Profile data) {
     if (_emailController.text.isEmpty) {
-      _emailController.text = data.email;
+      _emailController.text = data.email!;
     }
 
     if (_lastController.text.isEmpty) {

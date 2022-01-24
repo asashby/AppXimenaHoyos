@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:data/models/culqi_charge_model.dart';
 import 'package:data/models/product_model.dart';
+import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/repositories/base_repository.dart';
 import 'package:data/sources/token_store.dart';
 import 'package:data/utils/constants.dart';
@@ -40,5 +42,61 @@ class ProductsRepository extends BaseRepository {
     return (response.data as List? ?? [])
         .map((e) => Product.fromJson(e))
         .toList();
+  }
+
+  
+  Future<bool> createWoocommerceOrder (WoocommerceOrder order) async {
+    String basicAuth = 'Basic Y2tfZmEyNzg5YjJlMTEyYjI4ZTljOTE2NjhiOGMyMTJlMmRiMWJmZjQ4YTpjc182ZTVjOGY0ZWE1MmM4ZDkyMjgyZWMzNTZhNjcxMmIzYzUxZjNjNzA2';
+    client.options.baseUrl = API_WOOCOMMERCE_URL;
+
+    var orderJson = order.toJson();
+    var jsonEncoded = json.encode(orderJson);
+
+    try{
+      var response = await client.post(
+        '/orders',
+        options: Options(
+          headers: <String, String>{
+            'authorization': basicAuth
+          }
+        ),
+        data: jsonEncoded
+      );
+      
+      if(response.statusMessage == "Created"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    catch(ex){
+      return false;
+    }
+  }
+
+  Future<bool> createCulqiCharge (CulqiCharge charge) async {
+    var apiClient = await this.dio;
+    apiClient.options.baseUrl = API_CMS;
+
+    var chargeJson = charge.toJson();
+    var jsonEncoded = json.encode(chargeJson);
+
+    try{
+      var response = await apiClient.post(
+        '/api/culqui/create-charge',
+        data: jsonEncoded
+      );
+
+      if(response.statusCode == 200){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    catch(ex){
+      return false;
+    }
   }
 }

@@ -55,7 +55,7 @@ class _RecipesPageState extends State<RecipesPage> {
       color: Colors.white,
       child: BaseScaffold(
           child: BaseView(
-        title: 'Recetas',
+        title: 'Comidas',
         caption: '',
         scrollController: scrollController!
           ..addListener(() {

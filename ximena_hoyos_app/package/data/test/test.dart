@@ -75,7 +75,7 @@ void testChallenge() {
 }
 
 void testRecipes() {
-  test('Prueba de consumo de servicios de recetas', () async {
+  test('Prueba de consumo de servicios de comidas', () async {
     var repository = RecipeRepository(DummyStoreImp());
 
     List<Recipe> recipes = [];

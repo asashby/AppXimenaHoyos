@@ -19,6 +19,7 @@ const kDefaultPadding = 20.0;
 
 const MercadoPagoPublicKey = 'APP_USR-711f4f67-01ac-42ce-b8ad-1d0f8c47b886';
 const MercadoPagoAccessToken = 'APP_USR-4093221298426513-071402-def57743e8b9321b63c4ac4228fc5c38-607344233';
+const CulqiApiKey = 'pk_live_519c60a11816cfdc';
 
 /// Lista de pantallas soportadas en la pantalla de HomeView
 const HOME_ROUTES = [

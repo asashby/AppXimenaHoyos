@@ -101,9 +101,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
 
       currentGoal = profile.goal;
-      currentAge = profile.additionalInformation.age;
-      currentSize = profile.additionalInformation.size;
-      currentWeight = profile.additionalInformation.weight;
+      currentAge = profile.additionalInformation!.age;
+      currentSize = profile.additionalInformation!.size;
+      currentWeight = profile.additionalInformation!.weight;
 
       yield ProfileState.success(profile, isUpdated: isUpdated);
     } on Exception catch (e) {

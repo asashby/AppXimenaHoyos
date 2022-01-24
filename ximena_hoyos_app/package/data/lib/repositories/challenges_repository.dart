@@ -4,7 +4,6 @@ import 'package:data/common/dio_client.dart';
 import 'package:data/models/challenge_detail.dart';
 import 'package:data/models/challenge_header_model.dart';
 import 'package:data/models/challenge_plan.dart';
-import 'package:data/models/challenge_plans_response.dart';
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/challenges_model.dart';
 import 'package:data/models/comment_model.dart';
@@ -121,8 +120,7 @@ class ChallengesRepository extends BaseRepository {
 
   Future<ExerciseDetail?> fetchRoutine(Excercise exercise) async {
     var client = await this.dio;
-    var response = await client.get('/api/questions/${exercise.slug}/detail',
-        queryParameters: {'unit_id': exercise.unitId});
+    var response = await client.get('/api/questions/${exercise.code}/detail');
 
     if (response.data == null) {
       return null;
@@ -164,8 +162,7 @@ class ChallengesRepository extends BaseRepository {
     await client.post('/api/rating/course/$challengeSlug', data: body);
   }
 
-  Future<PreOrder> createPreOrder(
-      Company company, ChallengeDetail detail, Profile profile) async {
+  Future<PreOrder> createPreOrder(Company company, ChallengeDetail detail, Profile profile) async {
     final token = await MakiTokenStore().retrieveToken();
     final body = {
       'isNotLogged': false,
@@ -211,4 +208,17 @@ class ChallengesRepository extends BaseRepository {
     await client.patch('/api/courses/$slug/payment',
         data: {'orderId': preOrder.requestId, 'link': preOrder.processUrl});
   }
+
+  Future suscribeToChallenge(int id) async {
+    var client = await this.dio;
+    client.options.baseUrl = API_CMS;
+
+    return client.patch('/api/courses/payment', 
+      data: {
+        'orderId': 1234,
+        'link': 'http://127.0.0.1:8000/courses/basico-en-casa/payment',
+        'plan_id': id
+      }
+    );
+}
 }

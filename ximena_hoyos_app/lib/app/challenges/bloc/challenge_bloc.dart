@@ -37,7 +37,7 @@ class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
         var user = await authenticationRepository.user;
         if (user != null) {
           challenges =
-              await repository.fetchChallengesByUser(user.id, currentPage);
+              await repository.fetchChallengesByUser(user.id!, currentPage);
         } else {
           challenges = [];
         }

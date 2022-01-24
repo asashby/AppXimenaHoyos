@@ -89,12 +89,8 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 TextButton(
                                   onPressed: () async {
-                                    Navigator.of(context)
+                                    await Navigator.of(context)
                                         .push(ShopPage.route());
-                                    /*Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => ShopPage()),
-                                    );*/
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

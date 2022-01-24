@@ -72,7 +72,7 @@ class NutritionalGuideView extends StatelessWidget {
             return SizedBox(
               height: 200,
               child: Center(
-                child: Text('No hay recetas'),
+                child: Text('No hay comidas'),
               ),
             );
           }

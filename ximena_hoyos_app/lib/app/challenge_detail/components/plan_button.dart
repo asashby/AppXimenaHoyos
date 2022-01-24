@@ -1,6 +1,7 @@
 import 'package:data/models/challenge_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
+import 'package:ximena_hoyos_app/main.dart';
 
 class PlanButton extends StatelessWidget {
 
@@ -16,9 +17,14 @@ class PlanButton extends StatelessWidget {
       children: <Widget>[
         TextButton(
           onPressed: () {
+            selectedChallengeId = plan.id!;
+
             Navigator.push(context, 
               MaterialPageRoute(
-                builder: (context) => PaymentPage(paymentTotal: double.parse(plan.price!),)
+                builder: (context) => PaymentPage(
+                  paymentTotal: double.parse(plan.price!),
+                  paymentOrigin: PaymentOrigin.challenges,
+                )
               )
             );
           },
