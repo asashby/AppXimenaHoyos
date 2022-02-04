@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ximena_hoyos_app/app/recipes/view/recipes_blocked_view.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/rounded_image.dart';
 import 'package:ximena_hoyos_app/app/recipe_detail/recipe_detail.dart';
 import 'package:ximena_hoyos_app/app/recipes/bloc/bloc.dart';
 import 'package:ximena_hoyos_app/common/search_view.dart';
+import 'package:ximena_hoyos_app/main.dart';
 
 class NutritionalGuideView extends StatelessWidget {
   final List<Recipe> data = [];
@@ -24,22 +26,24 @@ class NutritionalGuideView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SearchView(controller: searchController),
-        BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
-          return SizedBox(
-            height: 40,
-            child: ListView.builder(
-              itemCount: categories.length,
-              padding: const EdgeInsets.only(left: 28, right: 20),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => _CategoryItem(
-                filter: categories[index],
-                selected: BlocProvider.of<RecipeBloc>(context).filter ==
-                    categories[index],
+        // areRecipesUnlocked == false ? RecipesBlockedView() :
+          SearchView(controller: searchController),
+        // areRecipesUnlocked == false ? Text("") :
+          BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
+            return SizedBox(
+              height: 40,
+              child: ListView.builder(
+                itemCount: categories.length,
+                padding: const EdgeInsets.only(left: 28, right: 20),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => _CategoryItem(
+                  filter: categories[index],
+                  selected: BlocProvider.of<RecipeBloc>(context).filter ==
+                      categories[index],
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
         SizedBox(
           height: 32,
         ),

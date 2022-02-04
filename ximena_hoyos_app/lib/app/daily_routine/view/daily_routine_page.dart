@@ -10,17 +10,19 @@ import 'package:ximena_hoyos_app/common/check_widget.dart';
 import 'package:ximena_hoyos_app/app/routine/view/routine_page.dart';
 
 class DailyRoutinePage extends StatelessWidget {
-  const DailyRoutinePage({Key? key, required this.routine}) : super(key: key);
+  const DailyRoutinePage({Key? key, required this.routine, required this.challengeId}) : super(key: key);
 
-  static Route route(ChallengesDailyRoutine routine) {
+  static Route route(ChallengesDailyRoutine routine, int? challengeId) {
     return MaterialPageRoute<void>(
       builder: (_) => DailyRoutinePage(
         routine: routine,
+        challengeId: challengeId,
       ),
     );
   }
 
   final ChallengesDailyRoutine routine;
+  final int? challengeId;
 
   @override
   Widget build(BuildContext context) {

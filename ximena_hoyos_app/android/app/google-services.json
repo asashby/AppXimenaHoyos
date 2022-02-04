@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:176182706852:android:75afadfad7ad666fdadc31",
+        "mobilesdk_app_id": "1:176182706852:android:ec34e9033a0856c9dadc31",
         "android_client_info": {
           "package_name": "com.xiprofit.ximena_hoyos_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "176182706852-d9mmsmhmicmjs2sntqc6toio21cgcsgo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "b5309a5c1307bcc3ea4c3cd3d9ac58653f443f83"
+          }
+        },
         {
           "client_id": "176182706852-mp9vsmfr2i4q811n4us06ti7c2p3f0k9.apps.googleusercontent.com",
           "client_type": 3

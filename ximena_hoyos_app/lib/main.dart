@@ -13,6 +13,8 @@ Billing userBilling = Billing();
 int selectedChallengeId = 0;
 double totalPrice = 0;
 bool isChallengeOwned = false;
+int? challengeSelectedId = 0;
+bool areRecipesUnlocked = false;
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark

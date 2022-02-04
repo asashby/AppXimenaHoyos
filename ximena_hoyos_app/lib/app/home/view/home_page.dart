@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   authenticationRepository: RepositoryProvider.of(context))),
           BlocProvider(
               create: (ctx) =>
-                  RecipeBloc(repository: RepositoryProvider.of(context))),
+                  RecipeBloc(repository: RepositoryProvider.of(context), challengesRepository: RepositoryProvider.of(context))),
           BlocProvider(
               create: (ctx) => PreferenceBloc(RepositoryProvider.of(context)))
         ],

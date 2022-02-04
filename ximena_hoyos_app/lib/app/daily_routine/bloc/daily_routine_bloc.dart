@@ -3,6 +3,7 @@ import 'package:data/models/exercise_model.dart';
 import 'package:data/repositories/challenges_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ximena_hoyos_app/main.dart';
 
 enum DailyRoutineStatus { initial, loading, success, error }
 
@@ -67,7 +68,7 @@ class DailyRoutineBloc extends Bloc<DailyRoutineEvent, DailyRoutineState> {
     try {
       yield DailyRoutineState.loading();
       final header =
-          await repository.fetchDayExcersise(routine.slug, routine.id);
+          await repository.fetchDayExcersise(routine.slug, challengeSelectedId!);
 
       if (header == null || header.id == 0) {
         throw NoExerciseHeaderFoundException();

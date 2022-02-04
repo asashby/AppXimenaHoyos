@@ -169,6 +169,7 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody>
                   exercise: widget.exercises[index],
                   lock: this.widget.lock,
                   coursePaid: widget.detail.coursePaid,
+                  courseId: widget.detail.id,
                 ),
               );
             }, childCount: widget.exercises.length),
@@ -184,12 +185,14 @@ class _DaylyRoutineView extends StatelessWidget {
   final ChallengesDailyRoutine exercise;
   final bool lock;
   final int? coursePaid;
+  final int? courseId;
 
   const _DaylyRoutineView({
     Key? key,
     required this.exercise,
     required this.lock,
-    required this.coursePaid
+    required this.coursePaid,
+    required this.courseId
   }) : super(key: key);
 
   @override
@@ -200,7 +203,8 @@ class _DaylyRoutineView extends StatelessWidget {
       color: Colors.white,
       onPressed: () async {
         if (coursePaid == 1) {
-          Navigator.of(context).push(DailyRoutinePage.route(exercise));
+          challengeSelectedId = courseId;
+          Navigator.of(context).push(DailyRoutinePage.route(exercise, courseId));
         }
       },
       child: Row(
