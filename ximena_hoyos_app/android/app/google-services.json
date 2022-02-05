@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "176182706852",
-    "project_id": "ximenahoyosapp",
-    "storage_bucket": "ximenahoyosapp.appspot.com"
+    "project_number": "940323001846",
+    "project_id": "ximena-hoyos-fit",
+    "storage_bucket": "ximena-hoyos-fit.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:176182706852:android:ec34e9033a0856c9dadc31",
+        "mobilesdk_app_id": "1:940323001846:android:6967add26fdaeec751e3d7",
         "android_client_info": {
           "package_name": "com.xiprofit.ximena_hoyos_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "176182706852-d9mmsmhmicmjs2sntqc6toio21cgcsgo.apps.googleusercontent.com",
+          "client_id": "940323001846-nebf9kmn7hhqhs397jgds5qdn9m6hqe6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.xiprofit.ximena_hoyos_app",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "176182706852-mp9vsmfr2i4q811n4us06ti7c2p3f0k9.apps.googleusercontent.com",
+          "client_id": "940323001846-2e2dr3133r6f5orrmf8ngmk4r800f8ho.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC7ROWVetMcqG-4CqkLuG5H1HHy3wsJhQ0"
+          "current_key": "AIzaSyAnNIr2pcc_70r19Oz_ogakbRPgcNz1qY4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "176182706852-mp9vsmfr2i4q811n4us06ti7c2p3f0k9.apps.googleusercontent.com",
+              "client_id": "940323001846-2e2dr3133r6f5orrmf8ngmk4r800f8ho.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
