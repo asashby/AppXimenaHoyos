@@ -26,24 +26,22 @@ class NutritionalGuideView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // areRecipesUnlocked == false ? RecipesBlockedView() :
-          SearchView(controller: searchController),
-        // areRecipesUnlocked == false ? Text("") :
-          BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
-            return SizedBox(
-              height: 40,
-              child: ListView.builder(
-                itemCount: categories.length,
-                padding: const EdgeInsets.only(left: 28, right: 20),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => _CategoryItem(
-                  filter: categories[index],
-                  selected: BlocProvider.of<RecipeBloc>(context).filter ==
-                      categories[index],
-                ),
+        SearchView(controller: searchController),
+        BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
+          return SizedBox(
+            height: 40,
+            child: ListView.builder(
+              itemCount: categories.length,
+              padding: const EdgeInsets.only(left: 28, right: 20),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => _CategoryItem(
+                filter: categories[index],
+                selected: BlocProvider.of<RecipeBloc>(context).filter ==
+                    categories[index],
               ),
-            );
-          }),
+            ),
+          );
+        }),
         SizedBox(
           height: 32,
         ),
@@ -81,6 +79,9 @@ class NutritionalGuideView extends StatelessWidget {
             );
           }
 
+          if (areRecipesUnlocked == false ){
+            return RecipesBlockedView();
+          }
           return ListView.builder(
             itemCount: data.length,
             shrinkWrap: true,

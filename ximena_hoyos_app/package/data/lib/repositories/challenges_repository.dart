@@ -8,6 +8,7 @@ import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/challenges_model.dart';
 import 'package:data/models/comment_model.dart';
 import 'package:data/models/company_model.dart';
+import 'package:data/models/current_courses_model.dart';
 import 'package:data/models/exercise_model.dart';
 import 'package:data/models/page_model.dart';
 import 'package:data/models/pre_order_response.dart';
@@ -65,6 +66,15 @@ class ChallengesRepository extends BaseRepository {
 
     final response = await client.get('/api/courses/$slug/detail-user');
     return ChallengeDetail.fromJson(response.data);
+  }
+
+  /// Obtener el detalle del reto en funcion al slug de la cabecera
+  Future<CurrentCourses> fetchCurrentCourses() async {
+    var client = await this.dio;
+    client.options.baseUrl = API_CMS;
+
+    final response = await client.get('/api/current/courses');
+    return CurrentCourses.fromJson(response.data);
   }
 
   /// Obtener los planes del reto del reto en funcion al slug de la cabecera

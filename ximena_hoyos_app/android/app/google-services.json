@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "940323001846-nebf9kmn7hhqhs397jgds5qdn9m6hqe6.apps.googleusercontent.com",
+          "client_id": "940323001846-fdcnjuei5mlfmm6ot2295hsvskfaorbt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.xiprofit.ximena_hoyos_app",
-            "certificate_hash": "b5309a5c1307bcc3ea4c3cd3d9ac58653f443f83"
+            "certificate_hash": "62c072a63acb9143bf2888f42782524f920276bd"
           }
         },
         {

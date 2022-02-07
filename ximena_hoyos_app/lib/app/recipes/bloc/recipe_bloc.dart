@@ -1,4 +1,5 @@
 import 'package:data/models/challenge_detail.dart';
+import 'package:data/models/current_courses_model.dart';
 import 'package:data/repositories/challenges_repository.dart';
 import 'package:data/repositories/recipe_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,18 +42,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
       final search = this.search.length > 2 ? this.search : '';
 
-      var response =
-          await repository.fetchRecipes(page, filter: filter, search: search);
-      /*ChallengeDetail challenge1 = await challengesRepository.fetchChallengeDetail('basico-en-casa');
-      ChallengeDetail challenge2 = await challengesRepository.fetchChallengeDetail('intermedio-en-casa');
-      ChallengeDetail challenge3 = await challengesRepository.fetchChallengeDetail('avanzado-en-gym');
+      CurrentCourses currentCourses = await challengesRepository.fetchCurrentCourses();
 
-      if(challenge1.coursePaid == 1 || challenge2.coursePaid == 1 || challenge3.coursePaid == 1){
+      if(currentCourses.courseCount! > 0){
         areRecipesUnlocked = true;
       }
       else{
         areRecipesUnlocked = false;
-      }*/
+      }
+
+      var response =
+          await repository.fetchRecipes(page, filter: filter, search: search);
 
       yield RecipeSucessState(response);
       page++;
