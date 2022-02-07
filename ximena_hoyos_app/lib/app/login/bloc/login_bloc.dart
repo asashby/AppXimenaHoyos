@@ -80,8 +80,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<DataProviderResult> _loginWithGoogle() async {
-
-
     GoogleSignInAccount? account = _googleSignIn.currentUser;
 
     if (account == null) {
@@ -100,30 +98,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         photoUrl: account.photoUrl,
         provider: Provider.google);
   }
-  
-  Future<DataProviderResult> googleLogin() async{
-      final googleUser = await googleSignIn.signIn();
-      //if (googleUser == null) return null;
 
-      _user = googleUser;
+  Future<DataProviderResult> googleLogin() async {
+    final googleUser = await googleSignIn.signIn();
+    //if (googleUser == null) return null;
 
-      final googleAuth = await googleUser!.authentication;
+    _user = googleUser;
 
-      final credential = GoogleAuthProvider.credential(
+    final googleAuth = await googleUser!.authentication;
 
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken
-      );
+    final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+    await FirebaseAuth.instance.signInWithCredential(credential);
 
-      
-      return DataProviderResult(
-          email: _user!.email,
-          firstName: _user!.displayName ?? "",
-          lastName: "",
-          id: _user!.id,
-          photoUrl: _user!.photoUrl,
-          provider: Provider.google);
-    }
+    return DataProviderResult(
+        email: _user!.email,
+        firstName: _user!.displayName ?? "",
+        lastName: "",
+        id: _user!.id,
+        photoUrl: _user!.photoUrl,
+        provider: Provider.google);
+  }
 }
