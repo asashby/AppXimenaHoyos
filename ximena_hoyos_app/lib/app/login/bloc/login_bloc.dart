@@ -64,9 +64,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     var accessToken = await FacebookAuth.instance.accessToken;
 
     if (accessToken == null || accessToken.isExpired) {
-      final result = await FacebookAuth.instance
-          .login(permissions: ['public_profile', 'email']);
-
+      final result =
+          await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
       if (result.status == LoginStatus.success) {
         accessToken = result.accessToken;
       } else {
