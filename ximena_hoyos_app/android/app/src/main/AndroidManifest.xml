@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Ximena Hoyos"
         android:icon="@mipmap/ic_launcher">
         <activity
