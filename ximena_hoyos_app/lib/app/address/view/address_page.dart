@@ -110,7 +110,7 @@ class AddressPage extends StatelessWidget {
                                 child: DropdownButton(
                                   iconEnabledColor: Color(0xFFCE9AAA),
                                   iconSize: 60,
-                                  items: [],
+                                  items: <DropdownMenuItem<Object>>[], onChanged: (Object? value) {  },
                                 ),
                               )
                             ],
@@ -150,7 +150,7 @@ class AddressPage extends StatelessWidget {
                                 child: DropdownButton(
                                   iconEnabledColor: Color(0xFFCE9AAA),
                                   iconSize: 60,
-                                  items: [],
+                                  items: <DropdownMenuItem<Object>>[], onChanged: (Object? value) {  },
                                 ),
                               )
                             ],
