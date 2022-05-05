@@ -177,10 +177,18 @@ class _TitleView extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
-          child: Text(
-            title!,
-            style: Theme.of(context).textTheme.headline1,
-          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: Text(
+              title!,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24, 
+                fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.left,
+            ),
+          )
         ),
       ],
     );

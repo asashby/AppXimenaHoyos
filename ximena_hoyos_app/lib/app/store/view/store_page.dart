@@ -9,47 +9,48 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-        child: BaseView(
-      title: 'Tienda',
-      caption: 'ipsum lorem et agui',
-      slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              _StoreSearchView(),
-              _StoreCategories(),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.only(top: 30),
-                itemCount: 5,
-                itemBuilder: (context, index) => _ProductSecction(
-                  title: 'Las proteinicas',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 60, left: 28, right: 28, top: 60),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  height: 60,
-                  color: Theme.of(context).buttonColor,
-                  onPressed: () {
-                    Navigator.of(context).push(CartShopPage.route());
-                  },
-                  child: Text(
-                    "Ver carrito",
-                    style: Theme.of(context).textTheme.button,
+      child: BaseView(
+        title: 'Tienda',
+        caption: 'ipsum lorem et agui',
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                _StoreSearchView(),
+                _StoreCategories(),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 30),
+                  itemCount: 5,
+                  itemBuilder: (context, index) => _ProductSecction(
+                    title: 'Las proteinicas',
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 60, left: 28, right: 28, top: 60),
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    color: Theme.of(context).buttonColor,
+                    onPressed: () {
+                      Navigator.of(context).push(CartShopPage.route());
+                    },
+                    child: Text(
+                      "Ver carrito",
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      )
+    );
   }
 }
 

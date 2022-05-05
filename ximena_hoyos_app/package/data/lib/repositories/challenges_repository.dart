@@ -19,6 +19,8 @@ import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:logger/logger.dart';
 
+import '../models/shop_product.dart';
+
 class ChallengesRepository extends BaseRepository {
   ChallengesRepository(TokenStore tokenStore) : super(tokenStore, API_CMS);
 
@@ -230,5 +232,34 @@ class ChallengesRepository extends BaseRepository {
         'plan_id': id
       }
     );
-}
+  }
+
+  Future registerOrderWithPromoData(List<int?> shopPromoItems, List<ShopProduct> shopProducts, double totalPrice) async {
+    var client = await this.dio;
+    client.options.baseUrl = API_CMS;
+
+    return client.patch('/api/courses/payment', 
+      data: {
+        'orderId': 1234,
+        'link': 'http://127.0.0.1:8000/courses/basico-en-casa/payment',
+        'product_id': shopPromoItems,
+        'line_items': shopProducts,
+        'total': totalPrice
+      }
+    );
+  }
+
+  Future registerOrderData(List<ShopProduct> shopProducts, double totalPrice) async {
+    var client = await this.dio;
+    client.options.baseUrl = API_CMS;
+
+    return client.patch('/api/courses/payment', 
+      data: {
+        'orderId': 1234,
+        'link': 'http://127.0.0.1:8000/courses/basico-en-casa/payment',
+        'line_items': shopProducts,
+        'total': totalPrice
+      }
+    );
+  }
 }

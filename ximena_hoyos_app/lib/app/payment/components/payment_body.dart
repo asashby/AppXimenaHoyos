@@ -541,11 +541,32 @@ class PaymentBody extends StatelessWidget {
         ShippingLines(
           methodId: 'flat_rate',
           methodTitle: 'Flat Rate',
-          total: '10.00'
+          total: '13.00'
         )
       ]
     );
 
     await productsRepository.createWoocommerceOrder(order);
+
+    shopOrderItems.forEach((element) async { 
+      if(element.productHasChallengePromo == 1){
+        shopPromoItems.add(element.productId!);
+        orderHasPromo = true;
+      }
+    });
+    
+    if(orderHasPromo == true){
+      await challengesRepository.registerOrderWithPromoData(shopPromoItems, shopProducts, totalPrice + 13);
+    }
+    else {
+      await challengesRepository.registerOrderData(shopProducts, totalPrice + 13);
+    }
+
+    checkoutItems = [];
+    shopOrderItems = [];
+    shopProducts = [];
+    shopPromoItems = [];
+    orderHasPromo = false;
+    totalPrice = 0;
   }
 }

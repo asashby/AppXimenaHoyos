@@ -193,7 +193,7 @@ class _HomeErrorView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Ha ocurrido un error inesperado, intente nuevmaente',
+              'Ha ocurrido un error inesperado, intente nuevamente',
               textAlign: TextAlign.center,
             ),
             SizedBox(

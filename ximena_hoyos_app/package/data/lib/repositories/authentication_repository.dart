@@ -90,7 +90,7 @@ class AuthenticationRepository implements AuthenticationDataSource {
     }
     if (credential.token != null && credential.user != null) {
       await _tokenStore.storeToken(credential.token!);
-      await MakiTokenStore().storeToken(credential.tokenMaki!);
+      //await MakiTokenStore().storeToken(credential.tokenMaki!);
       await _setUser(credential.user!);
     } else {
       throw Exception("NO_TOKEN");

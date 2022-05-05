@@ -5,16 +5,20 @@ import 'app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:data/models/checkout_item.dart';
 import 'package:data/models/woocommerce_order_model.dart';
+import 'package:data/models/shop_product.dart';
 
 int numOfCardItems = 1;
 List<CheckoutItem> checkoutItems = [];
 List<LineItems> shopOrderItems = [];
+List<ShopProduct> shopProducts = [];
+List<int> shopPromoItems = [];
 Billing userBilling = Billing();
 int selectedChallengeId = 0;
 double totalPrice = 0;
 bool isChallengeOwned = false;
 int? challengeSelectedId = 0;
 bool areRecipesUnlocked = false;
+bool orderHasPromo = false;
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark

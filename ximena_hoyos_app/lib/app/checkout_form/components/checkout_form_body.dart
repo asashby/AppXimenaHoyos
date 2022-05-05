@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:data/models/mp_response_model.dart';
+import 'package:data/models/shop_product.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class CheckoutFormBody extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                'resources/success.png',
+                'form',
                 fit: BoxFit.fitHeight,
                 height: 200,
               ),
@@ -422,7 +423,7 @@ class CheckoutFormBody extends StatelessWidget {
                           Navigator.push(context, 
                             MaterialPageRoute(
                               builder: (context) => PaymentPage(
-                                paymentTotal: 1,
+                                paymentTotal: totalPrice + 13,
                                 paymentOrigin: PaymentOrigin.shop,
                               )
                             )
@@ -492,7 +493,18 @@ class CheckoutFormBody extends StatelessWidget {
       shopOrderItems.add(
         LineItems(
           productId: element.product.id,
-          quantity: element.quantity
+          quantity: element.quantity,
+          name: element.product.name,
+          productHasChallengePromo: element.product.hasChallengePromo,
+          productChallengeId: element.product.challengeId
+        )
+      );
+
+      shopProducts.add(
+        ShopProduct(
+          productId: element.product.id,
+          name: element.product.name,
+          count: element.quantity
         )
       );
     });

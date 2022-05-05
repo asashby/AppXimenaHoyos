@@ -13,6 +13,8 @@ class Product {
   bool? onSale;
   bool? purchasable;
   bool? manageStock;
+  int? hasChallengePromo;
+  int? challengeId;
   int? stockQuantity;
   Dimensions? dimensions;
   List<Categories>? categories;
@@ -34,6 +36,8 @@ class Product {
       this.onSale,
       this.purchasable,
       this.manageStock,
+      this.hasChallengePromo,
+      this.challengeId,
       this.stockQuantity,
       this.dimensions,
       this.categories,

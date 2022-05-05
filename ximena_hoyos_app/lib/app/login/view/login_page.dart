@@ -75,11 +75,10 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Selecciona tu red social de preferencia para entrar:",
+                      "Selecciona la red social de tu preferencia para entrar:",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold
+                        fontSize: 12
                       )
                     ),
                     SizedBox( height: kDefaultPadding,),
@@ -111,7 +110,7 @@ class LoginView extends StatelessWidget {
                           colorOff: Color(0xff3b5998),
                           iconOn: Icons.arrow_forward,
                           iconOff: Icons.arrow_back,
-                          textSize: 15.0,
+                          textSize: 14.0,
                           onChanged: (bool state) {
                             isGoogle = state;
                           },
