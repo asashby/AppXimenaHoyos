@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/address/address.dart';
+import 'package:ximena_hoyos_app/app/calculator/view/calculator_page.dart';
 import 'package:ximena_hoyos_app/app/preferences/bloc/preferences_bloc.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
@@ -58,6 +59,13 @@ class PreferencePage extends StatelessWidget {
                         .push(PrivacyPage.route(ContentType.privacy));
                   },
                   title: 'Politicas de privacidad',
+                ),
+                _PreferenceButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(CalculatorPage.route());
+                  },
+                  title: 'Calculadora XIPROFIT',
                 ),
                 _PreferenceButton(
                   title: 'Contactar',

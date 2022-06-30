@@ -1,4 +1,4 @@
-import 'package:data/models/product_model.dart';
+import 'package:data/models/products_payload_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -18,7 +18,7 @@ class Description extends StatelessWidget {
         vertical: 0,
       ),
       child: Html(
-        data: product.shortDescription!,
+        data: product.description!,
         style: {
           "p": Style(
             color: Colors.white

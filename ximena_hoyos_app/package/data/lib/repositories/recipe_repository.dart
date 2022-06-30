@@ -5,7 +5,7 @@ import 'package:data/repositories/base_repository.dart';
 import 'package:data/sources/token_store.dart';
 import 'package:data/utils/constants.dart';
 
-enum RecipeFilter { none, breakfast, lunch, dinner }
+enum RecipeFilter { none, breakfast, middleMorning, lunch, middleAfternoon, dinner }
 
 extension RecipeFilterExtension on RecipeFilter {
   String get name {
@@ -14,8 +14,12 @@ extension RecipeFilterExtension on RecipeFilter {
         return "Todos";
       case RecipeFilter.breakfast:
         return "Desayuno";
+      case RecipeFilter.middleMorning:
+        return "Media manana";
       case RecipeFilter.lunch:
         return "Almuerzo";
+      case RecipeFilter.middleAfternoon:
+        return "Media tarde";
       case RecipeFilter.dinner:
         return "Cena";
     }

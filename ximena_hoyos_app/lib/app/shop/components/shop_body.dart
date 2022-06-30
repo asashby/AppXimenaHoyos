@@ -1,4 +1,4 @@
-import 'package:data/models/product_model.dart';
+import 'package:data/models/products_payload_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ximena_hoyos_app/app/shop/components/categories.dart' as CategoriesView;
@@ -8,10 +8,12 @@ import 'package:ximena_hoyos_app/app/shop_details/view/shop_details_page.dart';
 class ShopBody extends StatelessWidget {
 
   final List<Product>? productsData;
+  final List<Categories>? categoriesData;
 
   const ShopBody({ 
     Key? key, 
-    required this.productsData
+    required this.productsData,
+    required this.categoriesData
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class ShopBody extends StatelessWidget {
             )
           )
         ),
-        CategoriesView.Categories(),
+        CategoriesView.CategoriesView(categories: categoriesData),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),

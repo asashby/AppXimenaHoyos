@@ -22,19 +22,18 @@ class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-        child: BaseView(
-      showBackButton: true,
-      title: contentType == ContentType.terms
-          ? "Terminos y condiciones"
-          : "Politicas de privacidad",
-      sliver: SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          child: FutureBuilder<Company?>(
+      child: BaseView(
+        showBackButton: true,
+        title: contentType == ContentType.terms
+            ? "Terminos y condiciones"
+            : "Politicas de privacidad",
+        sliver: SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: FutureBuilder<Company?>(
               future: context.read<CompanyRepository>().getCompanyInfo(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.data != null) {
+                if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) {
                   return Text(
                     contentType == ContentType.terms
                         ? snapshot.data!.helpCenter.description
@@ -47,9 +46,11 @@ class PrivacyPage extends StatelessWidget {
                 } else {
                   return SizedBox.shrink();
                 }
-              }),
+              }
+            ),
+          ),
         ),
-      ),
-    ));
+      )
+    );
   }
 }

@@ -101,7 +101,7 @@ class CartItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          item.product.images![0].src!,
+                          item.product.urlImage!,
                         ),
                         fit: BoxFit.fitHeight
                       ),

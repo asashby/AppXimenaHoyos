@@ -1,6 +1,6 @@
 
 
-import 'package:data/models/product_model.dart';
+import 'package:data/models/products_payload_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class ItemCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    product.images![0].src!,
+                    product.urlImage!,
                   ),
                   fit: BoxFit.cover
                 ),

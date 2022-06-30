@@ -1,5 +1,6 @@
 
 import 'package:data/models/checkout_item.dart';
+import 'package:data/models/product_model.dart';
 import 'package:data/repositories/products_repository.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ximena_hoyos_app/app/shop_cart/view/shop_cart_page.dart';
 import 'package:ximena_hoyos_app/app/shop/bloc/products_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
+import 'package:ximena_hoyos_app/main.dart';
+
+import '../bloc/products_event.dart';
 
 class ShopPage extends StatelessWidget {
+  List<Product> data = [];
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -50,7 +55,7 @@ class ShopPage extends StatelessWidget {
             case ProductStatus.success:
               return Scaffold(
                 appBar: buildAppBar(context),
-                body: ShopBody(productsData: state.products),
+                body: ShopBody(productsData: state.products, categoriesData: state.productCategories),
                 backgroundColor: backgroundMainColor,
               );
           }

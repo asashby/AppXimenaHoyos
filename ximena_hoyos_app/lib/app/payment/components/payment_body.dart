@@ -1,4 +1,5 @@
 import 'package:culqi_flutter/culqi_flutter.dart';
+import 'package:data/models/shop_order.dart';
 import 'package:data/repositories/challenges_repository.dart';
 import 'package:data/repositories/products_repository.dart';
 import 'package:data/utils/constants.dart';
@@ -9,7 +10,6 @@ import 'package:ximena_hoyos_app/app/payment/view/payment_info_page.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
 import 'package:ximena_hoyos_app/main.dart';
 import 'package:data/models/payment_type.dart';
-import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/models/culqi_charge_model.dart';
 
 final ProductsRepository productsRepository = ProductsRepository(TokenStoreImp());
@@ -520,13 +520,10 @@ class PaymentBody extends StatelessWidget {
   }
 
   Future sendOrder() async {
-    WoocommerceOrder order = WoocommerceOrder(
-      paymentMethod: 'bacs',
-      paymentMethodTitle: 'Direct Bank Transfer',
-      status: 'pending',
-      currency: 'PEN',
-      setPaid: true,
-      billing: userBilling,
+
+    ShopOrder shopOrder = ShopOrder(
+      origin: 'store',
+      lineItems: shopOrderItems,
       shipping: Shipping(
         firstName: userBilling.firstName,
         lastName: userBilling.lastName,
@@ -536,31 +533,26 @@ class PaymentBody extends StatelessWidget {
         state: userBilling.state,
         country: 'PE'
       ),
-      lineItems: shopOrderItems,
-      shippingLines: [
-        ShippingLines(
-          methodId: 'flat_rate',
-          methodTitle: 'Flat Rate',
-          total: '13.00'
-        )
-      ]
+      costShipping: 13.00,
+      total: paymentTotal
     );
 
-    await productsRepository.createWoocommerceOrder(order);
+    //await productsRepository.createWoocommerceOrder(order);
+    await productsRepository.createOrder(shopOrder);
 
     shopOrderItems.forEach((element) async { 
-      if(element.productHasChallengePromo == 1){
+      if(element.category!.toUpperCase() == "PROMOCIONES"){
         shopPromoItems.add(element.productId!);
         orderHasPromo = true;
       }
     });
     
-    if(orderHasPromo == true){
+    /*if(orderHasPromo == true){
       await challengesRepository.registerOrderWithPromoData(shopPromoItems, shopProducts, totalPrice + 13);
     }
     else {
       await challengesRepository.registerOrderData(shopProducts, totalPrice + 13);
-    }
+    }*/
 
     checkoutItems = [];
     shopOrderItems = [];

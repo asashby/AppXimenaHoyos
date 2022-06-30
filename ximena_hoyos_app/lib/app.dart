@@ -8,6 +8,7 @@ import 'package:data/repositories/repositories.dart'
         ProductsRepository,
         TipsRepository;
 import 'package:data/utils/token_store_impl.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/authentication/bloc/authentication_bloc.dart';
@@ -101,10 +102,12 @@ class _AppViewState extends State<AppView> {
             listener: (context, state) {
               switch (state.status) {
                 case AuthenticationStatus.authenticated:
+                  //FirebaseCrashlytics.instance.crash();
                   _navigator!
                       .pushAndRemoveUntil(HomePage.route(), (route) => false);
                   break;
                 case AuthenticationStatus.unauthenticated:
+                  //FirebaseCrashlytics.instance.crash();
                   _navigator!
                       .pushAndRemoveUntil(LoginPage.route(), (route) => false);
                   break;

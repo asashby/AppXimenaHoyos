@@ -161,23 +161,24 @@ class Shipping {
 
 class LineItems {
   int? productId;
-  int? quantity;
+  int? count;
   String? name;
   int? productHasChallengePromo;
   int? productChallengeId;
+  String? category;
 
-  LineItems({this.productId, this.quantity, this.name, this.productHasChallengePromo, this.productChallengeId});
+  LineItems({this.productId, this.count, this.name, this.productHasChallengePromo, this.productChallengeId, this.category});
 
   LineItems.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
-    quantity = json['quantity'];
+    count = json['count'];
     name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['product_id'] = this.productId;
-    data['quantity'] = this.quantity;
+    data['count'] = this.count;
     data['name'] = this.name;
     return data;
   }

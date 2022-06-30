@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:data/models/mp_response_model.dart';
+import 'package:data/models/shop_order.dart';
 import 'package:data/models/shop_product.dart';
+import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
-import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/repositories/products_repository.dart';
 import 'package:mercado_pago_integration/mercado_pago_integration.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -491,12 +492,14 @@ class CheckoutFormBody extends StatelessWidget {
 
     checkoutItems.forEach((element) {
       shopOrderItems.add(
-        LineItems(
+        ShopItem(
           productId: element.product.id,
-          quantity: element.quantity,
+          count: element.quantity,
           name: element.product.name,
+          productImage: element.product.urlImage,
           productHasChallengePromo: element.product.hasChallengePromo,
-          productChallengeId: element.product.challengeId
+          productChallengeId: element.product.challengeId,
+          category: element.product.categories![0].name
         )
       );
 

@@ -1,5 +1,5 @@
 
-import 'package:data/models/product_model.dart';
+import 'package:data/models/products_payload_model.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutItem extends ChangeNotifier{

@@ -1,4 +1,4 @@
-import 'package:data/models/product_model.dart';
+import 'package:data/models/products_payload_model.dart';
 import 'package:data/models/checkout_item.dart';
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';

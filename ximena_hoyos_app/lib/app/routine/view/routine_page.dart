@@ -84,6 +84,11 @@ class _RoutineContent extends StatefulWidget {
 class _RoutineContentState extends State<_RoutineContent> {
   VideoPlayerController? _controller;
   late Future _initializeVideoPlayerFuture;
+  double videoHeight = 250;
+  double videoWidth = 250;
+  int videoRotation = 0;
+  double videoAspectRatio = 16/16;
+  bool isFullScreen = false;
 
   @override
   void initState() {
@@ -123,18 +128,20 @@ class _RoutineContentState extends State<_RoutineContent> {
                       color: Colors.black54,
                       borderRadius: BorderRadius.circular(16)),
                   margin: const EdgeInsets.only(left: 28, right: 28),
-                  height: 250,
-                  width: 250,
-                  child: Stack(
-                    children: [
-                      FutureBuilder(
+                  height: videoHeight,
+                  width: videoWidth,
+                  child: RotatedBox(
+                    quarterTurns: videoRotation,
+                    child: Stack(
+                      children: [
+                        FutureBuilder(
                           future: _initializeVideoPlayerFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               return Center(
                                   child: AspectRatio(
-                                    aspectRatio: _controller!.value.aspectRatio,
+                                    aspectRatio: videoAspectRatio,
                                     child: VideoPlayer(_controller!),
                                   ),
                               );
@@ -146,10 +153,11 @@ class _RoutineContentState extends State<_RoutineContent> {
                                 ),
                               );
                             }
-                          }),
-                      Positioned(
-                        bottom: 0,
-                        child: IconButton(
+                          }
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: IconButton(
                             icon: Icon(
                               (_controller?.value.isPlaying ?? false)
                                   ? Icons.pause_outlined
@@ -166,9 +174,39 @@ class _RoutineContentState extends State<_RoutineContent> {
                                   _controller!.play();
                                 }
                               });
-                            }),
-                      )
-                    ],
+                            }
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.crop_rotate_outlined,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (isFullScreen){
+                                  videoHeight = 250;
+                                  videoWidth = 250;
+                                  videoAspectRatio = 16/16;
+                                  videoRotation = 0;
+                                  isFullScreen = false;
+                                }
+                                else{
+                                  videoHeight = MediaQuery.of(context).size.height * 0.85;
+                                  videoWidth = MediaQuery.of(context).size.width;
+                                  videoAspectRatio = 16/10;
+                                  videoRotation = 1;
+                                  isFullScreen = true;
+                                }
+                              });
+                            }
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
