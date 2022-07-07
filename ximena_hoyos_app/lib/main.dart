@@ -38,6 +38,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(App());
 }

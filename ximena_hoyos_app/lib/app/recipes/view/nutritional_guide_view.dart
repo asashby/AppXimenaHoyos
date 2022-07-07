@@ -65,9 +65,12 @@ class NutritionalGuideView extends StatelessWidget {
             BlocProvider.of<RecipeBloc>(context).isFetching = false;
           } else if (state is RecipeErrorState) {
             BlocProvider.of<RecipeBloc>(context).isFetching = false;
-            return AppErrorView(onPressed: () {
-              BlocProvider.of<RecipeBloc>(context).add(RecipeRefreshEvent());
-            });
+            return AppErrorView(
+              onPressed: () {
+                BlocProvider.of<RecipeBloc>(context).add(RecipeRefreshEvent());
+              },
+              message: "Tu token ha expirado, inicia sesión nuevamente para continuar",
+            );
           }
 
           if (data.isEmpty) {

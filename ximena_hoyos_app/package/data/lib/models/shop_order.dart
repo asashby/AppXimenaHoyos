@@ -4,13 +4,17 @@ class ShopOrder {
   Shipping? shipping;
   double? costShipping;
   double? total;
+  List<int>? promoProducts;
+  bool? hasPromo;
 
   ShopOrder(
       {this.origin,
       this.lineItems,
       this.shipping,
       this.costShipping,
-      this.total});
+      this.total,
+      this.promoProducts,
+      this.hasPromo});
 
   ShopOrder.fromJson(Map<String, dynamic> json) {
     origin = json['origin'];
@@ -25,6 +29,8 @@ class ShopOrder {
         : null;
     costShipping = json['cost_shipping'];
     total = json['total'];
+    hasPromo = json['hasPromo'];
+    promoProducts = json['promoProducts'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +44,8 @@ class ShopOrder {
     }
     data['cost_shipping'] = this.costShipping;
     data['total'] = this.total;
+    data['hasPromo'] = this.hasPromo;
+    data['promoProducts'] = this.promoProducts;
     return data;
   }
 }

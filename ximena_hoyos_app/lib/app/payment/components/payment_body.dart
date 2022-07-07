@@ -521,6 +521,13 @@ class PaymentBody extends StatelessWidget {
 
   Future sendOrder() async {
 
+    shopOrderItems.forEach((element) async { 
+      if(element.category!.toUpperCase() == "PROMOCIONES"){
+        shopPromoItems.add(element.productId!);
+        orderHasPromo = true;
+      }
+    });
+
     ShopOrder shopOrder = ShopOrder(
       origin: 'store',
       lineItems: shopOrderItems,
@@ -539,20 +546,13 @@ class PaymentBody extends StatelessWidget {
 
     //await productsRepository.createWoocommerceOrder(order);
     await productsRepository.createOrder(shopOrder);
-
-    shopOrderItems.forEach((element) async { 
-      if(element.category!.toUpperCase() == "PROMOCIONES"){
-        shopPromoItems.add(element.productId!);
-        orderHasPromo = true;
-      }
-    });
     
-    /*if(orderHasPromo == true){
+    if(orderHasPromo == true){
       await challengesRepository.registerOrderWithPromoData(shopPromoItems, shopProducts, totalPrice + 13);
     }
     else {
       await challengesRepository.registerOrderData(shopProducts, totalPrice + 13);
-    }*/
+    }
 
     checkoutItems = [];
     shopOrderItems = [];
