@@ -74,7 +74,7 @@ class DailyRoutineBloc extends Bloc<DailyRoutineEvent, DailyRoutineState> {
         throw NoExerciseHeaderFoundException();
       }
 
-      final exercises = await repository.fetchExcercisesRoutines(header.id);
+      final exercises = await repository.fetchExcercisesRoutines(routine.id);
 
       yield DailyRoutineState.success(header, exercises);
     } on Exception catch (e) {

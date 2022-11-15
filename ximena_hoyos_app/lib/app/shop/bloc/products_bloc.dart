@@ -120,7 +120,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           bool hasCategory = false;
 
           element.categories!.forEach((element) {
-            if(element.name!.toLowerCase() == categoriesRawData![event.categoryIndex].name!.toLowerCase()){
+            if(element.name!.toLowerCase() == categoriesRawData[event.categoryIndex].name!.toLowerCase()){
               hasCategory = true;
             }
             else{

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ximena_hoyos_app/app/payment/components/payment_body.dart';
 
-enum PaymentOrigin { challenges, shop }
+enum PaymentOrigin { challenges, shop, consultation }
 class PaymentPage extends StatelessWidget {
   final double paymentTotal;
   final PaymentOrigin paymentOrigin;

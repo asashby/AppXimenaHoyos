@@ -14,6 +14,46 @@
       },
       "oauth_client": [
         {
+          "client_id": "940323001846-1dv1bjnhcpt94m1dfg175f9hoo8hdsr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "621adf39aaab8524f751861a40916d378ca9ae38"
+          }
+        },
+        {
+          "client_id": "940323001846-20l6n2p14fdp7jf5jv60ptmrb5u0m3ru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "62c072a63acb9143bf2888f42782524f920276bd"
+          }
+        },
+        {
+          "client_id": "940323001846-ooqmresq0a6gcm83p263vcag8pqqm8re.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "b5309a5c1307bcc3ea4c3cd3d9ac58653f443f83"
+          }
+        },
+        {
+          "client_id": "940323001846-rul64olk83mc32oos1qc6k6a24pietej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "bcd094af840142f3e461376907d3c7f0de015d9d"
+          }
+        },
+        {
+          "client_id": "940323001846-t6mda6ac8to53lj0jbebl6q7o57te4ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xiprofit.ximena_hoyos_app",
+            "certificate_hash": "25544c834d4a39d9bbbb501e79cbff7bbc0585fc"
+          }
+        },
+        {
           "client_id": "940323001846-2e2dr3133r6f5orrmf8ngmk4r800f8ho.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +69,13 @@
             {
               "client_id": "940323001846-2e2dr3133r6f5orrmf8ngmk4r800f8ho.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "940323001846-7caeju4dke1cd4bjkb05g5b0ngb0u9gd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.apprunn.ximenaHoyosApp"
+              }
             }
           ]
         }

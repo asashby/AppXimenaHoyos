@@ -1,5 +1,6 @@
 import 'package:data/models/profile_model.dart';
 import 'package:data/models/section_model.dart';
+import 'package:data/models/slider_item_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable {
@@ -15,7 +16,7 @@ class HomeSuccess extends HomeState {
   final List<Section> section;
   final Profile? user;
 
-  const HomeSuccess(this.section, this.user);
+  const HomeSuccess(this.section,  this.user);
 
   @override
   List<Object> get props => [section];

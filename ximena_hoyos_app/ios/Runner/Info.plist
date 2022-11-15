@@ -42,7 +42,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
-	<string>161378709305985</string>
+	<string>1124390378427503</string>
 	<key>FacebookDisplayName</key>
 	<string>XimenaHoyosTesting</string>
 	<key>LSApplicationQueriesSchemes</key>

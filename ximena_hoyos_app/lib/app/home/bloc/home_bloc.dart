@@ -1,6 +1,7 @@
 import 'package:data/data.dart';
 import 'package:data/repositories/company_repository.dart';
 import 'package:data/repositories/section_repository.dart';
+import 'package:data/repositories/slider_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/home/bloc/home_event.dart';
 import 'package:ximena_hoyos_app/app/home/bloc/home_state.dart';

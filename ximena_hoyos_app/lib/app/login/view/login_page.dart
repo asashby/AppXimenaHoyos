@@ -114,6 +114,15 @@ class LoginView extends StatelessWidget {
                           onChanged: (bool state) {
                             isGoogle = state;
                           },
+                          onTap: (){
+
+                          },
+                          onDoubleTap: () {
+
+                          },
+                          onSwipe: (){
+
+                          },
                         ),
                         SizedBox(width: kDefaultPadding),
                         Container(
@@ -134,11 +143,15 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: kDefaultPadding,),
-                    FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18)
+                    TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          )
+                        ),
+                        backgroundColor: MaterialStateProperty.all(Color(0xff92e600)),
                       ),
-                      color: Color(0xff92e600),
                       onPressed: () {
                         if(isGoogle == true){
                           context.read<LoginBloc>().add(LoginSubmitted(LoginType.google));

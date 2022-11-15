@@ -26,7 +26,7 @@ class ProductTitleWithImage extends StatelessWidget {
           ),
         ),
         Text(
-          "S/" + product.price!,
+          "S/" + product.price!.toString(),
           softWrap: true,
           style: TextStyle(
               fontWeight: FontWeight.bold,

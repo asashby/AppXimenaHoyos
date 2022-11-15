@@ -49,11 +49,14 @@ class ShopCartBody extends StatelessWidget {
             child: SizedBox(
               height: 50,
               width: 250,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18)
+              child: TextButton(
+                style: ButtonStyle( 
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                  )),
+                  backgroundColor: MaterialStateProperty.all(kButtonGreenColor)
                 ),
-                color: kButtonGreenColor,
                 onPressed: () => Navigator.push(context, 
                   MaterialPageRoute(
                     builder: (context) => CheckoutFormPage()

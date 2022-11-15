@@ -2,10 +2,12 @@ import 'package:culqi_flutter/culqi_flutter.dart';
 import 'package:data/models/shop_order.dart';
 import 'package:data/repositories/challenges_repository.dart';
 import 'package:data/repositories/products_repository.dart';
+import 'package:data/repositories/consultation_repository.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_info_page.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
 import 'package:ximena_hoyos_app/main.dart';
@@ -14,6 +16,7 @@ import 'package:data/models/culqi_charge_model.dart';
 
 final ProductsRepository productsRepository = ProductsRepository(TokenStoreImp());
 final ChallengesRepository challengesRepository = ChallengesRepository(TokenStoreImp());
+final ConsultationRepository consultationRepository = ConsultationRepository(TokenStoreImp());
 late String creditCard = '';
 late String expMonth = '';
 late String expYear = '';
@@ -86,12 +89,14 @@ class PaymentBody extends StatelessWidget {
                     }
                     
                     Navigator.of(context).popUntil((route) => route.isFirst);
-                  }
-                  else{
+                  } else if (paymentOrigin == PaymentOrigin.challenges){
                     var count = 0;
                     Navigator.popUntil(context, (route) {
                         return count++ == 4;
                     });
+                  } else if (paymentOrigin == PaymentOrigin.consultation){
+
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   }
                 }, 
                 child: Text(
@@ -366,7 +371,7 @@ class PaymentBody extends StatelessWidget {
                                       var isSuccess = await payCharge();
                                       
                                       hideOpenDialog(context);
-
+                                      
                                       await showPaymentCompletedDialog(context, isSuccess);
                                     }
                                   },
@@ -502,21 +507,27 @@ class PaymentBody extends StatelessWidget {
 
       if(isSuccess == true){
         if(paymentOrigin == PaymentOrigin.shop){
+
           await sendOrder();
           return true;
-        }
-        else{
+        } else if (paymentOrigin == PaymentOrigin.challenges){
+
           await challengesRepository.suscribeToChallenge(selectedChallengeId);
           return true;
+        } else if (paymentOrigin == PaymentOrigin.consultation){
+          
+          await consultationRepository.sendNutritionalConsultation(consultationBody);
+        } else{
+          return false;
         }
-      }
-      else{
+      } else{
         return false;
       }
-    }
-    catch(ex){
+    } catch(ex){
       return false;
     }
+
+    return false;
   }
 
   Future sendOrder() async {

@@ -72,7 +72,7 @@ class Product {
   String? slug;
   String? description;
   String? urlImage;
-  String? price;
+  double? price;
   String? sku;
   int? isActive;
   String? createdAt;
@@ -106,7 +106,13 @@ class Product {
     slug = json['slug'];
     description = json['description'];
     urlImage = json['url_image'];
-    price = json['price'];
+    if(json['price'] is double){
+      price = json['price'];
+    }
+    else{
+      int priceAsInt = json['price'];
+      price = priceAsInt.toDouble();
+    }
     sku = json['sku'];
     isActive = json['is_active'];
     createdAt = json['created_at'];

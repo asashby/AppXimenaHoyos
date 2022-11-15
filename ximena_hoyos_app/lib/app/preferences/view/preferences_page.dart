@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/address/address.dart';
 import 'package:ximena_hoyos_app/app/calculator/view/calculator_page.dart';
+import 'package:ximena_hoyos_app/app/nutritional_consultation/view/nutritional_consultation_page.dart';
 import 'package:ximena_hoyos_app/app/preferences/bloc/preferences_bloc.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
@@ -66,6 +67,13 @@ class PreferencePage extends StatelessWidget {
                         .push(CalculatorPage.route());
                   },
                   title: 'Calculadora XIPROFIT',
+                ),
+                _PreferenceButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(NutritionalConsultationPage.route());
+                  },
+                  title: 'Consulta Nutricional',
                 ),
                 _PreferenceButton(
                   title: 'Contactar',

@@ -7,8 +7,8 @@ import 'package:data/repositories/repositories.dart'
         CompanyRepository,
         ProductsRepository,
         TipsRepository;
+import 'package:data/repositories/slider_repository.dart';
 import 'package:data/utils/token_store_impl.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/authentication/bloc/authentication_bloc.dart';
@@ -16,8 +16,6 @@ import 'package:ximena_hoyos_app/common/glowless_scroll_behavior.dart';
 import 'package:ximena_hoyos_app/app/home/homa.dart';
 import 'package:ximena_hoyos_app/app/login/view/login_page.dart';
 import 'package:ximena_hoyos_app/app/splash/splash.dart';
-import 'package:data/data.dart' show AuthenticationDataSource;
-
 class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -33,6 +31,7 @@ class App extends StatelessWidget {
         RepositoryProvider(create: (ctx) => RecipeRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => TipsRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => ProductsRepository(TokenStoreImp())),
+        RepositoryProvider(create: (ctx) => SliderRepository(TokenStoreImp())),
         RepositoryProvider(
           create: (ctx) => CompanyRepository(),
         )

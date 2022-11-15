@@ -8,12 +8,11 @@ import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:data/repositories/products_repository.dart';
-import 'package:mercado_pago_integration/mercado_pago_integration.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ximena_hoyos_app/app/payment/view/mercadopago_view.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
+import 'package:ximena_hoyos_app/app/paypal/view/PaypalPayment.dart';
 import 'package:ximena_hoyos_app/main.dart';
-import 'package:mercadopago_sdk/mercadopago_sdk.dart';
 import 'package:data/models/mp_post_data_model.dart';
 import 'package:woocommerce/woocommerce.dart';
 import 'package:http/http.dart' as http;
@@ -36,6 +35,83 @@ class CheckoutFormBody extends StatelessWidget {
   CheckoutFormBody({ 
     Key? key
   }) : super(key: key);
+
+  
+  Future<void> showPlansDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Color(0xff221c1c),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "Seleccione un método de pago:",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              TextButton(
+                child: Image(
+                  image: NetworkImage("https://www.ximehoyos.com/_nuxt/img/paypal.93ff7ed.png"),
+                  width: 150,
+                  height: 120,
+                  fit: BoxFit.contain,
+                ),
+                onPressed: () async {
+                  //await generateOrder();
+                  
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => PaypalPayment(
+                        onFinish: (number) async {
+
+                          // payment done
+                          print('order id: '+number);
+
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                child: Image(
+                  image: NetworkImage("https://www.ximehoyos.com/_nuxt/img/credit-cards.61ee137.png"),
+                  width: 150,
+                  height: 120,
+                  fit: BoxFit.contain,
+                ),
+                onPressed: () async {
+                  await generateOrder();
+                  
+                  Navigator.push(context, 
+                    MaterialPageRoute(
+                      builder: (context) => PaymentPage(
+                        paymentTotal: totalPrice + 13,
+                        paymentOrigin: PaymentOrigin.shop,
+                      )
+                    )
+                  );
+                },
+              )
+            ],
+          ),
+        );
+      }
+    );
+  }
 
   Future<void> showPaymentCompletedDialog(BuildContext context) async {
     return await showDialog(
@@ -419,16 +495,7 @@ class CheckoutFormBody extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await generateOrder();
-                          
-                          Navigator.push(context, 
-                            MaterialPageRoute(
-                              builder: (context) => PaymentPage(
-                                paymentTotal: totalPrice + 13,
-                                paymentOrigin: PaymentOrigin.shop,
-                              )
-                            )
-                          );
+                          await showPlansDialog(context);
                         }
                       },
                       style: ButtonStyle(

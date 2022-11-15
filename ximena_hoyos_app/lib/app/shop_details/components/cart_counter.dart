@@ -64,14 +64,18 @@ class _CartCounterState extends State<CartCounter> {
     return SizedBox(
       width: 40,
       height: 32,
-      child: OutlineButton(
+      child: TextButton(
         onPressed: press, 
         child: icon,
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(13),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(13.0),
+            )
+          ),
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
         ),
-        color: Colors.white,
       ),
     );
   }

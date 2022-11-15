@@ -1,175 +1,71 @@
 import 'package:data/models/products_payload_model.dart';
+import 'package:data/models/slider_item_model.dart' as SliderModel;
+import 'package:data/repositories/slider_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:ximena_hoyos_app/app/home/bloc/bloc.dart';
+import 'package:ximena_hoyos_app/app/home/bloc/slider_bloc.dart';
 import 'package:ximena_hoyos_app/app/shop/view/shop_page.dart';
 import 'package:ximena_hoyos_app/app/shop_details/view/shop_details_page.dart';
+import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/main.dart';
 
 class ShopSlider extends StatelessWidget {
   const ShopSlider({ 
-    Key? key 
+    Key? key
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ImageSlideshow(
-          width: MediaQuery.of(context).size.width * 0.9,
-          initialPage: 0,
-          indicatorColor: Colors.blue,
-          indicatorBackgroundColor: Colors.grey,
-          children: [
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 185,
-                  name: 'PACK ISOXIPRO Whey protein 500g + Entrenamiento básico (1 mes)',
-                  price: '199.00',
-                  description:  'Oferta proteína 500 gramos más entrenamiento básico por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-500g.jpg?alt=media&token=78b601fa-71bf-4e91-9ed4-073fc17382f2',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 17
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/1.png',
-                fit: BoxFit.fitWidth
-              ),
-            ),
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 175,
-                  name: 'PACK ISOXIPRO Whey protein isolate + Entrenamiento básico (1 mes)',
-                  price: '238.00',
-                  description:  'Oferta proteína 1 kilogramo más entrenamiento básico por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-chocolate.jpg?alt=media&token=c866be97-1b48-4232-8849-6a44a5dd0a74',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 17
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/6.png',
-                fit: BoxFit.fitWidth
-              ),
-            ),
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 186,
-                  name: 'PACK ISOXIPRO Whey protein 500g + Entrenamiento intermedio (1 mes)',
-                  price: '199.00',
-                  description:  'Oferta proteína 500 gramos más entrenamiento intermedio por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-500g.jpg?alt=media&token=78b601fa-71bf-4e91-9ed4-073fc17382f2',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 18
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/2.png',
-                fit: BoxFit.fitWidth
-              ),
-            ),
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 178,
-                  name: 'PACK ISOXIPRO Whey protein isolate + Entrenamiento intermedio (1 mes)',
-                  price: '238.00',
-                  description:  'Oferta proteína 1 kilogramo más entrenamiento intermedio por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-chocolate.jpg?alt=media&token=c866be97-1b48-4232-8849-6a44a5dd0a74',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 18
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/5.png',
-                fit: BoxFit.fitWidth
-              ),
-            ),
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 187,
-                  name: 'PACK ISOXIPRO Whey protein 500g + Entrenamiento avanzado (1 mes)',
-                  price: '199.00',
-                  description:  'Oferta proteína 500 gramos más entrenamiento avanzado por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-500g.jpg?alt=media&token=78b601fa-71bf-4e91-9ed4-073fc17382f2',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 19
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/3.png',
-                fit: BoxFit.fitWidth
-              ),
-            ),
-            InkWell(
-              onTap: () async{
-                Product product = Product(
-                  id: 180,
-                  name: 'PACK ISOXIPRO Whey protein isolate + Entrenamiento avanzado (1 mes)',
-                  price: '238.00',
-                  description:  'Oferta proteína 1 kilogramo más entrenamiento avanzado por un mes',
-                  urlImage: 'https://firebasestorage.googleapis.com/v0/b/ximenahoyosapp.appspot.com/o/isoxipro-chocolate.jpg?alt=media&token=c866be97-1b48-4232-8849-6a44a5dd0a74',
-                  sku: 'PIPT-1-1',
-                  categories: <Categories>[
-                    Categories(name: 'PROMOCIONES'),
-                    Categories(name: 'PROTEINA')
-                  ],
-                  hasChallengePromo: 1,
-                  challengeId: 19
-                );
-                orderHasPromo = true;
-                await openShop(context, product);
-              },
-              child: Image.network(
-                'https://xoh-media-bucket.s3.amazonaws.com/tienda/4.png',
-                fit: BoxFit.fitWidth
-              )
-            ),
-          ],
-          autoPlayInterval: 3000,
-          isLoop: true,
-        ),
-      ],
+    return BlocProvider(
+      create: (ctx) => SliderBloc(RepositoryProvider.of<SliderRepository>(ctx)),
+      child: BlocBuilder<SliderBloc, SliderState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case SliderStatus.initial:
+              _fetchDetail(context);
+              return SizedBox.shrink();
+            case SliderStatus.error:
+              print(state.error!);
+              return Scaffold(
+                backgroundColor: Colors.black,
+                body: AppErrorView(
+                  onPressed: () {
+                    _fetchDetail(context);
+                  },
+                  onClose: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              );
+            case SliderStatus.loading:
+              return SizedBox(
+                height: 400,
+                child: Center(child: Center(child: CircularProgressIndicator())),
+              );
+            case SliderStatus.success:
+              return Stack(
+                children: <Widget>[
+                  ImageSlideshow(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    initialPage: 0,
+                    indicatorColor: Colors.blue,
+                    indicatorBackgroundColor: Colors.grey,
+                    children: createSliderChildren(context, state.sliderItems),
+                    autoPlayInterval: 3000,
+                    isLoop: true,
+                  ),
+                ],
+              );
+          }
+        }
+      ),
     );
+  }
+
+  _fetchDetail(BuildContext context) {
+    context.read<SliderBloc>().add(SliderFetchEvent());
   }
 
   Future openShop(BuildContext context, Product promoInfo) async{
@@ -181,5 +77,65 @@ class ShopSlider extends StatelessWidget {
         )
       )
     );
+  }
+
+  List<Widget> createSliderChildren(BuildContext context, List<SliderModel.SliderItem>? sliderItems){
+    List<Widget> children = [];
+
+    sliderItems!.forEach((element) {
+      Widget widget = InkWell(
+        onTap: () async{
+          Product product = Product(
+            id: element.product?.id,
+            name: element.product?.name,
+            price: element.product?.price!.toDouble(),
+            description:  element.product?.description,
+            urlImage: element.product?.urlImage,
+            sku: element.product?.sku,
+            categories: <Categories>[
+              Categories(name: 'PROMOCIONES')
+            ],
+            hasChallengePromo: 1
+          );
+          orderHasPromo = true;
+          await openShop(context, product);
+        },
+        child: Image.network(
+          element.urlImage!,
+          fit: BoxFit.fitWidth
+        ),
+      );
+
+      children.add(widget);
+    });
+
+    return children;
+  }
+
+  Widget returnSliderChildren(BuildContext context, SliderModel.SliderItem sliderItem){
+    Widget widget = InkWell(
+      onTap: () async{
+        Product product = Product(
+          id: sliderItem.product?.id,
+          name: sliderItem.product?.name,
+          price: sliderItem.product?.price!.toDouble(),
+          description:  sliderItem.product?.description,
+          urlImage: sliderItem.product?.urlImage,
+          sku: sliderItem.product?.sku,
+          categories: <Categories>[
+            Categories(name: 'PROMOCIONES')
+          ],
+          hasChallengePromo: 1
+        );
+        orderHasPromo = true;
+        await openShop(context, product);
+      },
+      child: Image.network(
+        sliderItem.urlImage!,
+        fit: BoxFit.fitWidth
+      ),
+    );
+
+    return widget;
   }
 }

@@ -243,15 +243,23 @@ class _HomeMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.only(bottom: 30, left: 28, right: 28, top: 20),
-      sliver: SliverStaggeredGrid.countBuilder(
-        crossAxisCount: 2,
+      sliver: SliverGrid.count(
+        crossAxisCount: 1,
         crossAxisSpacing: 16,
-        itemCount: _options.length,
-        itemBuilder: (context, index) {
-          return _options[index];
-        },
+        children: [
+          GridView.builder(
+            itemCount: _options.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            itemBuilder: (context, index) {
+              return _options[index];
+            },
+          )
+        ],
         mainAxisSpacing: 20,
-        staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),
       ),
     );
   }

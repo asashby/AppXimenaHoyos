@@ -27,18 +27,22 @@ class AddToCart extends StatelessWidget {
           Expanded(
             child: SizedBox(
               height: 50,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18)
+              child: TextButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    )
+                  ),
+                  backgroundColor: MaterialStateProperty.all(Color(0xff92e600))
                 ),
-                color: Color(0xff92e600),
                 onPressed: () {
 
                   addItemToCartList(
                     CheckoutItem(
                       product: product,
                       quantity: numOfCardItems,
-                      total: double.parse(product.price!) * numOfCardItems
+                      total: (product.price! * numOfCardItems).toDouble()
                     )
                   );
 

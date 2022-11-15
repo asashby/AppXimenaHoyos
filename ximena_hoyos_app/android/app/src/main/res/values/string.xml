@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ximena Hoyos Fit</string>
-    <string name="facebook_app_id">468102134943879</string>
-    <string name="fb_login_protocol_scheme">fb468102134943879</string>
+    <string name="facebook_app_id">1124390378427503</string>
+    <string name="facebook_client_token">ecc5b5cb2d3ee6d98dfcdd4ff6d40453</string>
+    <string name="fb_login_protocol_scheme">fb1124390378427503</string>
 </resources>

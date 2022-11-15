@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:mercado_pago_integration/mercado_pago_integration.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/bloc/bloc.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/components/plan_button.dart';
