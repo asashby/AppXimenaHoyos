@@ -44,7 +44,7 @@ class _NutritionalConsultationPageState extends State<NutritionalConsultationPag
               children: [
                 SizedBox(height: 25,),
                 Text(
-                  'Si tienes alguna consulta, sobre tu plan nutricional, completa el formulario y con gusto te atenderé. Normalmente respondo al día siguiente de revisar tu mensaje.',
+                  'Solicita tu consulta nutricional y logra mejores resultados con un especialista a tu servicio.',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16
@@ -186,6 +186,9 @@ class _NutritionalConsultationPageState extends State<NutritionalConsultationPag
                     backgroundColor: MaterialStateProperty.all(kButtonGreenColor) 
                   ),
                   onPressed: () async {
+
+                    showDialogIndicator(context);
+
                     var now = DateTime.now();
                     var dateFormatted = DateFormat('yyyy-MM-dd').format(now);
                     var body = {
@@ -198,19 +201,25 @@ class _NutritionalConsultationPageState extends State<NutritionalConsultationPag
 
                     consultationBody = body;
                     
-                    Navigator.push(context, 
+                    await consultationRepository.sendNutritionalConsultation(body);
+
+                    hideOpenDialog(context);
+
+                    await showPaymentCompletedDialog(context, true);
+                    /*Navigator.push(context, 
                       MaterialPageRoute(
                         builder: (context) => PaymentPage(
                           paymentTotal: 70,
                           paymentOrigin: PaymentOrigin.consultation,
                         )
                       )
-                    );
+                    );*/
                   }, 
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Solicitar consulta S/70',
+                      'Solicitar consulta',
+                      //'Solicitar consulta S/70',
                       style: TextStyle(
                         color: Colors.white
                       ),
@@ -222,6 +231,113 @@ class _NutritionalConsultationPageState extends State<NutritionalConsultationPag
           ),
         ),
       )
+    );
+  }
+
+  void showDialogIndicator(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return WillPopScope(
+            child: SimpleDialog(
+              backgroundColor: Colors.black87,
+              children: [_getLoadingIndicator()],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            ),
+            onWillPop: () async => false);
+      },
+    );
+  }
+
+  Widget _getLoadingIndicator() {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+              child: CircularProgressIndicator(strokeWidth: 3),
+              width: 32,
+              height: 32),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+            'Espere un momento...',
+            style: TextStyle(color: Colors.white),
+          )
+        ],
+      ),
+    );
+  }
+
+  void hideOpenDialog(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  Future<void> showPaymentCompletedDialog(BuildContext context, bool isSuccess) async {
+    
+    return await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Color(0xff221c1c),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.asset(
+                isSuccess == true ? 'resources/success.png' : 'resources/fail.png',
+                fit: BoxFit.fitHeight,
+                height: 200,
+              ),
+              SizedBox(
+                height: kDefaultPadding
+              ),
+              Text(
+                isSuccess == true ? "¡Adquirido exitosamente!" : "Hubo un problema al procesar tu pago, intenta otra vez",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(
+                    BorderSide(
+                      width: 1, 
+                      color: kButtonGreenColor
+                    )
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)
+                    )
+                  ),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.all(10)
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }, 
+                child: Text(
+                  "Aceptar",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  )
+                )
+              ),
+            ],
+          ),
+        );
+      }
     );
   }
 }

@@ -15,7 +15,7 @@ extension RecipeFilterExtension on RecipeFilter {
       case RecipeFilter.breakfast:
         return "Desayuno";
       case RecipeFilter.middleMorning:
-        return "Media manana";
+        return "Media mañana";
       case RecipeFilter.lunch:
         return "Almuerzo";
       case RecipeFilter.middleAfternoon:
@@ -40,6 +40,8 @@ class RecipeRepository extends BaseRepository {
 
     if (filter == RecipeFilter.none) {
       query = {'page': page, 'search': search};
+    } else if (filter == RecipeFilter.middleMorning) {
+      query = {'page': page, "time": 'Media manana', 'search': search};
     } else {
       query = {'page': page, "time": filter.name, 'search': search};
     }

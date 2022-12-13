@@ -242,7 +242,7 @@ class _HomeMenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.only(bottom: 30, left: 28, right: 28, top: 20),
+      padding: const EdgeInsets.only(bottom: 10, left: 28, right: 28, top: 10),
       sliver: SliverGrid.count(
         crossAxisCount: 1,
         crossAxisSpacing: 16,
@@ -250,16 +250,17 @@ class _HomeMenuView extends StatelessWidget {
           GridView.builder(
             itemCount: _options.length,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
+                maxCrossAxisExtent: 200,
                 childAspectRatio: 3 / 2,
+                mainAxisExtent: 185,
                 crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
+                mainAxisSpacing: 0),
             itemBuilder: (context, index) {
               return _options[index];
             },
           )
         ],
-        mainAxisSpacing: 20,
+        mainAxisSpacing: 0,
       ),
     );
   }
