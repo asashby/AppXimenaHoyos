@@ -3,12 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>4326667123-p90n239lsrbn8ud8h4rs33mm9ed6m9bk.apps.googleusercontent.com</string>
+	<string>940323001846-scg1mtdth6s0r09u3an0dakflsghumpc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.4326667123-p90n239lsrbn8ud8h4rs33mm9ed6m9bk</string>
+	<string>com.googleusercontent.apps.940323001846-scg1mtdth6s0r09u3an0dakflsghumpc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>940323001846-1dv1bjnhcpt94m1dfg175f9hoo8hdsr1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCvePb8qSemg9HFGpBPdkeiX7h591LVYJ4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>940323001846</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.apprunn.ximenaHoyosApp</string>
+	<string>com.xiprofit.ios.ximenaHoyosApp</string>
+	<key>PROJECT_ID</key>
+	<string>ximena-hoyos-fit</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ximena-hoyos-fit.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:940323001846:ios:25d5f094fb9cd0bb51e3d7</string>
 </dict>
 </plist>

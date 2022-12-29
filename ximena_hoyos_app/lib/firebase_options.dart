@@ -71,6 +71,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'ximena-hoyos-fit.appspot.com',
     androidClientId: '940323001846-1dv1bjnhcpt94m1dfg175f9hoo8hdsr1.apps.googleusercontent.com',
     iosClientId: '940323001846-7caeju4dke1cd4bjkb05g5b0ngb0u9gd.apps.googleusercontent.com',
-    iosBundleId: 'com.apprunn.ximenaHoyosApp',
+    iosBundleId: 'com.xiprofit.ximenaHoyosApp',
   );
 }

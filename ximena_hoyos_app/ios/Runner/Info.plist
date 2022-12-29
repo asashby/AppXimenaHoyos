@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ximena_hoyos_app</string>
+	<string>Ximena Hoyos</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb161378709305985</string>
+				<string>fb1124390378427503</string>
 			</array>
 		</dict>
 		<dict>
@@ -35,14 +35,22 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.4326667123-p90n239lsrbn8ud8h4rs33mm9ed6m9bk</string>
+				<string>com.googleusercontent.apps.940323001846-scg1mtdth6s0r09u3an0dakflsghumpc</string>
 			</array>
+			<key>FacebookAppID</key>
+			<string>1124390378427503</string>
+			<key>FacebookClientToken</key>
+			<string>ecc5b5cb2d3ee6d98dfcdd4ff6d40453</string>
+			<key>FacebookDisplayName</key>
+			<string>XOH</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
 	<string>1124390378427503</string>
+	<key>FacebookClientToken</key>
+	<string>ecc5b5cb2d3ee6d98dfcdd4ff6d40453</string>
 	<key>FacebookDisplayName</key>
 	<string>XimenaHoyosTesting</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -75,5 +83,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>

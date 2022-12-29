@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
                         children: <Widget>[
                           ShopSlider(),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 32, left: 32),
+                            padding: const EdgeInsets.only(top: 10, right: 25, left: 25),
                             child: Row(
                               children: [
                                 ProfileButton(

@@ -106,7 +106,7 @@ class LoginView extends StatelessWidget {
                           value: isGoogle,
                           textOn: 'Google',
                           textOff: 'Facebook',
-                          colorOn: Colors.black,
+                          colorOn: Colors.lightGreen,
                           colorOff: Color(0xff3b5998),
                           iconOn: Icons.arrow_forward,
                           iconOff: Icons.arrow_back,
