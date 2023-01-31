@@ -75,14 +75,47 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Selecciona la red social de tu preferencia para entrar:",
+                      "Entrar con:",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
                       )
                     ),
                     SizedBox( height: kDefaultPadding,),
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        LoginProviderButton(
+                          buttonColor: Colors.white,
+                          text: "Google",
+                          textColor: Colors.black,
+                          iconResourceName: "resources/google.png",
+                          loginType: LoginType.google,
+                          context: context,
+                        ),
+                        SizedBox( height: kDefaultPadding,),
+                        LoginProviderButton(
+                          buttonColor: Color(0xff3b5998),
+                          text: "Facebook",
+                          textColor: Colors.white,
+                          iconResourceName: "resources/facebook.png",
+                          loginType: LoginType.facebook,
+                          context: context,
+                        ),
+                        SizedBox( height: kDefaultPadding,),
+                        LoginProviderButton(
+                          buttonColor: Colors.black,
+                          text: "Apple",
+                          textColor: Colors.white,
+                          iconResourceName: "resources/apple.png",
+                          loginType: LoginType.apple,
+                          context: context,
+                        ),
+                      ],
+                    )
+                    /*Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -168,7 +201,7 @@ class LoginView extends StatelessWidget {
                           color: Colors.white
                         )
                       ),
-                    ),
+                    ),*/
                   ],
                 )
               ],
@@ -325,6 +358,69 @@ class TipsCard extends StatelessWidget {
                     'resources/OP04.jpg'),
                 fit: BoxFit.cover)),
       );
+  }
+}
+
+class LoginProviderButton extends StatelessWidget {
+
+  final Color? buttonColor;
+  final String? text;
+  final Color? textColor;
+  final String? iconResourceName;
+  final LoginType? loginType;
+  final BuildContext context;
+
+  const LoginProviderButton({
+    Key? key,
+    required this.buttonColor,
+    required this.text,
+    required this.textColor,
+    required this.iconResourceName,
+    required this.loginType,
+    required this.context
+  }) : super (key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          )
+        ),
+        backgroundColor: MaterialStateProperty.all(this.buttonColor),
+      ),
+      onPressed: () {
+        this.context.read<LoginBloc>().add(LoginSubmitted(this.loginType!));
+      },
+      child: Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage(
+                this.iconResourceName!
+              ),
+              height: 25,
+              width: 25,
+              fit: BoxFit.fitHeight,
+            ),
+            SizedBox(width: 8,),
+            Text(
+              this.text!,
+              style: TextStyle(
+                fontSize: 14,
+                color: this.textColor
+              )
+            ),
+          ],
+        ),
+        height: 30,
+        width: 200,
+      )
+    );
   }
 }
 

@@ -17,6 +17,7 @@
 		B2AEC579295D3B60002FC58D /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = B2AEC578295D3B60002FC58D /* FacebookGamingServices */; };
 		B2AEC57B295D3B60002FC58D /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = B2AEC57A295D3B60002FC58D /* FacebookLogin */; };
 		B2AEC57D295D3B60002FC58D /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = B2AEC57C295D3B60002FC58D /* FacebookShare */; };
+		B2C656F32985B1680088F89B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C656F22985B1680088F89B /* StoreKit.framework */; };
 		D369E94427067DA900D57CEA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D369E94327067DA900D57CEA /* GoogleService-Info.plist */; };
 		F0220A4C6DC9D51B65E23290 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D90F9043328CD66D2E6141 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,8 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A86F718AE65F6C36F17D80DA /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		B29F30DC29821CF000349A0B /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		B2C656F22985B1680088F89B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C8D90F9043328CD66D2E6141 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D369E94327067DA900D57CEA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FDAD064DB20537B96CD834A1 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 				B2AEC57B295D3B60002FC58D /* FacebookLogin in Frameworks */,
 				B2AEC579295D3B60002FC58D /* FacebookGamingServices in Frameworks */,
 				F0220A4C6DC9D51B65E23290 /* Pods_Runner.framework in Frameworks */,
+				B2C656F32985B1680088F89B /* StoreKit.framework in Frameworks */,
 				B2AEC57D295D3B60002FC58D /* FacebookShare in Frameworks */,
 				B2AEC577295D3B60002FC58D /* FacebookCore in Frameworks */,
 			);
@@ -114,6 +118,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				B29F30DC29821CF000349A0B /* Runner.entitlements */,
 				D369E94327067DA900D57CEA /* GoogleService-Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -130,6 +135,7 @@
 		D627A379EF23B46DF007A6E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2C656F22985B1680088F89B /* StoreKit.framework */,
 				C8D90F9043328CD66D2E6141 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
@@ -396,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = VJ752C57MR;
 				ENABLE_BITCODE = NO;
@@ -536,6 +543,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = VJ752C57MR;
 				ENABLE_BITCODE = NO;
@@ -570,6 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = VJ752C57MR;
 				ENABLE_BITCODE = NO;

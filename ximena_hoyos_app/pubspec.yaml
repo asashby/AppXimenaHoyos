@@ -75,6 +75,8 @@ dependencies:
   http: ^0.13.4
   webview_flutter: ^2.3.1
   firebase_messaging: ^14.1.0
+  the_apple_sign_in: ^1.1.1
+  in_app_purchase: ^1.0.9
 
 dev_dependencies:
   flutter_test:

@@ -1,17 +1,18 @@
 import 'package:data/models/products_payload_model.dart';
-import 'package:data/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:data/models/checkout_item.dart';
 import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/models/shop_product.dart';
 import 'package:data/models/shop_order.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+
+
+import 'dart:async';
 
 int numOfCardItems = 1;
 List<CheckoutItem> checkoutItems = [];
@@ -45,6 +46,8 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  final appleSignInAvailable = await AppleSignInAvailable.check();
+  print(appleSignInAvailable.isAvailable);
   // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(App());
@@ -79,4 +82,13 @@ Future<void> _firebasemessagingBackgroundHandler(RemoteMessage message) async{
   await Firebase.initializeApp();
   
   print("Handling a background message: ${message.messageId}");
+}
+
+class AppleSignInAvailable {
+  AppleSignInAvailable(this.isAvailable);
+  final bool isAvailable;
+
+  static Future<AppleSignInAvailable> check() async {
+    return AppleSignInAvailable(await TheAppleSignIn.isAvailable());
+  }
 }

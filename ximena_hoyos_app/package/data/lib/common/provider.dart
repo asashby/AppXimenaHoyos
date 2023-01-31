@@ -1,4 +1,4 @@
-enum Provider { google, facebook }
+enum Provider { google, facebook, apple }
 
 extension ProviderValue on Provider {
   int get value {
@@ -7,6 +7,8 @@ extension ProviderValue on Provider {
         return 2;
       case Provider.facebook:
         return 3;
+      case Provider.apple:
+        return 4;
     }
   }
 
@@ -16,6 +18,8 @@ extension ProviderValue on Provider {
         return 'Google';
       case Provider.facebook:
         return 'Facebook';
+      case Provider.apple:
+        return 'Apple';
     }
   }
 }

@@ -63,7 +63,7 @@ class _LoginLauncherState extends State<LoginLauncher> {
             onPressed: () => {
               context.read<LoginBloc>().add(LoginSubmitted(LoginType.facebook))
             },
-            resourceNmae: 'resources/facebook.png',
+            iconName: 'resources/facebook.png',
             text: "Ingresar con Facebook",
             textColor: Colors.white,
           ),
@@ -75,7 +75,7 @@ class _LoginLauncherState extends State<LoginLauncher> {
             onPressed: () => {
               context.read<LoginBloc>().add(LoginSubmitted(LoginType.google))
             },
-            resourceNmae: 'resources/google.png',
+            iconName: 'resources/google.png',
             text: "Ingresar con Google",
             textColor: Colors.grey[500],
           ),
@@ -88,7 +88,7 @@ class _LoginLauncherState extends State<LoginLauncher> {
 class LoginButton extends StatelessWidget {
   final Function? onPressed;
   final Color? color;
-  final String? resourceNmae;
+  final String? iconName;
   final String? text;
   final Color? textColor;
 
@@ -96,7 +96,7 @@ class LoginButton extends StatelessWidget {
     Key? key,
     this.onPressed,
     this.color,
-    this.resourceNmae,
+    this.iconName,
     this.text,
     this.textColor,
   }) : super(key: key);
@@ -112,7 +112,7 @@ class LoginButton extends StatelessWidget {
         children: [
           SizedBox(
             child: Image.asset(
-              resourceNmae!,
+              iconName!,
               fit: BoxFit.fitHeight,
             ),
             height: 20,

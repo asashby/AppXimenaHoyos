@@ -1,6 +1,6 @@
 part of 'login_bloc.dart';
 
-enum LoginType { facebook, google }
+enum LoginType { facebook, google, apple }
 
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
