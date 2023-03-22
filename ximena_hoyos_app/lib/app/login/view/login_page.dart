@@ -1,7 +1,6 @@
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:ximena_hoyos_app/app/login/bloc/login_bloc.dart';
 import 'package:ximena_hoyos_app/app/recipes/bloc/bloc.dart';
@@ -75,10 +74,10 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Selecciona la red social de tu preferencia para entrar:",
+                      "Selecciona la red social de tu preferencia para entrar",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12
+                        fontSize: 14
                       )
                     ),
                     SizedBox( height: kDefaultPadding,),
@@ -106,11 +105,12 @@ class LoginView extends StatelessWidget {
                           value: isGoogle,
                           textOn: 'Google',
                           textOff: 'Facebook',
-                          colorOn: Colors.lightGreen,
+                          colorOn: Color(0xffdb4437),
                           colorOff: Color(0xff3b5998),
                           iconOn: Icons.arrow_forward,
                           iconOff: Icons.arrow_back,
                           textSize: 14.0,
+                          textOnColor: Colors.white,
                           onChanged: (bool state) {
                             isGoogle = state;
                           },
@@ -161,9 +161,9 @@ class LoginView extends StatelessWidget {
                         }
                       },
                       child: Text(
-                        "Comenzar".toUpperCase(),
+                        "COMENZAR",
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white
                         )
