@@ -22,7 +22,7 @@ class _CartCounterState extends State<CartCounter> {
         buildOutlineButton(
           icon: Icon(
             FontAwesomeIcons.minus,
-            color: Colors.white
+            color: Colors.black
           ), 
           press: () {
             setState(() {
@@ -48,7 +48,7 @@ class _CartCounterState extends State<CartCounter> {
         buildOutlineButton(
           icon: Icon(
             FontAwesomeIcons.plus, 
-            color: Colors.white
+            color: Colors.black
           ), 
           press: () {
             setState((){

@@ -1,6 +1,7 @@
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:ximena_hoyos_app/app/login/bloc/login_bloc.dart';
 import 'package:ximena_hoyos_app/app/recipes/bloc/bloc.dart';
@@ -74,10 +75,10 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Selecciona la red social de tu preferencia para entrar",
+                      "Selecciona la red social de tu preferencia para entrar:",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14
+                        fontSize: 12
                       )
                     ),
                     SizedBox( height: kDefaultPadding,),
@@ -105,7 +106,7 @@ class LoginView extends StatelessWidget {
                           value: isGoogle,
                           textOn: 'Google',
                           textOff: 'Facebook',
-                          colorOn: Color(0xFFDB4437),
+                          colorOn: Colors.lightGreen,
                           colorOff: Color(0xff3b5998),
                           iconOn: Icons.arrow_forward,
                           iconOff: Icons.arrow_back,
@@ -113,7 +114,6 @@ class LoginView extends StatelessWidget {
                           onChanged: (bool state) {
                             isGoogle = state;
                           },
-                          textOnColor: Colors.white,
                           onTap: (){
 
                           },
@@ -161,7 +161,7 @@ class LoginView extends StatelessWidget {
                         }
                       },
                       child: Text(
-                        "COMENZAR",
+                        "Comenzar".toUpperCase(),
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,

@@ -1,25 +1,26 @@
 import 'dart:convert';
 
-import 'package:data/models/mp_response_model.dart';
-import 'package:data/models/shop_order.dart';
+import 'package:data/models/shop_order.dart' as ShopOrderModel;
 import 'package:data/models/shop_product.dart';
 import 'package:data/models/woocommerce_order_model.dart';
+import 'package:data/repositories/exchange_rate_repository.dart';
+import 'package:data/models/shop_order.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:data/repositories/products_repository.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:ximena_hoyos_app/app/payment/view/mercadopago_view.dart';
 import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
-import 'package:ximena_hoyos_app/app/paypal/view/PaypalPayment.dart';
 import 'package:ximena_hoyos_app/main.dart';
-import 'package:data/models/mp_post_data_model.dart';
-import 'package:woocommerce/woocommerce.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:data/repositories/challenges_repository.dart';
+import 'package:data/repositories/products_repository.dart';
 
 
 
 final ProductsRepository repository = ProductsRepository(TokenStoreImp());
+final ExchangeRateRepository exchangeRateRepository = ExchangeRateRepository(TokenStoreImp());
+final ProductsRepository productsRepository = ProductsRepository(TokenStoreImp());
+final ChallengesRepository challengesRepository = ChallengesRepository(TokenStoreImp());
 final Key checkoutFormKey = Key('checkoutFormKey');
 class CheckoutFormBody extends StatelessWidget {
   late String nameField = '';
@@ -37,7 +38,7 @@ class CheckoutFormBody extends StatelessWidget {
   }) : super(key: key);
 
   
-  Future<void> showPlansDialog(BuildContext context) async {
+  Future<void> showPaymentTypeDialog(BuildContext context) async {
     return await showDialog(
       context: context,
       builder: (context){
@@ -67,18 +68,72 @@ class CheckoutFormBody extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
                 onPressed: () async {
-                  //await generateOrder();
-                  
+
+                  var exchangeRate = await exchangeRateRepository.getExchangeRate();
+
+                  await generateOrder();
+
+                  var totalPriceInUSD = totalPrice / exchangeRate.data!;
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (BuildContext context) => PaypalPayment(
-                        onFinish: (number) async {
+                      builder: (BuildContext context) => UsePaypal(
+                          sandboxMode: true,
+                          clientId: PaypalClientId,
+                          secretKey: PaypalSecretKey,
+                          returnURL: "https://ximehoyos.com/return",
+                          cancelURL: "https://ximehoyos.com/cancel",
+                          transactions: [
+                            {
+                              "amount": {
+                                "total": totalPriceInUSD,
+                                "currency": "USD",
+                                "details": {
+                                  "subtotal": totalPriceInUSD,
+                                  "shipping": '13',
+                                  "shipping_discount": 0
+                                }
+                              },
+                              "description":
+                                  "Compra tienda Ximena Hoyos",
+                              // "payment_options": {
+                              //   "allowed_payment_method":
+                              //       "INSTANT_FUNDING_SOURCE"
+                              // },
+                              "item_list": {
+                                "items": [
+                                  {
+                                    "name": "A demo product",
+                                    "quantity": 1,
+                                    "price": '10.12',
+                                    "currency": "USD"
+                                  }
+                                ],
 
-                          // payment done
-                          print('order id: '+number);
-
-                        },
-                      ),
+                                // shipping address is not required though
+                                "shipping_address": {
+                                  "recipient_name": userBilling.firstName! + " " + userBilling.lastName!,
+                                  "line1": userBilling.address1,
+                                  "line2": userBilling.address2,
+                                  "city": userBilling.city,
+                                  "country_code": "PE",
+                                  "phone": userBilling.phone,
+                                  "state": userBilling.state
+                                },
+                              }
+                            }
+                          ],
+                          note: "Contáctanos si tienes alguna pregunta acerca de tu orden.",
+                          onSuccess: (Map params) async {
+                            await sendOrder();
+                            await showPaymentCompletedDialog(context, true);
+                          },
+                          onError: (error) async {
+                            await showPaymentCompletedDialog(context, false);
+                          },
+                          onCancel: (params) {
+                            print('cancelled: $params');
+                          }),
                     ),
                   );
                 },
@@ -113,7 +168,7 @@ class CheckoutFormBody extends StatelessWidget {
     );
   }
 
-  Future<void> showPaymentCompletedDialog(BuildContext context) async {
+  Future<void> showPaymentCompletedDialog(BuildContext context, bool isSuccess) async {
     return await showDialog(
       context: context,
       barrierDismissible: false,
@@ -125,12 +180,15 @@ class CheckoutFormBody extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                'form',
+                isSuccess == true ? 'resources/success.png' : 'resources/fail.png',
                 fit: BoxFit.fitHeight,
                 height: 200,
               ),
+              SizedBox(
+                height: kDefaultPadding
+              ),
               Text(
-                "¡Adquirido exitosamente!",
+                isSuccess == true ? "¡Adquirido exitosamente!" : "Hubo un problema al procesar tu pago, intenta otra vez",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -159,10 +217,14 @@ class CheckoutFormBody extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
+                  if(isSuccess == true){
+                    checkoutItems.clear();
+                  }
+                  
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 }, 
                 child: Text(
-                  "Volver",
+                  "Aceptar",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -495,7 +557,7 @@ class CheckoutFormBody extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await showPlansDialog(context);
+                          await showPaymentTypeDialog(context);
                         }
                       },
                       style: ButtonStyle(
@@ -591,42 +653,48 @@ class CheckoutFormBody extends StatelessWidget {
       phone: phoneField
     );
 
-    /*WoocommerceOrder order = WoocommerceOrder(
-      paymentMethod: 'bacs',
-      paymentMethodTitle: 'Direct Bank Transfer',
-      status: 'pending',
-      currency: 'PEN',
-      setPaid: true,
-      billing: Billing(
-        firstName: nameField,
-        lastName: lastNameField,
-        address1: firstAddressField,
-        address2: secondAddressField,
-        city: cityField,
-        state: stateField,
-        country: 'PE',
-        email: emailField,
-        phone: phoneField
-      ),
-      shipping: Shipping(
-        firstName: nameField,
-        lastName: lastNameField,
-        address1: firstAddressField,
-        address2: secondAddressField,
-        city: cityField,
-        state: stateField,
+  }
+
+  Future sendOrder() async {
+
+    shopOrderItems.forEach((element) async { 
+      if(element.category!.toUpperCase() == "PROMOCIONES"){
+        shopPromoItems.add(element.productId!);
+        orderHasPromo = true;
+      }
+    });
+
+    ShopOrder shopOrder = ShopOrder(
+      origin: 'store',
+      lineItems: shopOrderItems,
+      shipping: ShopOrderModel.Shipping(
+        firstName: userBilling.firstName,
+        lastName: userBilling.lastName,
+        address1: userBilling.address1,
+        address2: userBilling.address2,
+        city: userBilling.city,
+        state: userBilling.state,
         country: 'PE'
       ),
-      lineItems: shopOrderItems,
-      shippingLines: [
-        ShippingLines(
-          methodId: 'flat_rate',
-          methodTitle: 'Flat Rate',
-          total: '10.00'
-        )
-      ]
+      costShipping: 13.00,
+      total: totalPrice
     );
 
-    await repository.createWoocommerceOrder(order);*/
+    //await productsRepository.createWoocommerceOrder(order);
+    await productsRepository.createOrder(shopOrder);
+    
+    if(orderHasPromo == true){
+      await challengesRepository.registerOrderWithPromoData(shopPromoItems, shopProducts, totalPrice + 13);
+    }
+    else {
+      await challengesRepository.registerOrderData(shopProducts, totalPrice + 13);
+    }
+
+    checkoutItems = [];
+    shopOrderItems = [];
+    shopProducts = [];
+    shopPromoItems = [];
+    orderHasPromo = false;
+    totalPrice = 0;
   }
 }

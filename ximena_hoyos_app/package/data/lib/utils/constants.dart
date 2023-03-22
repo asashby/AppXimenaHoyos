@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const String API_CMS = 'https://cms.ximehoyosfit.com';
 const String API_WOOCOMMERCE_URL = 'https://app.xiprofit.com/wp-json/wc/v3';
 
+const String PaypalClientId = 'AYla5Em82M7vn9Am0AZWppgPCTzvTZE83jECazu0hneUprtecxlE6HC9aRxaKKuyO-984OUEOvzXlyqq';
+const String PaypalSecretKey = 'EN-0Tv_spLwBPVHWjBWWy4g9cbaBSoxJx-xxu-riU_bDUxTTFVMR_hQAn68t5_DEedlVqmETdicQrTJQ';
+
 const OPTION_ABOUT = 'sobre-ximena';
 const OPTION_CHALLENGE = 'retos';
 const OPTION_RECIPES = 'recetas';

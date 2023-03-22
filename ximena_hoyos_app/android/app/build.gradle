@@ -49,7 +49,7 @@ android {
         applicationId "com.xiprofit.ximena_hoyos_app"
         compileSdkVersion 33
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
