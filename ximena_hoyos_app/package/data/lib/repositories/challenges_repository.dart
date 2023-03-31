@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:data/common/dio_client.dart';
 import 'package:data/models/challenge_detail.dart';
 import 'package:data/models/challenge_header_model.dart';
@@ -17,8 +15,6 @@ import 'package:data/repositories/base_repository.dart';
 import 'package:data/sources/token_store.dart';
 import 'package:data/utils/constants.dart';
 import 'package:data/utils/token_store_impl.dart';
-import 'package:logger/logger.dart';
-
 import '../models/shop_product.dart';
 
 class ChallengesRepository extends BaseRepository {

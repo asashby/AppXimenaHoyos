@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/challenges/view/challenges_page.dart';
 import 'package:ximena_hoyos_app/app/home/homa.dart';
@@ -67,12 +66,20 @@ class _HomePageState extends State<HomePage> {
               create: (ctx) => HomeBloc(
                   companyRepository: RepositoryProvider.of(context),
                   repository: RepositoryProvider.of(context),
-                  authenticationRepository: RepositoryProvider.of(context))),
+                  authenticationRepository: RepositoryProvider.of(context)
+              )
+          ),
           BlocProvider(
-              create: (ctx) =>
-                  RecipeBloc(repository: RepositoryProvider.of(context), challengesRepository: RepositoryProvider.of(context))),
+              create: (ctx) => RecipeBloc(
+                      repository: RepositoryProvider.of(context),
+                      challengesRepository: RepositoryProvider.of(context)
+              )
+          ),
           BlocProvider(
-              create: (ctx) => PreferenceBloc(RepositoryProvider.of(context)))
+              create: (ctx) => PreferenceBloc(
+                  RepositoryProvider.of(context)
+              )
+          )
         ],
         child: StreamBuilder<int>(
             stream: current.stream,
@@ -93,16 +100,11 @@ class _HomePageState extends State<HomePage> {
                 onTap: _onItemTapped,
                 currentIndex: snapshot.data!,
                 items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.badge), label: 'Entrenamiento'),
-                  // BottomNavigationBarItem(
-                  //     icon: Icon(Icons.store), label: 'Tienda'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.receipt), label: 'Comidas'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: 'Perfil'),
+                  BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
+                  BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Entrenamiento'),
+                  // BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Tienda'),
+                  BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Comidas'),
+                  BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
                 ],
               ),
             );

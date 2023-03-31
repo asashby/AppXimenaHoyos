@@ -1,7 +1,6 @@
 import 'package:data/data.dart';
 import 'package:data/repositories/company_repository.dart';
 import 'package:data/repositories/section_repository.dart';
-import 'package:data/repositories/slider_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/home/bloc/home_event.dart';
 import 'package:ximena_hoyos_app/app/home/bloc/home_state.dart';
@@ -12,9 +11,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final CompanyRepository companyRepository;
 
   HomeBloc(
-      {required this.companyRepository,
-      required this.repository,
-      required this.authenticationRepository})
+      {
+        required this.companyRepository,
+        required this.repository,
+        required this.authenticationRepository
+      })
       : super(HomeLoading()) {
     add(HomeFetchSection());
   }

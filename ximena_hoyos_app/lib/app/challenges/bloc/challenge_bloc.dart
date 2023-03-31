@@ -13,7 +13,10 @@ class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
   bool isFetching = false;
 
   ChallengeBloc(
-      {required this.repository, required this.authenticationRepository})
+      {
+        required this.repository,
+        required this.authenticationRepository
+      })
       : super(ChallengeInitialState());
 
   @override

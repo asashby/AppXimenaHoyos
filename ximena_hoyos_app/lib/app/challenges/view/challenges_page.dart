@@ -1,6 +1,5 @@
 import 'package:data/models/challenge_header_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/view/challenge_detail_page.dart';
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_bloc.dart';
@@ -45,7 +44,8 @@ class _ChallengePageState extends State<ChallengePage> {
 
   createBlocSection() => ChallengeBloc(
       repository: RepositoryProvider.of(context),
-      authenticationRepository: RepositoryProvider.of(context));
+      authenticationRepository: RepositoryProvider.of(context)
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,7 @@ class _ChallengePageState extends State<ChallengePage> {
       color: Colors.white,
       child: BaseScaffold(
           child: BaseView(
-              caption: "",
-              title: "Entrenamiento",
+              title: "Entrenamientos",
               sliver: SliverToBoxAdapter(
                 child: ListView.builder(
                   padding: const EdgeInsets.only(bottom: 40),
@@ -106,15 +105,12 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
     return BlocProvider.value(
       value: widget.bloc,
       child: Container(
-        child:
-            BlocBuilder<ChallengeBloc, ChallengeState>(builder: handleBuilder),
+        child: BlocBuilder<ChallengeBloc, ChallengeState>(builder: handleBuilder),
       ),
     );
   }
 
   Widget handleBuilder(BuildContext context, ChallengeState state) {
-    Size size = MediaQuery.of(context).size;
-
     if (state is ChallengeInitialState) {
       BlocProvider.of<ChallengeBloc>(context)
           .add(ChallengeFetchEvent(widget.sectionId));
@@ -154,12 +150,12 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.challengeNameSection,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 )
               ),
               Container(
                   height: 200,
-                  margin: const EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 10),
                   child: ListView.builder(
                     itemCount: data.length,
                     scrollDirection: Axis.horizontal,
@@ -173,7 +169,10 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
                           subTitle: header.level ?? '',
                           urlImage: header.urlImage,
                           onPressed: () => _openChallengeDetail(
-                              context, header, isChallengeOwned),
+                              context,
+                              header,
+                              isChallengeOwned
+                          ),
                         ),
                       );
                     },

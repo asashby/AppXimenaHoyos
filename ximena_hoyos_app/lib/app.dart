@@ -22,19 +22,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
-            create: (ctx) =>
-                AuthenticationDataSource.repository(TokenStoreImp())),
+        RepositoryProvider(create: (ctx) => AuthenticationDataSource.repository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => SectionRepository()),
-        RepositoryProvider(
-            create: (ctx) => ChallengesRepository(TokenStoreImp())),
+        RepositoryProvider(create: (ctx) => ChallengesRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => RecipeRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => TipsRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => ProductsRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => SliderRepository(TokenStoreImp())),
-        RepositoryProvider(
-          create: (ctx) => CompanyRepository(),
-        )
+        RepositoryProvider(create: (ctx) => CompanyRepository()),
       ],
       child: BlocProvider(
         create: (context) => AuthenticationBloc(RepositoryProvider.of(context)),
@@ -83,7 +78,7 @@ class _AppViewState extends State<AppView> {
               fontWeight: FontWeight.w300),
           caption: TextStyle(color: Colors.white, fontSize: 12)),
       backgroundColor: Color(0xFF291f20),
-      buttonColor: Color(0xFF30d38b),
+      buttonTheme: ButtonThemeData(buttonColor: Color(0xFF30d38b)),
       primaryColorDark: Color(0x3Db1b1b1),
       highlightColor: Color(0x22000000),
       splashColor: Color(0x55000000));
@@ -101,12 +96,10 @@ class _AppViewState extends State<AppView> {
             listener: (context, state) {
               switch (state.status) {
                 case AuthenticationStatus.authenticated:
-                  //FirebaseCrashlytics.instance.crash();
                   _navigator!
                       .pushAndRemoveUntil(HomePage.route(), (route) => false);
                   break;
                 case AuthenticationStatus.unauthenticated:
-                  //FirebaseCrashlytics.instance.crash();
                   _navigator!
                       .pushAndRemoveUntil(LoginPage.route(), (route) => false);
                   break;

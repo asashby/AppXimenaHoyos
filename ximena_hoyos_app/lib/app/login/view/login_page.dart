@@ -1,12 +1,8 @@
 import 'package:data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:ximena_hoyos_app/app/login/bloc/login_bloc.dart';
-import 'package:ximena_hoyos_app/app/recipes/bloc/bloc.dart';
-import 'package:ximena_hoyos_app/app/recipes/view/recipes_page.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-
 import 'login_launcher.dart';
 
 class LoginPage extends StatelessWidget {
@@ -53,11 +49,6 @@ class LoginView extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    /*Image(
-                      height: 40,
-                      fit: BoxFit.fitHeight,
-                      image: AssetImage('resources/app_logo.png'),
-                    ),*/
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -200,7 +191,7 @@ class LoginForm extends StatelessWidget {
             children: [
               Text(
                 "Ingresa con",
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               LoginLauncher(),
               Visibility(
@@ -211,7 +202,7 @@ class LoginForm extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: Text(
                       "Terminos y condiciones",
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ),
@@ -225,106 +216,3 @@ class LoginForm extends StatelessWidget {
     );
   }
 }
-
-class AboutCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 200.0,
-        height: 150.0,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'resources/OP01.jpg'),
-                fit: BoxFit.cover)),
-      );
-  }
-}
-
-class TrainingCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 200.0,
-        height: 150.0,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'resources/OP02.jpg'),
-                fit: BoxFit.cover)),
-      );
-  }
-}
-
-
-class RecipesCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () { 
-          context.read<RecipeBloc>();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => RecipesPage()),
-          );
-      },
-      child: Container(
-        width: 200.0,
-        height: 150.0,
-        alignment: Alignment.bottomLeft,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'resources/OP03.jpg'),
-                fit: BoxFit.cover)),
-      ),
-    );
-    /*return new GestureDetector(
-        onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => RecipesPage()),
-          );
-        },
-        child: new Container(
-          width: 200.0,
-          height: 150.0,
-          alignment: Alignment.bottomLeft,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                      'resources/OP03.jpg'),
-                  fit: BoxFit.cover)),
-        ),
-      )
-    )*/
-    /*return Container(
-        width: 200.0,
-        height: 150.0,
-        alignment: Alignment.bottomLeft,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'resources/OP03.jpg'),
-                fit: BoxFit.cover)),
-      );*/
-  }
-}
-
-
-class TipsCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 200.0,
-        height: 150.0,
-        alignment: Alignment.bottomRight,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'resources/OP04.jpg'),
-                fit: BoxFit.cover)),
-      );
-  }
-}
-
