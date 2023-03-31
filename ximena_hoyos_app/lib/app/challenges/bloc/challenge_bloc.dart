@@ -1,6 +1,7 @@
 import 'package:data/data.dart';
 import 'package:data/models/challenge_header_model.dart';
 import 'package:data/repositories/challenges_repository.dart';
+import 'package:data/repositories/focused_exercise_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_event.dart';
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_state.dart';
@@ -8,6 +9,7 @@ import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_state.dart';
 class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
   final ChallengesRepository repository;
   final AuthenticationDataSource authenticationRepository;
+  final FocusedExerciseRepository focusedExerciseRepository;
 
   int currentPage = 1;
   bool isFetching = false;
@@ -15,7 +17,8 @@ class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
   ChallengeBloc(
       {
         required this.repository,
-        required this.authenticationRepository
+        required this.authenticationRepository,
+        required this.focusedExerciseRepository,
       })
       : super(ChallengeInitialState());
 
@@ -35,17 +38,28 @@ class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
       yield ChallengeLoadingState();
 
       List<ChallengeHeader> challenges;
-
+      var focusedExerciseHeader = new ChallengeHeader(
+        id: 0,
+        title: "Avanzado en Gym 2.0",
+        urlImage: "https://cms.ximehoyosfit.com//storage/mobile_image/ysQjjneE5PiRthNLq83793PXC2UggM9R5C1FJxxO.jpg",
+        days: 5,
+        level: "Avanzada",
+        frequency: "Diaria",
+      );
       if (event.sectionId == 0) {
         var user = await authenticationRepository.user;
         if (user != null) {
-          challenges =
-              await repository.fetchChallengesByUser(user.id!, currentPage);
+          challenges = await repository.fetchChallengesByUser(user.id!, currentPage);
+          bool isSubscribedToFocused = await focusedExerciseRepository.getCurrentUserIsSubscribed();
+          if (isSubscribedToFocused) {
+            challenges.add(focusedExerciseHeader);
+          }
         } else {
           challenges = [];
         }
       } else {
         challenges = await repository.fetchChallenges(currentPage);
+        challenges.add(focusedExerciseHeader);
       }
 
       yield ChallengeSuccessState(challenges, currentPage == 1);

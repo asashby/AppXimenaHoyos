@@ -6,6 +6,7 @@ import '../sources/token_store.dart';
 
 class ExchangeRateRepository extends BaseRepository {
   ExchangeRateRepository(TokenStore tokenStore) : super(tokenStore, API_CMS);
+
   Future<ExchangeRate> getExchangeRate() async {
     var client = await this.dio;
     client.options.baseUrl = API_CMS;

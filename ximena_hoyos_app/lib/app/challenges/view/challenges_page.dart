@@ -44,7 +44,8 @@ class _ChallengePageState extends State<ChallengePage> {
 
   createBlocSection() => ChallengeBloc(
       repository: RepositoryProvider.of(context),
-      authenticationRepository: RepositoryProvider.of(context)
+      authenticationRepository: RepositoryProvider.of(context),
+      focusedExerciseRepository: RepositoryProvider.of(context),
   );
 
   @override

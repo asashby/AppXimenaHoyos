@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:data/models/shop_order.dart' as ShopOrderModel;
 import 'package:data/models/shop_product.dart';
 import 'package:data/models/woocommerce_order_model.dart';
@@ -13,9 +11,6 @@ import 'package:ximena_hoyos_app/app/payment/view/payment_page.dart';
 import 'package:ximena_hoyos_app/main.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:data/repositories/challenges_repository.dart';
-import 'package:data/repositories/products_repository.dart';
-
-
 
 final ProductsRepository repository = ProductsRepository(TokenStoreImp());
 final ExchangeRateRepository exchangeRateRepository = ExchangeRateRepository(TokenStoreImp());

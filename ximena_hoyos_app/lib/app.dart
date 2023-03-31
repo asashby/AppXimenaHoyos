@@ -2,11 +2,12 @@ import 'package:data/repositories/repositories.dart'
     show
         AuthenticationDataSource,
         ChallengesRepository,
+        CompanyRepository,
         RecipeRepository,
         SectionRepository,
-        CompanyRepository,
+        TipsRepository,
         ProductsRepository,
-        TipsRepository;
+        FocusedExerciseRepository;
 import 'package:data/repositories/slider_repository.dart';
 import 'package:data/utils/token_store_impl.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
         RepositoryProvider(create: (ctx) => ProductsRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => SliderRepository(TokenStoreImp())),
         RepositoryProvider(create: (ctx) => CompanyRepository()),
+        RepositoryProvider(create: (ctx) => FocusedExerciseRepository(TokenStoreImp())),
       ],
       child: BlocProvider(
         create: (context) => AuthenticationBloc(RepositoryProvider.of(context)),
