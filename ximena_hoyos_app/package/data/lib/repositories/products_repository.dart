@@ -7,7 +7,6 @@ import 'package:data/models/woocommerce_order_model.dart';
 import 'package:data/repositories/base_repository.dart';
 import 'package:data/sources/token_store.dart';
 import 'package:data/utils/constants.dart';
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import '../models/page_model.dart';

@@ -18,7 +18,6 @@ List<int> shopPromoItems = [];
 Billing userBilling = Billing();
 int selectedChallengeId = 0;
 double totalPrice = 0;
-bool isChallengeOwned = false;
 int? challengeSelectedId = 0;
 bool areRecipesUnlocked = false;
 bool orderHasPromo = false;

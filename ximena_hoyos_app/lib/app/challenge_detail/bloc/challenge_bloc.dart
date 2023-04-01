@@ -65,8 +65,6 @@ class DetailFetchEvent extends DetailEvent {
   List<Object?> get props => [slug];
 }
 
-// Bloc Challenge Detail
-
 class ChallengeDetailBloc extends Bloc<DetailEvent, DetailState> {
   final ChallengesRepository repository;
   final CompanyRepository companyRepository;

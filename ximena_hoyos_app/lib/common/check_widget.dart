@@ -4,12 +4,10 @@ class CheckWidget extends StatelessWidget {
   const CheckWidget({
     Key? key,
     this.active = false,
-    this.lock = false,
     this.coursePaid
   }) : super(key: key);
 
   final bool active;
-  final bool lock;
   final int? coursePaid;
 
   @override
@@ -22,7 +20,7 @@ class CheckWidget extends StatelessWidget {
         border: Border.all(color: Colors.black12, width: 1),
       ),
       child: Visibility(
-        visible: active || lock,
+        visible: active || coursePaid == 0,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(

@@ -9,7 +9,6 @@ import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/item_view.dart';
-import 'package:ximena_hoyos_app/main.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<ChallengeBloc> blocs = [];
@@ -77,7 +76,9 @@ class _ChallengePageState extends State<ChallengePage> {
                   },
                   itemCount: challengeNameSection.length,
                 ),
-              ))),
+              )
+          )
+      ),
     );
   }
 }
@@ -171,8 +172,7 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
                           urlImage: header.urlImage,
                           onPressed: () => _openChallengeDetail(
                               context,
-                              header,
-                              isChallengeOwned
+                              header
                           ),
                         ),
                       );
@@ -186,10 +186,10 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
           );
   }
 
-  _openChallengeDetail(BuildContext context, ChallengeHeader challengeHeader, bool owned) {
+  _openChallengeDetail(BuildContext context, ChallengeHeader challengeHeader) {
     if (challengeHeader.slug != null) {
       Navigator.of(context)
-          .push(ChallengeDetailPage.route(challengeHeader.slug!, owned));
+          .push(ChallengeDetailPage.route(challengeHeader.slug!));
     }
   }
 }

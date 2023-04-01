@@ -114,7 +114,7 @@ class ChallengesRepository extends BaseRepository {
     return ExcerciseHeader.fromJson(response.data);
   }
 
-  /// Lista de ejercicios de la rutina diara
+  /// Lista de ejercicios de la rutina diaria
   /// este recibe como parametro el id de la cabecera
   /// de los ejercicios.
   Future<List<Excercise>> fetchExcercisesRoutines(int dayId) async {

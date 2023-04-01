@@ -11,7 +11,7 @@ class DailyRoutineState extends Equatable {
   final DailyRoutineStatus status;
   final ExcerciseHeader? header;
   final List<Excercise>? exercises;
-  final dynamic? error;
+  final dynamic error;
 
   const DailyRoutineState._(
       {required this.status, this.header, this.exercises, this.error});
