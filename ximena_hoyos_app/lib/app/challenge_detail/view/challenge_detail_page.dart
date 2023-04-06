@@ -3,11 +3,8 @@ import 'package:data/models/challenge_plan.dart';
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/bloc/bloc.dart';
-import 'package:ximena_hoyos_app/app/challenge_detail/components/plan_button.dart';
-import 'package:ximena_hoyos_app/app/comment_challenge/comment_challenge.dart';
-import 'package:ximena_hoyos_app/app/commentaries/view/comentaries_page.dart';
+import 'package:ximena_hoyos_app/app/challenge_detail/components/challenge_body.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
 import 'package:ximena_hoyos_app/app/daily_routine/view/daily_routine_page.dart';
@@ -21,8 +18,7 @@ class ChallengeDetailPage extends StatelessWidget {
   const ChallengeDetailPage({
     Key? key,
     required this.slug
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   static Route route(String slug) {
     return MaterialPageRoute<void>(
@@ -37,8 +33,6 @@ class ChallengeDetailPage extends StatelessWidget {
     return BlocProvider(
       create: (ctx) => ChallengeDetailBloc(
           RepositoryProvider.of(context),
-          RepositoryProvider.of(context),
-          RepositoryProvider.of(context)
       ),
       child: BlocBuilder<ChallengeDetailBloc, DetailState>(
           builder: (context, state) {
@@ -57,19 +51,21 @@ class ChallengeDetailPage extends StatelessWidget {
                     onClose: () {
                         Navigator.of(context).pop();
                       },
-              ),
-            );
-          case DetailStatus.loading:
-            return SizedBox(
-              height: 400,
-              child: Center(child: Center(child: CircularProgressIndicator())),
-            );
-          case DetailStatus.success:
-            return _ChallengeDetailBody(
-              detail: state.data!,
-              exercises: state.exercises!,
-              plans: state.plans!,
-            );
+                  ),
+                );
+              case DetailStatus.loading:
+                  return SizedBox(
+                    height: 400,
+                    child: Center(
+                        child: Center(child: CircularProgressIndicator())
+                    ),
+                  );
+              case DetailStatus.success:
+                return _ChallengeDetailBody(
+                  detail: state.data!,
+                  exercises: state.exercises!,
+                  plans: state.plans!,
+                );
         }
       }),
     );
@@ -129,7 +125,7 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody> with Widgets
       },
       slivers: [
         SliverToBoxAdapter(
-          child: _ChallengeBody(
+          child: ChallengeBody(
             detail: widget.detail,
             plans: widget.plans,
           ),
@@ -140,9 +136,10 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody> with Widgets
             delegate: SliverChildBuilderDelegate((context, index) {
               return Container(
                 color: Color(0xFF221b1c),
-                padding:
-                    const EdgeInsets.only(bottom: 12.0, left: 28, right: 28),
-                child: _DaylyRoutineView(
+                padding: const EdgeInsets.only(
+                    bottom: 12.0, left: 28, right: 28
+                ),
+                child: _DailyRoutineView(
                   exercise: widget.exercises[index],
                   coursePaid: widget.detail.coursePaid,
                   courseId: widget.detail.id,
@@ -159,12 +156,12 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody> with Widgets
   }
 }
 
-class _DaylyRoutineView extends StatelessWidget {
+class _DailyRoutineView extends StatelessWidget {
   final ChallengesDailyRoutine exercise;
   final int? coursePaid;
   final int? courseId;
 
-  const _DaylyRoutineView({
+  const _DailyRoutineView({
     Key? key,
     required this.exercise,
     required this.coursePaid,
@@ -227,263 +224,6 @@ class _DaylyRoutineView extends StatelessWidget {
         ],
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    );
-  }
-}
-
-class _ChallengeBody extends StatelessWidget {
-  final ChallengeDetail detail;
-  final List<PlansByCourse> plans;
-
-  const _ChallengeBody({
-    Key? key,
-    required this.detail,
-    required this.plans
-  })
-      : super(key: key);
-
-  
-  Future<void> showPlansDialog(BuildContext context) async {
-    return await showDialog(
-      context: context,
-      builder: (context){
-        return AlertDialog(
-          backgroundColor: Color(0xff221c1c),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                "Seleccione el plan de su conveniencia:",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.6,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: ListView.builder(
-                  itemCount: plans.length,
-                  itemBuilder: (context, index){
-                    return PlanButton(plan: plans[index]);
-                  }
-                )
-              )
-            ],
-          ),
-        );
-      }
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Color(0xFF221b1c),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)
-          )
-      ),
-      padding: const EdgeInsets.all(28),
-      child: Column(
-        children: [
-          Text(
-            detail.subtitle ?? "",
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          Text(
-            detail.title ?? "",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            detail.type ?? "",
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          RawMaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(CommentariesPage.route(detail.slug!));
-            },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              children: [
-                RatingBar(
-                    ignoreGestures: true,
-                    unratedColor: Colors.white,
-                    allowHalfRating: true,
-                    initialRating: detail.rating,
-                    ratingWidget: RatingWidget(
-                        empty: Icon(
-                          Icons.star_outline_rounded,
-                          color: Colors.white,
-                        ),
-                        half: Icon(
-                          Icons.star_half_rounded,
-                          color: Colors.white,
-                        ),
-                        full: Icon(
-                          Icons.star_rounded,
-                          color: Colors.white,
-                        )),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                    }),
-                SizedBox(
-                  height: 4,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Container(
-            width: double.infinity,
-            height: 60,
-            child: Row(
-              children: [
-                Expanded(
-                  child: _ChallengeAttributeView(
-                    title: "Nivel",
-                    value: detail.level ?? "",
-                  ),
-                ),
-                Expanded(
-                  child: _ChallengeAttributeView(
-                    title: "Frecuencia",
-                    value: detail.frequency ?? "",
-                  ),
-                ),
-                Expanded(
-                  child: _ChallengeAttributeView(
-                    title: "Dias",
-                    value: detail.days.toString(),
-                  ),
-                ),
-              ],
-            ),
-            decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff20d0fc), width: 1),
-                borderRadius: BorderRadius.circular(10)),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: MaterialButton(
-              minWidth: double.infinity,
-              height: 60,
-              color: Color(0xff92e600),
-              onPressed: () async {
-                if (detail.coursePaid == 1) {
-                  Navigator.push(context, CommentChallengePage.route(detail));
-                } else {
-                  try {
-                    await showPlansDialog(context);
-                  } on Exception catch (_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Reseña publicada'))
-                    );
-                  }
-                }
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Text(
-                  detail.coursePaid == 1 ? "Comentar" : "Solicita tu plan",
-                  style: Theme.of(context).textTheme.labelLarge,
-                  textAlign: TextAlign.center),
-            ),
-          ),
-          SizedBox(
-            height: 36,
-          ),
-          Text(
-            detail.description ?? "",
-            textAlign: TextAlign.left,
-          )
-        ],
-      ),
-    );
-  }
-
-  void showDialogIndicator(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return WillPopScope(
-            child: SimpleDialog(
-              backgroundColor: Colors.black87,
-              children: [_getLoadingIndicator()],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))
-              ),
-            ),
-            onWillPop: () async => false);
-      },
-    );
-  }
-
-  Widget _getLoadingIndicator() {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-              child: CircularProgressIndicator(strokeWidth: 3),
-              width: 32,
-              height: 32),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            'Espere un momento...',
-            style: TextStyle(color: Colors.white),
-          )
-        ],
-      ),
-    );
-  }
-
-  void hideOpenDialog(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-}
-
-class _ChallengeAttributeView extends StatelessWidget {
-  final String value;
-  final String title;
-  const _ChallengeAttributeView({
-    Key? key,
-    required this.value,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          value,
-          style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodySmall,
-        )
-      ],
     );
   }
 }

@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       ChallengePage(),
-      // StorePage(),
       RecipesPage(),
       PreferencePage()
     ];

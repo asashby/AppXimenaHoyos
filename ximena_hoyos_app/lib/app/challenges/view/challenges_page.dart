@@ -5,6 +5,7 @@ import 'package:ximena_hoyos_app/app/challenge_detail/view/challenge_detail_page
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_bloc.dart';
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_event.dart';
 import 'package:ximena_hoyos_app/app/challenges/bloc/challenge_state.dart';
+import 'package:ximena_hoyos_app/app/focused_exercises/view/focused_exercises_page.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
@@ -187,7 +188,10 @@ class __ChallengeSectionState extends State<_ChallengeSection> {
   }
 
   _openChallengeDetail(BuildContext context, ChallengeHeader challengeHeader) {
-    if (challengeHeader.slug != null) {
+    if (challengeHeader.slug == "avanzado-gym-20") {
+      Navigator.of(context)
+          .push(FocusedExercisesPage.route());
+    } else if (challengeHeader.slug != null) {
       Navigator.of(context)
           .push(ChallengeDetailPage.route(challengeHeader.slug!));
     }

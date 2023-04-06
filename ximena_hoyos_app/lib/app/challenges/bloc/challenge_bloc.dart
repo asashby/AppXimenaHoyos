@@ -44,6 +44,7 @@ class ChallengeBloc extends Bloc<ChallengeEvent, ChallengeState> {
         urlImage: "https://cms.ximehoyosfit.com//storage/mobile_image/ysQjjneE5PiRthNLq83793PXC2UggM9R5C1FJxxO.jpg",
         days: 5,
         level: "Avanzada",
+        slug: "avanzado-gym-20",
         frequency: "Diario",
       );
       if (event.sectionId == 0) {

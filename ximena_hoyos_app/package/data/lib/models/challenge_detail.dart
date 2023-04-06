@@ -85,7 +85,8 @@ class ChallengeDetail {
           mobileImage: json['mobile_image'] as String?,
           users: json['users'] as int?,
           unitId: json['unitId'] as int?,
-          price: json['prices'] as String?);
+          price: json['prices'] as String?
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,

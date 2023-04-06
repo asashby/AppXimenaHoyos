@@ -8,12 +8,15 @@ class ChallengeHeader {
   String? frequency;
 
   ChallengeHeader(
-      {this.id,
-      this.title,
-      this.urlImage,
-      this.days,
-      this.level,
-      this.frequency});
+      {
+        this.id,
+        this.title,
+        this.urlImage,
+        this.days,
+        this.level,
+        this.slug,
+        this.frequency
+      });
 
   ChallengeHeader.fromJson(Map<String, dynamic> json) {
     id = json['id'];
