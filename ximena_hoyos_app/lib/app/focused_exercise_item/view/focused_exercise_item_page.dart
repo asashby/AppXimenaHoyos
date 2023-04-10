@@ -1,41 +1,39 @@
-import 'package:data/models/focused_exercise.dart';
+import 'package:data/models/focused_exercise_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
-import 'package:ximena_hoyos_app/app/focused_exercise_item/view/focused_exercise_item_page.dart';
-import 'package:ximena_hoyos_app/app/focused_exercise_items/bloc/focused_exercise_items_bloc.dart';
+import 'package:ximena_hoyos_app/app/focused_exercise_item/bloc/focused_exercise_item_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
-import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
-class FocusedExerciseItemsPage extends StatelessWidget {
-  final int focusedExerciseId;
+class FocusedExerciseItemPage extends StatelessWidget {
+  final FocusedExerciseItem focusedExerciseItem;
 
-  const FocusedExerciseItemsPage({
+  const FocusedExerciseItemPage({
     Key? key,
-    required this.focusedExerciseId,
+    required this.focusedExerciseItem,
   }) : super(key: key);
 
-  static Route route(int focusedExerciseId) {
+  static Route route(FocusedExerciseItem focusedExerciseItem) {
     return MaterialPageRoute<void>(
-      builder: (_) => FocusedExerciseItemsPage(focusedExerciseId: focusedExerciseId),
+      builder: (_) => FocusedExerciseItemPage(focusedExerciseItem: focusedExerciseItem),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (ctx) => FocusedExerciseItemsBloc(
+      create: (ctx) => FocusedExerciseItemBloc(
         RepositoryProvider.of(ctx),
       ),
-      child: BlocBuilder<FocusedExerciseItemsBloc, FocusedExerciseItemsState>(
+      child: BlocBuilder<FocusedExerciseItemBloc, FocusedExerciseItemState>(
         builder: (context, state) {
           switch(state.status) {
-            case FocusedExerciseItemsStatus.initial:
+            case FocusedExerciseItemStatus.initial:
               _fetchFocusedExercise(context);
               return SizedBox.shrink();
-            case FocusedExerciseItemsStatus.error:
+            case FocusedExerciseItemStatus.error:
               print(state.error);
               return Scaffold(
                 backgroundColor: Colors.black,
@@ -48,16 +46,16 @@ class FocusedExerciseItemsPage extends StatelessWidget {
                   },
                 ),
               );
-            case FocusedExerciseItemsStatus.loading:
+            case FocusedExerciseItemStatus.loading:
               return SizedBox(
                 height: 400,
                 child: Center(
                     child: Center(child: CircularProgressIndicator())
                 ),
               );
-            case FocusedExerciseItemsStatus.success:
+            case FocusedExerciseItemStatus.success:
               return _FocusedExerciseItemsPageBody(
-                focusedExercise: state.focusedExercise!,
+                focusedExerciseItem: state.focusedExerciseItem!,
               );
           }
         },
@@ -66,18 +64,18 @@ class FocusedExerciseItemsPage extends StatelessWidget {
   }
 
   _fetchFocusedExercise(BuildContext context) {
-    context.read<FocusedExerciseItemsBloc>().add(
-        FocusedExerciseItemsFetchEvent(focusedExerciseId),
+    context.read<FocusedExerciseItemBloc>().add(
+        FocusedExerciseItemFetchEvent(focusedExerciseItem),
     );
   }
 }
 
 class _FocusedExerciseItemsPageBody extends StatefulWidget {
-  final FocusedExercise focusedExercise;
+  final FocusedExerciseItem focusedExerciseItem;
 
   const _FocusedExerciseItemsPageBody({
     Key? key,
-    required this.focusedExercise
+    required this.focusedExerciseItem
   }) : super(key: key);
 
   @override
@@ -95,8 +93,8 @@ class _FocusedExerciseItemsPageBodyState extends State<_FocusedExerciseItemsPage
 
   @override
   void initState() {
-    if (widget.focusedExercise.currentUserIsSubscribed == true && widget.focusedExercise.hasVideo) {
-      _controller = VideoPlayerController.network(widget.focusedExercise.videoUrl!);
+    if (widget.focusedExerciseItem.hasVideo) {
+      _controller = VideoPlayerController.network(widget.focusedExerciseItem.videoUrl!);
       _initializeVideoPlayerFuture = _controller!.initialize().then((_) {
         setState(() {});
       });
@@ -117,13 +115,13 @@ class _FocusedExerciseItemsPageBodyState extends State<_FocusedExerciseItemsPage
     return BaseScaffold(
         child: BaseView(
           onBackPressed: () => Navigator.pop(context),
-          title: widget.focusedExercise.title,
+          title: widget.focusedExerciseItem.title,
           showBackButton: true,
           withTopMargin: false,
           slivers: [
             SliverToBoxAdapter(
               child: Visibility(
-                visible: widget.focusedExercise.currentUserIsSubscribed == true && widget.focusedExercise.hasVideo,
+                visible: widget.focusedExerciseItem.hasVideo,
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.black54,
@@ -213,44 +211,6 @@ class _FocusedExerciseItemsPageBodyState extends State<_FocusedExerciseItemsPage
                 ),
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.only(
-                  left: 28,
-                  right: 28,
-                  bottom: 60,
-                  top: 20
-              ),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final focusedExerciseItem = widget.focusedExercise.focusedExerciseItems[index];
-                  return Container(
-                    color: Color(0xFF221b1c),
-                    padding: const EdgeInsets.only(
-                        bottom: 12.0,
-                    ),
-                    child: ItemExerciseCard(
-                      title: focusedExerciseItem.title ?? "",
-                      isCompleted: true,
-                      isAvailable: widget.focusedExercise.currentUserIsSubscribed == true,
-                      defaultIcon: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                        // size: 48,
-                      ),
-                      iconBackgroundColor: Color(0xff95d100),
-                      onPressed: () async {
-                        if(widget.focusedExercise.currentUserIsSubscribed == true) {
-                          Navigator.of(context)
-                              .push(FocusedExerciseItemPage.route(focusedExerciseItem));
-                        }
-                      },
-                    ),
-                  );
-                },
-                childCount: widget.focusedExercise.focusedExerciseItems.length
-                ),
-              ),
-            )
           ],
         )
     );
