@@ -34,4 +34,16 @@ class FocusedExerciseRepository extends BaseRepository {
         .then((value) => Page.fromJson(value.data as Map<String, dynamic>? ?? {}))
         .then((value) => value.data!.map((e) => FocusedExercise.fromJson(e)).toList());
   }
+
+  Future<FocusedExercise?> fetchFocusedExerciseById(int focusedExerciseId) async {
+    final client = await this.dio;
+
+    final response = await client.get('/api/focused-exercises/$focusedExerciseId');
+    if (response.statusCode != 200) {
+      return null;
+    }
+    final responseData = response.data;
+
+    return FocusedExercise.fromJson(responseData['data']);
+  }
 }

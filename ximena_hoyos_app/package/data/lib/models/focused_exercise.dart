@@ -1,3 +1,4 @@
+import 'package:data/models/focused_exercise_item.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -11,6 +12,9 @@ class FocusedExercise {
   final String? desktopImageUrl;
   final String? mobileImageUrl;
   final bool? currentUserIsSubscribed;
+  final List<FocusedExerciseItem> focusedExerciseItems;
+
+  bool get hasVideo => videoUrl != null && videoUrl!.isNotEmpty;
 
   const FocusedExercise({
     this.id,
@@ -22,6 +26,7 @@ class FocusedExercise {
     this.desktopImageUrl,
     this.mobileImageUrl,
     this.currentUserIsSubscribed,
+    this.focusedExerciseItems = const [],
   });
 
   factory FocusedExercise.fromJson(Map<String, dynamic> json) =>
@@ -35,5 +40,7 @@ class FocusedExercise {
         desktopImageUrl: json['desktop_image_url'] as String?,
         mobileImageUrl: json['mobile_image_url'] as String?,
         currentUserIsSubscribed: json['current_user_is_subcribed'] as bool?,
+        focusedExerciseItems: (json['focused_exercise_items'] as List? ?? [])
+            .map((e) => FocusedExerciseItem.fromJson(e)).toList()
       );
 }

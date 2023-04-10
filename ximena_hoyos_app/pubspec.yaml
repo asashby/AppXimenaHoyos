@@ -29,9 +29,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_rating_bar: ^4.0.0
   flutter_paypal: ^0.0.8
-  transparent_image: ^2.0.0
   cached_network_image: ^3.1.0
-  shared_preferences: ^2.0.8
 
   provider: ^6.0.0
   firebase_core: ^2.2.0
@@ -46,7 +44,6 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   flutter_svg: ^0.23.0
   flutter_image_slideshow: ^0.1.2
-  rolling_switch: ^0.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -62,14 +59,7 @@ dependencies:
 #      url: https://github.com/Rontu22/lite_rolling_switch
 #      ref: patch-1
 
-  #mercado_pago_integration: ^0.0.5
-  #mercadopago_sdk: ^1.3.0
   culqi_flutter: ^1.1.0
-  #woocommerce: ^0.0.1
-  woocommerce:
-    git:
-      url: https://github.com/Mayb3Nots/woocommerce
-      ref: master
   http: ^0.13.4
   webview_flutter: ^2.3.1
   firebase_messaging: ^14.1.0

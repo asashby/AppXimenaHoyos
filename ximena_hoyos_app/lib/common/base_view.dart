@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ximena_hoyos_app/app/profile/profile.dart';
 
 class BaseView extends StatelessWidget {
@@ -54,7 +53,8 @@ class BaseView extends StatelessWidget {
                 : SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          top: 20, bottom: 20, left: 10, right: 20),
+                          top: 20, bottom: 20, left: 10, right: 20
+                      ),
                       child: _TitleView(
                         showBackButton: showBackButton,
                         title: title,
@@ -152,7 +152,7 @@ class _TitleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
         Visibility(
@@ -169,27 +169,25 @@ class _TitleView extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_back_ios_rounded,
                   color: Colors.white,
-                )),
+                )
+            ),
           ),
         ),
         SizedBox(
           width: 4,
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.7,
-            child: Text(
-              title!,
-              style: TextStyle(
+        Container(
+          width: MediaQuery.of(context).size.width * 0.7,
+          child: Text(
+            title!,
+            style: TextStyle(
                 color: Colors.white,
-                fontSize: 24, 
+                fontSize: 24,
                 fontWeight: FontWeight.bold
-              ),
-              textAlign: TextAlign.left,
             ),
-          )
-        ),
+            textAlign: TextAlign.left,
+          ),
+        )
       ],
     );
   }

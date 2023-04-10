@@ -4,6 +4,7 @@ import 'package:data/models/focused_exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/challenge_detail/components/challenge_body.dart';
+import 'package:ximena_hoyos_app/app/focused_exercise_items/view/focused_exercise_items_page.dart';
 import 'package:ximena_hoyos_app/app/focused_exercises/bloc/focused_exercises_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
@@ -141,7 +142,8 @@ class _FocusedExercisePageBodyState extends State<_FocusedExercisePageBody> with
                   ),
                   onPressed: () async {
                     if (currentFocusedExercise.currentUserIsSubscribed == true) {
-                      print("Go to Focused Exercise Details Page");
+                      Navigator.of(context)
+                          .push(FocusedExerciseItemsPage.route(currentFocusedExercise.id!));
                     }
                   },
                 )

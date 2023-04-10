@@ -10,7 +10,10 @@ import 'package:ximena_hoyos_app/common/base_view.dart';
 import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
 class RoutinePage extends StatelessWidget {
-  const RoutinePage({Key? key, required this.exercise}) : super(key: key);
+  const RoutinePage({
+    Key? key,
+    required this.exercise,
+  }) : super(key: key);
 
   static Route route(Excercise exercise) {
     return MaterialPageRoute<void>(
@@ -124,7 +127,8 @@ class _RoutineContentState extends State<_RoutineContent> {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.black54,
-                      borderRadius: BorderRadius.circular(16)),
+                      borderRadius: BorderRadius.circular(16)
+                  ),
                   margin: const EdgeInsets.only(left: 28, right: 28),
                   height: videoHeight,
                   width: videoWidth,
@@ -210,19 +214,25 @@ class _RoutineContentState extends State<_RoutineContent> {
               ),
             ),
             SliverPadding(
-              padding:
-                  const EdgeInsets.only(left: 28, right: 28, bottom: 60, top: 20),
+              padding: const EdgeInsets.only(
+                  left: 28,
+                  right: 28,
+                  bottom: 60,
+                  top: 20
+              ),
               sliver: SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                final serie = widget.detail.series[index];
-                return _RoutineItem(
-                  serie: serie,
-                  restTime: widget.detail.timeRest,
-                  detail: widget.detail,
-                  unitId: widget.detail.unitId,
-                  questionId: widget.detail.id,
-                );
-              }, childCount: widget.detail.series.length)),
+                    final serie = widget.detail.series[index];
+                    return _RoutineItem(
+                      serie: serie,
+                      restTime: widget.detail.timeRest,
+                      detail: widget.detail,
+                      unitId: widget.detail.unitId,
+                      questionId: widget.detail.id,
+                    );
+                  },
+                  childCount: widget.detail.series.length)
+              ),
             )
           ],
         )

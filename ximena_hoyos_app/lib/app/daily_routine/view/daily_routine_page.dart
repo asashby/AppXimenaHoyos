@@ -2,6 +2,7 @@ import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/exercise_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ximena_hoyos_app/app/challenge_detail/components/challenge_attribute_view.dart';
 import 'package:ximena_hoyos_app/app/daily_routine/bloc/daily_routine_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
@@ -9,7 +10,14 @@ import 'package:ximena_hoyos_app/app/routine/view/routine_page.dart';
 import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
 class DailyRoutinePage extends StatelessWidget {
-  const DailyRoutinePage({Key? key, required this.routine, required this.challengeId}) : super(key: key);
+  final ChallengesDailyRoutine routine;
+  final int? challengeId;
+
+  const DailyRoutinePage({
+    Key? key,
+    required this.routine,
+    required this.challengeId
+  }) : super(key: key);
 
   static Route route(ChallengesDailyRoutine routine, int? challengeId) {
     return MaterialPageRoute<void>(
@@ -19,9 +27,6 @@ class DailyRoutinePage extends StatelessWidget {
       ),
     );
   }
-
-  final ChallengesDailyRoutine routine;
-  final int? challengeId;
 
   @override
   Widget build(BuildContext context) {
@@ -203,14 +208,14 @@ class _DailyRoutineBody extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: _RoutineAttributeView(
-                    name: 'Duración',
+                  child: ChallengeAttributeView(
+                    title: 'Duración',
                     value: header.duration,
                   ),
                 ),
                 Expanded(
-                  child: _RoutineAttributeView(
-                    name: 'Tiempo de reposo',
+                  child: ChallengeAttributeView(
+                    title: 'Tiempo de reposo',
                     value: header.restTime,
                   ),
                 ),
@@ -222,33 +227,6 @@ class _DailyRoutineBody extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class _RoutineAttributeView extends StatelessWidget {
-  final String name;
-  final String value;
-  const _RoutineAttributeView({
-    Key? key,
-    required this.name,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          value,
-          style: Theme.of(context).textTheme.displayMedium,
-        ),
-        Text(
-          name,
-          style: Theme.of(context).textTheme.bodySmall,
-        )
-      ],
     );
   }
 }

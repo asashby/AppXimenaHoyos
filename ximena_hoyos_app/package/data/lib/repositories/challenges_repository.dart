@@ -80,7 +80,9 @@ class ChallengesRepository extends BaseRepository {
   /// Detalle de la rutina del reto
   /// este recibe como parametro el slug de la rutina y el id de este
   Future<ExcerciseHeader?> fetchDayExcersise(
-      String challengeSlug, int routineId) async {
+      String challengeSlug,
+      int routineId
+      ) async {
     var client = await this.dio;
     var response = await client.get('/api/units/$challengeSlug/detail',
         queryParameters: {'course_id': routineId});
