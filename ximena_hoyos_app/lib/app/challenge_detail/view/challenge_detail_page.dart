@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data/models/challenge_plan.dart';
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
 import 'package:ximena_hoyos_app/app/daily_routine/view/daily_routine_page.dart';
 import 'package:data/models/model.dart';
-import 'package:ximena_hoyos_app/common/check_widget.dart';
+import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 import 'package:ximena_hoyos_app/main.dart';
 
 class ChallengeDetailPage extends StatelessWidget {
@@ -134,96 +133,38 @@ class _ChallengeDetailBodyState extends State<_ChallengeDetailBody> with Widgets
           padding: const EdgeInsets.only(bottom: 60),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
+              final exercise = widget.exercises[index];
               return Container(
                 color: Color(0xFF221b1c),
                 padding: const EdgeInsets.only(
                     bottom: 12.0, left: 28, right: 28
                 ),
-                child: _DailyRoutineView(
-                  exercise: widget.exercises[index],
-                  coursePaid: widget.detail.coursePaid,
-                  courseId: widget.detail.id,
+                child: ItemExerciseCard(
+                  subtitle: "Día ${exercise.day}",
+                  title: exercise.title,
+                  isCompleted: exercise.flagCompleteUnit,
+                  isAvailable: widget.detail.coursePaid == 1,
+                  urlIcon: exercise.urlIcon,
+                  defaultIcon: Icon(
+                    Icons.photo,
+                    color: Colors.grey[400],
+                    size: 48,
+                  ),
+                  onPressed: () async {
+                    if (widget.detail.coursePaid == 1) {
+                      challengeSelectedId = widget.detail.id;
+                      Navigator.of(context).push(DailyRoutinePage.route(exercise, widget.detail.id));
+                    }
+                  },
                 ),
               );
             },
-                childCount: widget.exercises.length
+            childCount: widget.exercises.length
             ),
           ),
         ),
       ],
       imageNetwork: widget.detail.banner,
-    );
-  }
-}
-
-class _DailyRoutineView extends StatelessWidget {
-  final ChallengesDailyRoutine exercise;
-  final int? coursePaid;
-  final int? courseId;
-
-  const _DailyRoutineView({
-    Key? key,
-    required this.exercise,
-    required this.coursePaid,
-    required this.courseId
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      minWidth: double.infinity,
-      height: 88,
-      color: Colors.white,
-      onPressed: () async {
-        if (coursePaid == 1) {
-          challengeSelectedId = courseId;
-          Navigator.of(context).push(DailyRoutinePage.route(exercise, courseId));
-        }
-      },
-      child: Row(
-        children: [
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(8.0)
-            ),
-            child: exercise.urlIcon == null
-                ? Icon(
-                    Icons.photo,
-                    color: Colors.grey[400],
-                  )
-                : ClipRRect(
-                    child: CachedNetworkImage(imageUrl: exercise.urlIcon!),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-          ),
-          SizedBox(
-            width: 18,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Día ${exercise.day}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: Colors.grey[500]),
-                ),
-                Text(exercise.title)
-              ],
-            ),
-          ),
-          CheckWidget(
-            active: exercise.flagCompleteUnit,
-            coursePaid: coursePaid,
-          )
-        ],
-      ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
   }
 }

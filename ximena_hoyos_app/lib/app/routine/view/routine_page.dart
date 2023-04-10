@@ -1,15 +1,13 @@
 import 'dart:async';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:data/models/exercise_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:ximena_hoyos_app/app/routine/bloc/routine_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_scaffold.dart';
 import 'package:ximena_hoyos_app/common/base_view.dart';
+import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
 class RoutinePage extends StatelessWidget {
   const RoutinePage({Key? key, required this.exercise}) : super(key: key);
@@ -305,16 +303,17 @@ class _RoutineItemState extends State<_RoutineItem> {
           ? _RoutineRestView(
               time: _start,
             )
-          : _RoutineView(
-              caption: "Serie ${widget.serie.serie}",
-              title: "Repeticiones ${widget.serie.repetitions}",
-              isChecked: widget.serie.flagComplete,
-              onPressed: () async {
-                if (!context.read<RoutineBloc>().isResting) {
-                  await _showMyDialog(context, context.read<RoutineBloc>());
-                }
-              },
-            ),
+          : ItemExerciseCard(
+          subtitle: "Serie ${widget.serie.serie}",
+          title: "Repeticiones ${widget.serie.repetitions}",
+          isAvailable: true,
+          isCompleted: widget.serie.flagComplete,
+          onPressed: () async {
+            if (!context.read<RoutineBloc>().isResting) {
+              await _showMyDialog(context, context.read<RoutineBloc>());
+            }
+          }
+          )
     );
   }
 
@@ -338,7 +337,7 @@ class _RoutineItemState extends State<_RoutineItem> {
           actions: <Widget>[
             TextButton(
               child: const Text(
-                'Todavia no',
+                'Todavía no',
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -362,113 +361,6 @@ class _RoutineItemState extends State<_RoutineItem> {
   }
 }
 
-// ignore: unused_element
-class _CarouselRoutines extends StatelessWidget {
-  const _CarouselRoutines({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-          enlargeCenterPage: true,
-          viewportFraction: 0.7,
-          enlargeStrategy: CenterPageEnlargeStrategy.height),
-      items: List.generate(4, (index) {
-        return Column(
-          children: [
-            SizedBox(
-              width: 260,
-              height: 170,
-              child: Image.asset(
-                'resources/app_background.jpg',
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
-              ),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              "Ejercicio 1 de 8",
-              style: Theme.of(context).textTheme.caption,
-            )
-          ],
-        );
-      }),
-    );
-  }
-}
-
-class _RoutineView extends StatelessWidget {
-  final String? title;
-  final String? caption;
-  final bool isChecked;
-  final VoidCallback onPressed;
-
-  const _RoutineView(
-      {Key? key,
-      this.title,
-      this.caption,
-      this.isChecked = false,
-      required this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 70,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: MaterialButton(
-        onPressed: isChecked ? null : onPressed,
-        child: Row(
-          children: [
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  caption!,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                      color: Colors.black45, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  title!,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: Colors.grey[700],
-                        fontSize: 20,
-                      ),
-                )
-              ],
-            )),
-            Container(
-              width: 45,
-              height: 45,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey[300]!, width: 1)),
-              padding: const EdgeInsets.all(8.0),
-              child: AnimatedOpacity(
-                opacity: isChecked ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 200),
-                child: Icon(
-                  Icons.check,
-                  color: Theme.of(context).buttonColor,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _RoutineRestView extends StatelessWidget {
   final int time;
 
@@ -479,9 +371,9 @@ class _RoutineRestView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 24, right: 24),
       width: double.infinity,
-      height: 70,
+      height: 80,
       decoration: BoxDecoration(
-          color: Theme.of(context).buttonColor,
+          color: Color(0xFF30d38b),
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
@@ -494,11 +386,13 @@ class _RoutineRestView extends StatelessWidget {
                   "Descanso",
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .displayLarge!
                       .copyWith(fontSize: 24),
                 ),
-                Text("00:$formatted",
-                    style: Theme.of(context).textTheme.headline3)
+                Text(
+                    "00:$formatted",
+                    style: Theme.of(context).textTheme.displaySmall,
+                )
               ],
             ),
           ),

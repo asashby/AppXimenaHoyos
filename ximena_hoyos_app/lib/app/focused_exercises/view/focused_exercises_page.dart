@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data/models/challenge_detail.dart';
 import 'package:data/models/challenge_plan.dart';
 import 'package:data/models/focused_exercise.dart';
@@ -8,7 +7,7 @@ import 'package:ximena_hoyos_app/app/challenge_detail/components/challenge_body.
 import 'package:ximena_hoyos_app/app/focused_exercises/bloc/focused_exercises_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
-import 'package:ximena_hoyos_app/common/check_widget.dart';
+import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
 class FocusedExercisesPage extends StatelessWidget {
   const FocusedExercisesPage({Key? key}) : super(key: key);
@@ -130,46 +129,22 @@ class _FocusedExercisePageBodyState extends State<_FocusedExercisePageBody> with
                 padding: const EdgeInsets.only(
                     bottom: 12.0, left: 28, right: 28
                 ),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  height: 88,
-                  color: Colors.white,
+                child: ItemExerciseCard(
+                  title: currentFocusedExercise.title ?? "",
+                  isCompleted: true,
+                  isAvailable: currentFocusedExercise.currentUserIsSubscribed == true,
+                  urlIcon: "https://cms.ximehoyosfit.com/units/images/file-7387.jpeg",
+                  defaultIcon: Icon(
+                    Icons.photo,
+                    color: Colors.grey[400],
+                    size: 48,
+                  ),
                   onPressed: () async {
                     if (currentFocusedExercise.currentUserIsSubscribed == true) {
                       print("Go to Focused Exercise Details Page");
                     }
                   },
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(8.0)
-                        ),
-                        child: ClipRRect(
-                            child: CachedNetworkImage(imageUrl: "https://cms.ximehoyosfit.com/units/images/file-7387.jpeg",),
-                            borderRadius: BorderRadius.circular(8.0)
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10
-                      ),
-                      Expanded(
-                        child: Text(currentFocusedExercise.title ?? ""),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      CheckWidget(
-                        active: true,
-                        coursePaid: currentFocusedExercise.currentUserIsSubscribed == true ? 1 : 0,
-                      )
-                    ],
-                  ),
-                ),
+                )
               );
             },
             childCount: widget.focusedExercises.length,

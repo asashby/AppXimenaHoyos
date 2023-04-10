@@ -1,13 +1,12 @@
 import 'package:data/models/challenges_exercises_model.dart';
 import 'package:data/models/exercise_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ximena_hoyos_app/app/daily_routine/bloc/daily_routine_bloc.dart';
 import 'package:ximena_hoyos_app/common/app_error_view.dart';
 import 'package:ximena_hoyos_app/common/base_page.dart';
-import 'package:ximena_hoyos_app/common/check_widget.dart';
 import 'package:ximena_hoyos_app/app/routine/view/routine_page.dart';
+import 'package:ximena_hoyos_app/common/item_exercise_card.dart';
 
 class DailyRoutinePage extends StatelessWidget {
   const DailyRoutinePage({Key? key, required this.routine, required this.challengeId}) : super(key: key);
@@ -97,12 +96,24 @@ class _DailyRoutineContent extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 60),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
+              final exercise = exercises[index];
               return Container(
                 color: Color(0xFF221b1c),
-                padding:
-                    const EdgeInsets.only(bottom: 12.0, left: 28, right: 28),
-                child: _DaylyRoutineView(
-                  exercise: exercises[index],
+                padding: const EdgeInsets.only(
+                    bottom: 12.0,
+                    left: 28, right: 28
+                ),
+                child: ItemExerciseCard(
+                  subtitle: "${exercise.serie.series} series - ${exercise.serie.repetitions} repeticiones",
+                  title: exercise.title,
+                  isCompleted: exercise.flagCompleted,
+                  isAvailable: true,
+                  defaultIcon: Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    // size: 48,
+                  ),
+                  iconBackgroundColor: Color(0xff95d100),
                   onPressed: () async {
                     final result = await Navigator.of(context)
                         .push(RoutinePage.route(exercises[index]));
@@ -165,17 +176,20 @@ class _DailyRoutineBody extends StatelessWidget {
       decoration: BoxDecoration(
           color: Color(0xFF221b1c),
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+          )
+      ),
       padding: const EdgeInsets.all(28),
       child: Column(
         children: [
           Text(
             header.subtitle,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
           Text(
             header.title,
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
           SizedBox(
             height: 36,
@@ -190,7 +204,7 @@ class _DailyRoutineBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: _RoutineAttributeView(
-                    name: 'Duracion',
+                    name: 'Duración',
                     value: header.duration,
                   ),
                 ),
@@ -228,79 +242,13 @@ class _RoutineAttributeView extends StatelessWidget {
       children: [
         Text(
           value,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         Text(
           name,
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
         )
       ],
-    );
-  }
-}
-
-class _DaylyRoutineView extends StatelessWidget {
-  final Excercise exercise;
-  final VoidCallback onPressed;
-
-  const _DaylyRoutineView({
-    Key? key,
-    required this.exercise,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      minWidth: double.infinity,
-      height: 88,
-      color: Colors.white,
-      onPressed: onPressed,
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Color(0xff95d100),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.play_arrow,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(
-            width: 18,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${exercise.serie.series} series - ${exercise.serie.repetitions} repeticiones",
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption!
-                      .copyWith(color: Colors.grey[500]),
-                ),
-                Text(
-                  exercise.title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(color: Colors.black),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CheckWidget(active: exercise.flagCompleted),
-          )
-        ],
-      ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
   }
 }
